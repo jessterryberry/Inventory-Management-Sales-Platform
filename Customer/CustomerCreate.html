@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Lawn & Order: Create New Customer</title>
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta name="description" content="Page for creating a customer at Lawn & Order">
+</head>
+<body>
+    <div>
+        <img alt="Logo for the company, Lawn & Order" src="../images/Logo.png" width="125">
+    </div>
+    
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a href="Index.html">Home</a>
+                </li>
+                <li>
+                    <a href="CustomerIndex.html">Customers</a>
+                </li>
+                <li>
+                    <a href="EquipmentIndex.html">Equipment</a>
+                </li>
+                <li>
+                    <a href="SalesIndex.html">Sales</a>
+                </li>
+                <li>
+                    <a href="RepairsIndex.html">Repairs</a>
+                </li>
+                <li>
+                    <a href="InventoryIndex.html">Inventory</a>
+                </li>
+                <li>
+                    <a href="ReportsIndex.html">Reports</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div>
+        <h1>Create New Customer</h1>
+        <img alt ="an icon of a person with a plus sign" src="../images/CreateCustomer.png">
+    </div>	
+	
+    <form>
+        <input name="FirstName" type="text" placeholder="First Name">
+
+        <input name="LastName" type="text" placeholder="Last Name">
+
+        <input name="City" type="text" placeholder="City">
+
+        <input name="PostalCode" type="text" placeholder="Postal Code">
+
+        <input name="Email" type="email" placeholder="Email">
+
+        <input name="PhoneNumber" type="tel" placeholder="Phone Number">
+
+        <button type="submit">Submit</button>
+        <input type="button" value="Return" onclick="history.back()"> <!--this is a JS method to allow the user to click the button to return back 1 page-->
+    </form>
+</body>
+</html>
