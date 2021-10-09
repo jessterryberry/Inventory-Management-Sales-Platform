@@ -6,138 +6,181 @@
 	<meta content="width=device-width, initial-scale=1" name="viewport">
     <meta name="description" content="Page for viewing all customers at Lawn & Order">
     <link rel="stylesheet" href="../css/bootstrap.css">
+    <script src="../js/bootstrap.js"></script>
 </head>
-<body>
-    <div>
-        <img alt="Logo for the company, Lawn & Order" src="../images/Logo.png" width="125">
+<header>
+    <div style="background-color: white;">
+        <a class="navbar-brand p-2" href="#">
+            <img src="../images/Logo.png" alt="Logo for the coompany Lawn & Order" width="225">
+        </a>
     </div>
-    
-    <header>
-        <nav>
-            <ul>
-                <li>
-                    <a href="Index.html">Home</a>
-                </li>
-                <li>
-                    <a href="CustomerIndex.html">Customers</a>
-                </li>
-                <li>
-                    <a href="EquipmentIndex.html">Equipment</a>
-                </li>
-                <li>
-                    <a href="SalesIndex.html">Sales</a>
-                </li>
-                <li>
-                    <a href="RepairsIndex.html">Repairs</a>
-                </li>
-                <li>
-                    <a href="InventoryIndex.html">Inventory</a>
-                </li>
-                <li>
-                    <a href="ReportsIndex.html">Reports</a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <div>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #67C18C; font-size: large;">
+        <div class="container-lg">            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse"></div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item px-5">
+                        <a class="nav-link active" aria-current="page" href="Index.html">Home</a>
+                    </li>
+                    <li class="nav-item px-5">
+                        <a class="nav-link active" aria-current="page" href="CustomerIndex.html">Customers</a>
+                    </li>
+                    <li class="nav-item px-5">
+                        <a class="nav-link active" aria-current="page" href="EquipmentIndex.html">Equipment</a>
+                    </li>
+                    <li class="nav-item px-5">
+                        <a class="nav-link active" aria-current="page" href="SalesIndex.html">Sales</a>
+                    </li>
+                    <li class="nav-item px-5">
+                        <a class="nav-link active" aria-current="page" href="RepairsIndex.html">Repairs</a>
+                    </li>
+                    <li class="nav-item px-5">
+                        <a class="nav-link active" aria-current="page" href="InventoryIndex.html">Inventory</a>
+                    </li>
+                    <li class="nav-item px-5">
+                        <a class="nav-link active" aria-current="page" href="ReportsIndex.html">Reports</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<body>
+    <div class="container text-center">
         <h1>View All Customers</h1>
+    </div>    
+    <div class="container text-center py-3">        
         <img alt ="an icon of a group of people" src="../images/ViewAllCustomers.png">
-    </div>	
-	
+    </div>
     <div>
-        <table id="customerTable">
+        <div>
+            <a class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" id="filterToggle" href="#collapseFilter" role="button" aria-expanded="false" aria-controls="collapseFilter">
+                Filter/Search
+            </a>
+            <div class="collapse" id="collapseFilter">
+                <div class="card card-body bg-light">
+                    <div class="row">
+                        <div class="form-group col md-4">
+                            <label class="control-label">Filter by First Name</label>
+                            <input type="text" class="form-control" id="filterFirstName" placeholder="First Name">
+                        </div>
+                        <div class="form-group col md-4">
+                            <label class="control-label">Filter by Last Name</label>
+                            <input type="text" class="form-control" id="filterLastName" placeholder="Last Name">
+                        </div>
+                        <div class="form-group col md-4">
+                            <label class="control-label">Filter by City</label>
+                            <input type="text" class="form-control" id="filterCity" placeholder="City">
+                        </div>
+                        <div class="form-group col md-4 align-self-end">                            
+                            <input type="submit" name="actionButton" value="Filter" class="btn btn-outline-primary">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <table class="table table-hover" id="customerTable">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>City</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">City</th>
                 </tr>
             </thead>        
+            <tbody>
+                <tr>        
+                    <td>Joe</td>
+                    <td>Smith</td>
+                    <td>905-346-7367</td>
+                    <td>jsmith@gmail.com</td>
+                    <td>Welland</td>
+                    <td>
+                    <button type='button'  
+                            onclick = "location.href='CustomerUpdate.html';"
+                            data-id='1'>
+                            Edit
+                    </button>
+                    </td>
+                    <td>
+                    <button type='button'
+                            onclick= "location.href='CustomerDelete.html';"
+                            data-id='1'>
+                            Delete
+                    </button>
+                    </td>
+                </tr>
 
-            <tr>        
-                <td>Joe Smith</td>
-                <td>905-346-7367</td>
-                <td>jsmith@gmail.com</td>
-                <td>Welland</td>
-                <td>
-                <button type='button'  
-                        onclick = "location.href='CustomerUpdate.html';"
-                        data-id='1'>
-                        Edit
-                </button>
-                </td>
-                <td>
-                <button type='button'
-                        onclick= "location.href='CustomerDelete.html';"
-                        data-id='1'>
-                        Delete
-                </button>
-                </td>
-            </tr>
+                <tr>        
+                    <td>Sarah</td>
+                    <td>Yates</td>
+                    <td>905-869-2543</td>
+                    <td>sayates@gmail.com</td>
+                    <td>NOTL</td>
+                    <td>
+                    <button type='button'  
+                            onclick = "location.href='CustomerUpdate.html';"
+                            data-id='1'>
+                            Edit
+                    </button>
+                    </td>
+                    <td>
+                    <button type='button'
+                            onclick= "location.href='CustomerDelete.html';"
+                            data-id='1'>
+                            Delete
+                    </button>
+                    </td>
+                </tr>
 
-            <tr>        
-                <td>Sarah Yates</td>
-                <td>905-869-2543</td>
-                <td>sayates@gmail.com</td>
-                <td>NOTL</td>
-                <td>
-                <button type='button'  
-                        onclick = "location.href='CustomerUpdate.html';"
-                        data-id='1'>
-                        Edit
-                </button>
-                </td>
-                <td>
-                <button type='button'
-                        onclick= "location.href='CustomerDelete.html';"
-                        data-id='1'>
-                        Delete
-                </button>
-                </td>
-            </tr>
+                <tr>        
+                    <td>Nathan</td>
+                    <td>Jones</td>
+                    <td>289-439-9632</td>
+                    <td>njones@gmail.com</td>
+                    <td>Wainfleet</td>
+                    <td>
+                    <button type='button'  
+                            onclick = "location.href='CustomerUpdate.html';"
+                            data-id='1'>
+                            Edit
+                    </button>
+                    </td>
+                    <td>
+                    <button type='button'
+                            onclick= "location.href='CustomerDelete.html';"
+                            data-id='1'>
+                            Delete
+                    </button>
+                    </td>
+                </tr>
 
-            <tr>        
-                <td>Nathan Jones</td>
-                <td>289-439-9632</td>
-                <td>njones@gmail.com</td>
-                <td>Wainfleet</td>
-                <td>
-                <button type='button'  
-                        onclick = "location.href='CustomerUpdate.html';"
-                        data-id='1'>
-                        Edit
-                </button>
-                </td>
-                <td>
-                <button type='button'
-                        onclick= "location.href='CustomerDelete.html';"
-                        data-id='1'>
-                        Delete
-                </button>
-                </td>
-            </tr>
-
-            <tr>        
-                <td>Farrah Parker</td>
-                <td>416-834-9768</td>
-                <td>faparker@gmail.com</td>
-                <td>Toronto</td>
-                <td>
-                <button type='button'  
-                        onclick = "location.href='CustomerUpdate.html';"
-                        data-id='1'>
-                        Edit
-                </button>
-                </td>
-                <td>
-                <button type='button'
-                        onclick= "location.href='CustomerDelete.html';"
-                        data-id='1'>
-                        Delete
-                </button>
-                </td>
-            </tr>
+                <tr>        
+                    <td>Farrah</td>
+                    <td>Parker</td>
+                    <td>416-834-9768</td>
+                    <td>faparker@gmail.com</td>
+                    <td>Toronto</td>
+                    <td>
+                    <button type='button'  
+                            onclick = "location.href='CustomerUpdate.html';"
+                            data-id='1'>
+                            Edit
+                    </button>
+                    </td>
+                    <td>
+                    <button type='button'
+                            onclick= "location.href='CustomerDelete.html';"
+                            data-id='1'>
+                            Delete
+                    </button>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </body>

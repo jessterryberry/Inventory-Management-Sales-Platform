@@ -7,58 +7,92 @@
     <meta name="description" content="Page for updating a customer at Lawn & Order">
     <link rel="stylesheet" href="../css/bootstrap.css">
 </head>
-<body>
-    <div>
-        <img alt="Logo for the company, Lawn & Order" src="../images/Logo.png" width="125">
+<header>
+    <div style="background-color: white;">
+        <a class="navbar-brand p-2" href="#">
+            <img src="../images/Logo.png" alt="Logo for the coompany Lawn & Order" width="225">
+        </a>
     </div>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #67C18C; font-size: large;">
+        <div class="container-lg">            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse"></div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item px-5">
+                        <a class="nav-link active" aria-current="page" href="Index.html">Home</a>
+                    </li>
+                    <li class="nav-item px-5">
+                        <a class="nav-link active" aria-current="page" href="CustomerIndex.html">Customers</a>
+                    </li>
+                    <li class="nav-item px-5">
+                        <a class="nav-link active" aria-current="page" href="EquipmentIndex.html">Equipment</a>
+                    </li>
+                    <li class="nav-item px-5">
+                        <a class="nav-link active" aria-current="page" href="SalesIndex.html">Sales</a>
+                    </li>
+                    <li class="nav-item px-5">
+                        <a class="nav-link active" aria-current="page" href="RepairsIndex.html">Repairs</a>
+                    </li>
+                    <li class="nav-item px-5">
+                        <a class="nav-link active" aria-current="page" href="InventoryIndex.html">Inventory</a>
+                    </li>
+                    <li class="nav-item px-5">
+                        <a class="nav-link active" aria-current="page" href="ReportsIndex.html">Reports</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<body>
+    <div class="container text-center">
+        <h1>Edit Exisiting Customer</h1>
+    </div>    
+    <div class="container text-center">        
+        <img alt ="an icon of a person with a pencil" src="../images/EditCustomer.png">
+    </div>
+    <div class="container-md">
+        <form>
+            <div class="row g-2 p-3">
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
+                </div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
+                </div>
+            </div>
+            <div class="row g-2 p-3">
+                <div class="col-12">
+                    <input type="text" class="form-control" id="inputAddress" placeholder="Address">
+                </div>
+            </div>
+            <div class="row g-2 p-3">
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="inputCity" placeholder="City">
+                </div>        
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="inputPostalCode" placeholder="Postal Code">
+                </div>
+            </div>
+            <div class="row g-2 p-3">
+                <div class="col-md-12">
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                </div>
+            </div>
+            <div class="row g-2 p-3">
+                <div class="col-md-12">
+                    <input type="tel" class="form-control" id="inputPhone" placeholder="Phone">
+                </div>
+            </div>
+            <div class="col-12 p-3 text-center">
+                <button type="submit" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;">Submit</button>
+                <input type="button" value="Return" class="btn btn-primary btn-md px-3" style="background-color: grey;" onclick="history.back()"> <!--this is a JS method to allow the user to click the button to return back 1 page-->
+            </div> 
+        </form>
+    </div>
+    </body>
+    </html>
     
-    <header>
-        <nav>
-            <ul>
-                <li>
-                    <a href="Index.html">Home</a>
-                </li>
-                <li>
-                    <a href="CustomerIndex.html">Customers</a>
-                </li>
-                <li>
-                    <a href="EquipmentIndex.html">Equipment</a>
-                </li>
-                <li>
-                    <a href="SalesIndex.html">Sales</a>
-                </li>
-                <li>
-                    <a href="RepairsIndex.html">Repairs</a>
-                </li>
-                <li>
-                    <a href="InventoryIndex.html">Inventory</a>
-                </li>
-                <li>
-                    <a href="ReportsIndex.html">Reports</a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <div>
-        <h1>Update Existing Customer</h1>
-        <img alt ="an icon of a person with a plus sign" src="../images/EditCustomer.png">
-    </div>	
-	
-    <form>
-        <input name="FirstName" type="text" placeholder="First Name">
-
-        <input name="LastName" type="text" placeholder="Last Name">
-
-        <input name="City" type="text" placeholder="City">
-
-        <input name="PostalCode" type="text" placeholder="Postal Code">
-
-        <input name="Email" type="email" placeholder="Email">
-
-        <input name="PhoneNumber" type="tel" placeholder="Phone Number">
-
-        <button type="submit">Submit</button>
-        <input type="button" value="Return" onclick="history.back()"> <!--this is a JS method to allow the user to click the button to return back 1 page-->
-    </form>
-</body>
-</html>

@@ -13,7 +13,7 @@
             <img src="../images/Logo.png" alt="Logo for the coompany Lawn & Order" width="225">
         </a>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #67C18C;">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #67C18C; font-size: large;">
         <div class="container-lg">            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -48,21 +48,28 @@
     </nav>
 </header>
 <body>
-    <div>
+    <div class="container text-center">
         <h1>Delete Customer</h1>
+    </div>    
+    <div class="container text-center py-3">        
         <img alt ="an icon of a person with a minus sign" src="../images/DeleteCustomers.png">
-    </div>	
-	
-    <form>
-        <select id="customers" name="customers"> <!--will add JS later to add a list of names-->
-            <option value="Joe Smith">Joe Smith</option>
-            <option value="Sarah Yates">Sarah Yates</option>
-            <option value="Nathan Jones">Nathan Jones</option>
-            <option value="Farrah Parker">Farrah Parker</option>
-        </select>
-
-        <button type="submit">Submit</button>
-        <input type="button" value="Return" onclick="history.back()"> <!--this is a JS method to allow the user to click the button to return back 1 page-->
-    </form>
+    </div>		
+	<div class="container text-center">
+        <form>    
+            <div class="py-3">
+                <select id="customers" name="customers"> <!--will add JS later to add a list of names-->
+                    <option disabled selected>Choose a Customer to Delete</option>
+                    <option value="JoeSmith">Joe Smith</option>
+                    <option value="SarahYates">Sarah Yates</option>
+                    <option value="NathanJones">Nathan Jones</option>
+                    <option value="FarrahParker">Farrah Parker</option>
+                </select>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;">Submit</button>
+                <input type="button" value="Return" class="btn btn-primary btn-md px-3" style="background-color: grey;" onclick="history.back()"> <!--this is a JS method to allow the user to click the button to return back 1 page-->
+            </div>
+        </form>
+    </div>
 </body>
 </html>
