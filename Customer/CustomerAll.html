@@ -7,11 +7,13 @@
     <meta name="description" content="Page for viewing all customers at Lawn & Order">
     <link rel="stylesheet" href="../css/bootstrap.css">
     <script src="../js/bootstrap.js"></script>
+    <script src="../js/crud.js"></script>
+    <script src="../js/jquery-3.6.0.slim.min.js"></script>
 </head>
 <header>
     <div style="background-color: white;">
         <a class="navbar-brand p-2" href="#">
-            <img src="../images/Logo.png" alt="Logo for the coompany Lawn & Order" width="225">
+            <img src="../images/Logo.png" alt="Logo for the company Lawn & Order" width="225">
         </a>
     </div>
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #67C18C; font-size: large;">
@@ -87,28 +89,32 @@
                 <tr>
                     <th scope="col">First Name</th>
                     <th scope="col">Last Name</th>
+                    <th class="hide-col" scope="col">Address</th>
+                    <th scope="col">City</th>
+                    <th class="hide-col" scope="col">Postal Code</th>
                     <th scope="col">Phone</th>
                     <th scope="col">Email</th>
-                    <th scope="col">City</th>
+                    
                 </tr>
             </thead>        
             <tbody>
                 <tr>        
                     <td>Joe</td>
                     <td>Smith</td>
+                    <td class="hide-col">12 Main St</td>
+                    <td>Welland</td>
+                    <td class="hide-col">L3C 6M1</td>
                     <td>905-346-7367</td>
                     <td>jsmith@gmail.com</td>
-                    <td>Welland</td>
                     <td>
-                    <button type='button'  
-                            onclick = "location.href='CustomerUpdate.html';"
-                            data-id='1'>
+                        <button class="btn btn-outline-secondary" onclick="customerDisplay(this);" type="button" data-bs-toggle="collapse" id="editToggle" href="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit">
                             Edit
-                    </button>
+                        </button>
                     </td>
                     <td>
                     <button type='button'
-                            onclick= "location.href='CustomerDelete.html';"
+                            class="btn btn-outline-secondary"
+                            onclick= 'customerDelete(this);'
                             data-id='1'>
                             Delete
                     </button>
@@ -118,19 +124,20 @@
                 <tr>        
                     <td>Sarah</td>
                     <td>Yates</td>
-                    <td>905-869-2543</td>
-                    <td>sayates@gmail.com</td>
+                    <td class="hide-col">35 W Main St</td>
                     <td>NOTL</td>
+                    <td class="hide-col">L2C 7S4</td>               
+                    <td>905-869-2543</td>
+                    <td>sayates@gmail.com</td>                    
                     <td>
-                    <button type='button'  
-                            onclick = "location.href='CustomerUpdate.html';"
-                            data-id='1'>
+                        <button class="btn btn-outline-secondary" onclick="customerDisplay(this);" type="button" data-bs-toggle="collapse" id="editToggle" href="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit">
                             Edit
-                    </button>
+                        </button>
                     </td>
                     <td>
                     <button type='button'
-                            onclick= "location.href='CustomerDelete.html';"
+                            class="btn btn-outline-secondary"
+                            onclick= 'customerDelete(this);'
                             data-id='1'>
                             Delete
                     </button>
@@ -140,19 +147,20 @@
                 <tr>        
                     <td>Nathan</td>
                     <td>Jones</td>
-                    <td>289-439-9632</td>
-                    <td>njones@gmail.com</td>
+                    <td class="hide-col">72 Side Rd</td>
                     <td>Wainfleet</td>
+                    <td class="hide-col">L0R 2A0</td>
+                    <td>289-439-9632</td>
+                    <td>njones@gmail.com</td>                    
                     <td>
-                    <button type='button'  
-                            onclick = "location.href='CustomerUpdate.html';"
-                            data-id='1'>
+                        <button class="btn btn-outline-secondary" onclick="customerDisplay(this);" type="button" data-bs-toggle="collapse" id="editToggle" href="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit">
                             Edit
-                    </button>
+                        </button>
                     </td>
                     <td>
                     <button type='button'
-                            onclick= "location.href='CustomerDelete.html';"
+                            class="btn btn-outline-secondary"
+                            onclick= 'customerDelete(this);'
                             data-id='1'>
                             Delete
                     </button>
@@ -162,26 +170,65 @@
                 <tr>        
                     <td>Farrah</td>
                     <td>Parker</td>
-                    <td>416-834-9768</td>
-                    <td>faparker@gmail.com</td>
+                    <td class="hide-col">10 Ontario St</td>
                     <td>Toronto</td>
+                    <td class="hide-col">M1H 6L8</td>
+                    <td>416-834-9768</td>
+                    <td>faparker@gmail.com</td>                    
                     <td>
-                    <button type='button'  
-                            onclick = "location.href='CustomerUpdate.html';"
-                            data-id='1'>
+                        <button class="btn btn-outline-secondary" onclick="customerDisplay(this);" type="button" data-bs-toggle="collapse" id="editToggle" href="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit">
                             Edit
-                    </button>
+                        </button>
                     </td>
                     <td>
                     <button type='button'
-                            onclick= "location.href='CustomerDelete.html';"
+                            class="btn btn-outline-secondary"
+                            onclick= 'customerDelete(this);'
                             data-id='1'>
                             Delete
                     </button>
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table>  
+        <div class="collapse" id="collapseEdit">            
+            <div class="row g-2 p-3">
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
+                </div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
+                </div>
+            </div>
+            <div class="row g-2 p-3">
+                <div class="col-12">
+                    <input type="text" class="form-control" id="inputAddress" placeholder="Address">
+                </div>
+            </div>
+            <div class="row g-2 p-3">
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="inputCity" placeholder="City">
+                </div>        
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="inputPostalCode" placeholder="Postal Code">
+                </div>
+            </div>
+            <div class="row g-2 p-3">
+                <div class="col-md-12">
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                </div>
+            </div>
+            <div class="row g-2 p-3">
+                <div class="col-md-12">
+                    <input type="tel" class="form-control" id="inputPhone" placeholder="Phone">
+                </div>
+            </div>
+            <div class="col-12 p-3 text-center">
+                <button type="button" onclick="customerUpdate();" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" data-bs-toggle="collapse" href="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit">Submit</button>
+                <input type="button" value="Cancel" class="btn btn-primary btn-md px-3" style="background-color: grey;" data-bs-toggle="collapse" href="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit"> <!--this is a JS method to allow the user to click the button to return back 1 page-->
+        </div>
+    </div> 
+    </form>
     </div>
 </body>
 </html>
