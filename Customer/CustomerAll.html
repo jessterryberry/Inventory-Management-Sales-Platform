@@ -50,16 +50,16 @@
         </div>
     </nav>
 </header>
-<body>
+<body onload="loadCustomerTable()">
     <div class="container text-center">
         <h1>View All Customers</h1>
     </div>    
     <div class="container text-center py-3">        
         <img alt ="an icon of a group of people" src="../images/ViewAllCustomers.png">
     </div>
-    <div>
+    <div class="container-fluid px-5">
         <div>
-            <a class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" id="filterToggle" href="#collapseFilter" role="button" aria-expanded="false" aria-controls="collapseFilter">
+            <a class="btn btn-outline-secondary" style="background-color: #A0A0A0; color:white;" type="button" data-bs-toggle="collapse" id="filterToggle" href="#collapseFilter" role="button" aria-expanded="false" aria-controls="collapseFilter">
                 Filter/Search
             </a>
             <div class="collapse" id="collapseFilter">
@@ -77,122 +77,38 @@
                             <label class="control-label">Filter by City</label>
                             <input type="text" class="form-control" id="filterCity" placeholder="City">
                         </div>
-                        <div class="form-group col md-4 align-self-end">                            
-                            <input type="submit" name="actionButton" value="Filter" class="btn btn-outline-primary">
+                        <div class="form-group col lg-4 align-self-end">                                                      
+                            <input type="submit" onclick="filterCustomerTable();" name="actionButton" value="Filter" style="background-color:#67C18C; color: black;" class="btn btn-outline-secondary">
+                        </div>
+                        <div class="form-group col lg-4 align-self-end">                            
+                            <input type="submit" onclick="loadCustomerTable();" name="actionButton" value="Clear" style="background-color: #A0A0A0; color:white; "class="btn btn-outline-secondary">
                         </div>
                     </div>
                 </div>
             </div>
         </div> 
-        <table class="table table-hover" id="customerTable">
+        <table class="table table-hover">
             <thead>
                 <tr>
+                    <th class="hide-col" scope="col">Customer Number</th>
                     <th scope="col">First Name</th>
                     <th scope="col">Last Name</th>
                     <th class="hide-col" scope="col">Address</th>
                     <th scope="col">City</th>
                     <th class="hide-col" scope="col">Postal Code</th>
                     <th scope="col">Phone</th>
-                    <th scope="col">Email</th>
-                    
+                    <th scope="col">Email</th>                    
                 </tr>
             </thead>        
-            <tbody>
-                <tr>        
-                    <td>Joe</td>
-                    <td>Smith</td>
-                    <td class="hide-col">12 Main St</td>
-                    <td>Welland</td>
-                    <td class="hide-col">L3C 6M1</td>
-                    <td>905-346-7367</td>
-                    <td>jsmith@gmail.com</td>
-                    <td>
-                        <button class="btn btn-outline-secondary" onclick="customerDisplay(this);" type="button" data-bs-toggle="collapse" id="editToggle" href="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit">
-                            Edit
-                        </button>
-                    </td>
-                    <td>
-                    <button type='button'
-                            class="btn btn-outline-secondary"
-                            onclick= 'customerDelete(this);'
-                            data-id='1'>
-                            Delete
-                    </button>
-                    </td>
-                </tr>
-
-                <tr>        
-                    <td>Sarah</td>
-                    <td>Yates</td>
-                    <td class="hide-col">35 W Main St</td>
-                    <td>NOTL</td>
-                    <td class="hide-col">L2C 7S4</td>               
-                    <td>905-869-2543</td>
-                    <td>sayates@gmail.com</td>                    
-                    <td>
-                        <button class="btn btn-outline-secondary" onclick="customerDisplay(this);" type="button" data-bs-toggle="collapse" id="editToggle" href="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit">
-                            Edit
-                        </button>
-                    </td>
-                    <td>
-                    <button type='button'
-                            class="btn btn-outline-secondary"
-                            onclick= 'customerDelete(this);'
-                            data-id='1'>
-                            Delete
-                    </button>
-                    </td>
-                </tr>
-
-                <tr>        
-                    <td>Nathan</td>
-                    <td>Jones</td>
-                    <td class="hide-col">72 Side Rd</td>
-                    <td>Wainfleet</td>
-                    <td class="hide-col">L0R 2A0</td>
-                    <td>289-439-9632</td>
-                    <td>njones@gmail.com</td>                    
-                    <td>
-                        <button class="btn btn-outline-secondary" onclick="customerDisplay(this);" type="button" data-bs-toggle="collapse" id="editToggle" href="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit">
-                            Edit
-                        </button>
-                    </td>
-                    <td>
-                    <button type='button'
-                            class="btn btn-outline-secondary"
-                            onclick= 'customerDelete(this);'
-                            data-id='1'>
-                            Delete
-                    </button>
-                    </td>
-                </tr>
-
-                <tr>        
-                    <td>Farrah</td>
-                    <td>Parker</td>
-                    <td class="hide-col">10 Ontario St</td>
-                    <td>Toronto</td>
-                    <td class="hide-col">M1H 6L8</td>
-                    <td>416-834-9768</td>
-                    <td>faparker@gmail.com</td>                    
-                    <td>
-                        <button class="btn btn-outline-secondary" onclick="customerDisplay(this);" type="button" data-bs-toggle="collapse" id="editToggle" href="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit">
-                            Edit
-                        </button>
-                    </td>
-                    <td>
-                    <button type='button'
-                            class="btn btn-outline-secondary"
-                            onclick= 'customerDelete(this);'
-                            data-id='1'>
-                            Delete
-                    </button>
-                    </td>
-                </tr>
+            <tbody id="customerTable">
+                
             </tbody>
         </table>  
         <div class="collapse" id="collapseEdit">            
             <div class="row g-2 p-3">
+                <div class="col-md-6 hide-col">
+                    <input type="text" class="form-control" disabled="disabled" id="inputCustNumber">
+                </div>
                 <div class="col-md-6">
                     <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
                 </div>
@@ -223,12 +139,12 @@
                     <input type="tel" class="form-control" id="inputPhone" placeholder="Phone">
                 </div>
             </div>
-            <div class="col-12 p-3 text-center">
-                <button type="button" onclick="customerUpdate();" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" data-bs-toggle="collapse" href="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit">Submit</button>
-                <input type="button" value="Cancel" class="btn btn-primary btn-md px-3" style="background-color: grey;" data-bs-toggle="collapse" href="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit"> <!--this is a JS method to allow the user to click the button to return back 1 page-->
+            <div class="col-12 p-3 text-center">                
+                <button type="button" onclick="customerUpdate();" id="updateButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" data-bs-toggle="collapse" href="#collapseEdit" aria-disabled="false" aria-expanded="false" aria-controls="collapseEdit">Update</button>
+                <button type="button" onclick="customerDelete();" id="deleteButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" data-bs-toggle="collapse" href="#collapseEdit" aria-disabled="false" aria-expanded="false" aria-controls="collapseEdit">Delete</button>
+                <input type="button" value="Cancel" class="btn btn-primary btn-md px-3" style="background-color: grey;" data-bs-toggle="collapse" href="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit"> 
         </div>
     </div> 
-    </form>
-    </div>
+</div>
 </body>
 </html>
