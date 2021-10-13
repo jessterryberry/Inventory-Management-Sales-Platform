@@ -4,11 +4,12 @@
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Lawn & Order: Create New Equipment</title>
+	<title>Lawn & Order: Add New Manufacturer</title>
 	<meta content="width=device-width, initial-scale=1" name="viewport">
     <meta name="description" content="Page for creating a Sale Record at Lawn & Order">
-    <link rel="stylesheet" href="../css/bootstrap.css">
-    <script src="../js/crud_equipment.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <script src="../js/crud.js"></script>
     <script src="../js/jquery-3.6.0.slim.min.js"></script>
 </head>
 <header>
@@ -26,7 +27,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item px-5">
-                        <a class="nav-link active" aria-current="page" href="../Index.html">Home</a>
+                        <a class="nav-link active" aria-current="page" href="Index.html">Home</a>
                     </li>
                     <li class="nav-item px-5">
                         <a class="nav-link active" aria-current="page" href="../Customer/CustomerIndex.html">Customers</a>
@@ -41,10 +42,10 @@
                         <a class="nav-link active" aria-current="page" href="RepairsIndex.html">Repairs</a>
                     </li>
                     <li class="nav-item px-5">
-                        <a class="nav-link active" aria-current="page" href="InventoryIndex.html">Inventory</a>
+                        <a class="nav-link active" aria-current="page" href="../Inventory/InventoryIndex.html">Inventory</a>
                     </li>
                     <li class="nav-item px-5">
-                        <a class="nav-link active" aria-current="page" href="ReportsIndex.html">Reports</a>
+                        <a class="nav-link active" aria-current="page" href="../Reports/ReportsIndex.html">Reports</a>
                     </li>
                 </ul>
             </div>
@@ -53,41 +54,23 @@
 </header>
 <body>
     <div class="container text-center">
-        <h1>Add new Equipment</h1>
+        <h1>Add New Manufacturer</h1>
     </div>    
     <div class="container text-center">        
-        <img alt="an icon of a sales chart with a plus sign" src="../images/ConfirmEquipment.png" width="220.5" height="162.5">
-    </div>	
-<div class="container-md">
-    <div class="container-md">
+        <img alt="an icon of a factory with a plus sign" src="../images/CreateManufacturer.png" width="220.5" height="162.5">
+    </div>
+    	<div class="container-md">
         <form>
             <div class="row g-2 p-3">
-                <div class="col-12">
-                    <input type="text" class="form-control" id="inputEquipName" placeholder="Equipment Name">
-                </div>
-            </div>
-            <div class="row g-2 p-3">
-                <div class="col-md-6">
-                    <input type="text" class="form-control" id="inputSerial" placeholder="Serial Code">
-                </div>        
-                <div class="col-md-6">
-                    <input type="text" class="form-control" id="inputEquipType" placeholder="Equipment Type">
-                </div>
-            </div>
-            <div class="row g-2 p-3">
                 <div class="col-md-12">
-                    <input type="email" class="form-control" id="inputManu" placeholder="Manufactuerer">
+                    <input type="tel" class="form-control" id="inputEquip" placeholder="Add New">
                 </div>
-            </div>
-            <div class="row g-2 p-3">
-                <div class="col-md-12">
-                    <input type="tel" class="form-control" id="inputCustomer" placeholder="Customer">
-                </div>
-            </div>
+                
             <div class="col-12 p-3 text-center">
-                <button type="button" onclick="saveEquipment();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
+                <button type="button" onclick="saveCustomer();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Continue</button>
                 <input type="button" value="Return" class="btn btn-primary btn-md px-3" style="background-color: #A0A0A0; color:white;" onclick="history.back()"> <!--this is a JS method to allow the user to click the button to return back 1 page-->
             </div> 
+
         </form>
 </div>
 </body>
