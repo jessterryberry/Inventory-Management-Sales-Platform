@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lawn and Order - Repairs</title>
+    <meta name="description" content="Main page for Repairs at Lawn & Order">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/crud.js"></script>
+    <script src="js/jquery-3.6.0.slim.min.js"></script>
+</head>
+<body>
+    <header>
+        <div style="background-color: white;">
+            <a class="navbar-brand p-2" href="#">
+                <img alt="Logo for the company, Lawn & Order" src="images/Lawn__Order4x.png" width="225">
+                </a>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #67C18C; font-size: large;">
+            <div class="container-lg">            
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse"></div>
+                <div class="collapse navbar-collapse" id="navbarNav">            
+                    <ul class="navbar-nav">
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="Index.html">Home</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="CustomerIndex.html">Customers</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="EquipmentIndex.html">Equipment</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="SalesIndex.html">Sales</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="RepairsIndex.html">Repairs</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="InventoryIndex.html">Inventory</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="ReportsIndex.html">Reports</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container pb-4">
+	    <h1>Manage Equipment</h1>
+    </div>	    
+    <main>
+        <div class="container text-center py-3">        
+            <img alt ="an icon of the lawnmower" src="images/Equipment.png"  width="220.5" height="162.5">
+        </div>
+        <div class="container-fluid px-5">
+            <div>
+                <a class="btn btn-outline-secondary" style="background-color: #A0A0A0; color:white;" type="button" data-bs-toggle="collapse" id="filterToggle" href="#collapseFilter" role="button" aria-expanded="false" aria-controls="collapseFilter">
+                    Filter/Search
+                </a>
+                <div class="collapse" id="collapseFilter">
+                    <div class="card card-body bg-light">
+                        <div class="row">
+                            <div class="form-group col md-4">
+                                <label class="control-label">Filter by Name</label>
+                                <input type="text" class="form-control" id="filterEquipName" placeholder="Name">
+                            </div>
+                            <div class="form-group col md-4">
+                                <label class="control-label">Filter by Type</label>
+                                <input type="text" class="form-control" id="filterEquipType" placeholder="Equipment Type">
+                            </div>
+                            <div class="form-group col md-4">
+                                <label class="control-label">Filter by Manufacturer</label>
+                                <input type="text" class="form-control" id="filterManu" placeholder="Manufacturer">
+                            </div>
+                            <div class="form-group col lg-4 align-self-end">                                                      
+                                <input type="submit" onclick="filterEquipmentTable();" name="actionButton" value="Filter" style="background-color:#67C18C; color: black;" class="btn btn-outline-secondary">
+                            </div>
+                            <div class="form-group col lg-4 align-self-end">                            
+                                <input type="submit" onclick="loadEquipmentTable();" name="actionButton" value="Clear" style="background-color: #A0A0A0; color:white; "class="btn btn-outline-secondary">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="hide-col" scope="col">Equipment Number</th>
+                        <th scope="col">Equipment Name</th>
+                        <th scope="col">Serial Number</th>
+                        <th class="hide-col" scope="col">Equipment Type</th>
+                        <th scope="col">Manufacturer</th>
+                        <th class="hide-col" scope="col">Customer</th>            
+                    </tr>
+                </thead>        
+                <tbody id="equipmentTable">
+                    
+                </tbody>
+            </table>  
+            <div class="collapse" id="collapseEdit">            
+                <div class="row g-2 p-3">
+                    <div class="col-md-6 hide-col">
+                        <input type="text" class="form-control" disabled="disabled" id="inputEquipNumber">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" id="inputEquipName" placeholder="Equipment Name">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" id="inputSerial" placeholder="Serial Number">
+                    </div>
+                </div>
+                <div class="row g-2 p-3">
+                    <div class="col-12">
+                        <input type="text" class="form-control" id="inputEquipType" placeholder="Equipment Type">
+                    </div>
+                </div>
+                <div class="row g-2 p-3">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" id="inputManu" placeholder="Manufacturer">
+                    </div>        
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" id="inputCustomer" placeholder="Customer">
+                    </div>
+                </div>
+                <div class="col-12 p-3 text-center">                
+                    <button type="button" onclick="equipmentUpdate();" id="updateButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" data-bs-toggle="collapse" href="#collapseEdit" aria-disabled="false" aria-expanded="false" aria-controls="collapseEdit">Update</button>
+                    <button type="button" onclick="equipmentDelete();" id="deleteButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" data-bs-toggle="collapse" href="#collapseEdit" aria-disabled="false" aria-expanded="false" aria-controls="collapseEdit">Delete</button>
+                    <input type="button" value="Cancel" class="btn btn-primary btn-md px-3" style="background-color: grey;" data-bs-toggle="collapse" href="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit"> 
+            </div>
+        </div> 
+            </div>
+        </div>
+    </main>
+</body>
+</html>
