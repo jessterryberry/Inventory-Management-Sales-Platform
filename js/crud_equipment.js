@@ -53,10 +53,10 @@ function equipmentUpdate() {
 
 function demoEquipData(){
 	let myStorage2 = window.localStorage;
-    let equipment1 = ['101', 'Hydrolic Amplifier', '289501', 'Rammer', 'Dell', 'Joe Smith'];
-    let equipment2 = ['102', 'Ice Skater', '59184912', 'SnowBlower', 'McAfee', 'Sarah Yates'];
-    let equipment3 = ['103', 'Rover', '58230948', 'Wheelbarrow', 'Ranger', 'Nathan Jones'];
-    let equipment4 = ['104', 'Fable Blower', '603458', 'Lawn Mower', 'Diablo', 'Farrah Parker'];
+    let equipment1 = ['101', 'Hydrolic Amplifier', '289501', 'Rammer', 'John Deere', 'Joe Smith'];
+    let equipment2 = ['102', 'Ice Skater', '59184912', 'SnowBlower', 'Toro', 'Sarah Yates'];
+    let equipment3 = ['103', 'Rover', '58230948', 'Wheelbarrow', 'Troy-Bilt', 'Nathan Jones'];
+    let equipment4 = ['104', 'Fable Blower', '603458', 'Lawn Mower', 'Greenworks', 'Farrah Parker'];
 	
     myStorage2.setItem('101', JSON.stringify(equipment1));
 	myStorage2.setItem('102', JSON.stringify(equipment2));

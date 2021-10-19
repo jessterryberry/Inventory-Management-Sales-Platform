@@ -4,74 +4,76 @@
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Lawn & Order: Add New Manufacturer</title>
+	<title>Lawn & Order: Create New Manufacturer</title>
 	<meta content="width=device-width, initial-scale=1" name="viewport">
     <meta name="description" content="Page for creating a Sale Record at Lawn & Order">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="../css/bootstrap.css" rel="stylesheet">
-    <script src="../js/crud.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <script src="../js/crud_manufacturer.js"></script>
     <script src="../js/jquery-3.6.0.slim.min.js"></script>
 </head>
-<header>
-    <div style="background-color: white;">
-        <a class="navbar-brand p-2" href="#">
-            <img src="../images/Logo.png" alt="Logo for the coompany Lawn & Order" width="225">
-        </a>
-    </div>
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #67C18C; font-size: large;">
-        <div class="container-lg">            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse"></div>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item px-5">
-                        <a class="nav-link active" aria-current="page" href="Index.html">Home</a>
-                    </li>
-                    <li class="nav-item px-5">
-                        <a class="nav-link active" aria-current="page" href="../Customer/CustomerIndex.html">Customers</a>
-                    </li>
-                    <li class="nav-item px-5">
-                        <a class="nav-link active" aria-current="page" href="../Equipments/EquipmentIndex.html">Equipment</a>
-                    </li>
-                    <li class="nav-item px-5">
-                        <a class="nav-link active" aria-current="page" href="SalesIndex.html">Sales</a>
-                    </li>
-                    <li class="nav-item px-5">
-                        <a class="nav-link active" aria-current="page" href="RepairsIndex.html">Repairs</a>
-                    </li>
-                    <li class="nav-item px-5">
-                        <a class="nav-link active" aria-current="page" href="../Inventory/InventoryIndex.html">Inventory</a>
-                    </li>
-                    <li class="nav-item px-5">
-                        <a class="nav-link active" aria-current="page" href="../Reports/ReportsIndex.html">Reports</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
 <body>
+    <header>
+        <div style="background-color: white;">
+            <a class="navbar-brand p-2" href="#">
+                <img src="../images/Logo.png" alt="Logo for the coompany Lawn & Order" width="225">
+            </a>
+            <button class="btn btn-outline-secondary" type="button" onclick="demoManufacturerData();" value="Demo: Load Manufacturer">Demo: Load Manufacturer</button>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #67C18C; font-size: large;">
+            <div class="container-lg">            
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse"></div>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="../Index.html">Home</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="../Customer/CustomerIndex.html">Customers</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="../Equipments/EquipmentIndex.html">Equipment</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="SalesIndex.html">Sales</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="RepairsIndex.html">Repairs</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="../Inventory/InventoryIndex.html">Inventory</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="../Reports/ReportsIndex.html">Reports</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
     <div class="container text-center">
-        <h1>Add New Manufacturer</h1>
+        <h1>Add Manufacturer</h1>
     </div>    
     <div class="container text-center">        
-        <img alt="an icon of a factory with a plus sign" src="../images/CreateManufacturer.png" width="220.5" height="162.5">
-    </div>
-    	<div class="container-md">
+        <img alt="an icon of a lawn mower with a plus sign" src="../images/CreateManufacturer.png" width="220.5" height="162.5">
+    </div>	
+    <div class="container-md">
         <form>
             <div class="row g-2 p-3">
                 <div class="col-md-12">
-                    <input type="tel" class="form-control" id="inputEquip" placeholder="Add New">
+                    <div class="form-floating">
+                        <input type="tel" class="form-control" id="inputManufacturer" placeholder="Manufacturer">
+                        <label for="inputManufacturer">Manufacturer Name</label>
+                    </div>
                 </div>
-                
-            <div class="col-12 p-3 text-center">
-                <button type="button" onclick="saveCustomer();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Continue</button>
-                <input type="button" value="Return" class="btn btn-primary btn-md px-3" style="background-color: #A0A0A0; color:white;" onclick="history.back()"> <!--this is a JS method to allow the user to click the button to return back 1 page-->
-            </div> 
-
+                <div class="col-12 p-3 text-center">
+                    <button type="submit" onclick="saveManufacturer();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
+                    <input type="button" value="Return" class="btn btn-primary btn-md px-3" style="background-color: #A0A0A0; color:white;" onclick="history.back()"/> <!--this is a JS method to allow the user to click the button to return back 1 page-->
+                </div> 
+            </div>
         </form>
-</div>
+    </div>
 </body>
 </html>
