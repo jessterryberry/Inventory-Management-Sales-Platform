@@ -10,48 +10,49 @@
     <script src="../js/crud.js"></script>
     <script src="../js/jquery-3.6.0.slim.min.js"></script>
 </head>
-<header>
-    <div style="background-color: white;">
-        <a class="navbar-brand p-2" href="#">
-            <img src="../images/Logo.png" alt="Logo for the company Lawn & Order" width="225">
-        </a>
-        <button class="btn btn-outline-secondary" type="button" onclick="demoData();" value="Demo: Load Customers">Demo: Load Customers</button>
-    </div>
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #67C18C; font-size: large;">
-        <div class="container-lg">            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse"></div>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item px-5">
-                        <a class="nav-link active" aria-current="page" href="../Index.html">Home</a>
-                    </li>
-                    <li class="nav-item px-5">
-                        <a class="nav-link active" aria-current="page" href="CustomerIndex.html">Customers</a>
-                    </li>
-                    <li class="nav-item px-5">
-                        <a class="nav-link active" aria-current="page" href="../Equipments/EquipmentIndex.html">Equipment</a>
-                    </li>
-                    <li class="nav-item px-5">
-                        <a class="nav-link active" aria-current="page" href="SalesIndex.html">Sales</a>
-                    </li>
-                    <li class="nav-item px-5">
-                        <a class="nav-link active" aria-current="page" href="RepairsIndex.html">Repairs</a>
-                    </li>
-                    <li class="nav-item px-5">
-                        <a class="nav-link active" aria-current="page" href="../Inventory/InventoryIndex.html">Inventory</a>
-                    </li>
-                    <li class="nav-item px-5">
-                        <a class="nav-link active" aria-current="page" href="../Reports/ReportsIndex.html">Reports</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
+
 <body onload="loadCustomerTable()">
+    <header>
+        <div style="background-color: white;">
+            <a class="navbar-brand p-2" href="#">
+                <img src="../images/Logo.png" alt="Logo for the company Lawn & Order" width="225">
+            </a>
+            <button class="btn btn-outline-secondary" type="button" onclick="demoData();" value="Demo: Load Customers">Demo: Load Customers</button>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #67C18C; font-size: large;">
+            <div class="container-lg">            
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse"></div>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="../Index.html">Home</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="CustomerIndex.html">Customers</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="../Equipments/EquipmentIndex.html">Equipment</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="SalesIndex.html">Sales</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="RepairsIndex.html">Repairs</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="../Inventory/InventoryIndex.html">Inventory</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="../Reports/ReportsIndex.html">Reports</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
     <div class="container text-center">
         <h1>View All Customers</h1>
     </div>    
@@ -108,41 +109,65 @@
         <div class="collapse" id="collapseEdit">            
             <div class="row g-2 p-3">
                 <div class="col-md-6 hide-col">
-                    <input type="text" class="form-control" disabled="disabled" id="inputCustNumber">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" disabled="disabled" id="inputCustNumber">
+                        <label for="inputCustNumber">Customer Number</label>
+                    </div>
                 </div>
                 <div class="col-md-6">
-                    <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
+                        <label for="inputFirstName">First Name</label>
+                    </div>
                 </div>
                 <div class="col-md-6">
-                    <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
+                        <label for="inputLastName">Last Name</label>
+                    </div>
                 </div>
             </div>
             <div class="row g-2 p-3">
                 <div class="col-12">
-                    <input type="text" class="form-control" id="inputAddress" placeholder="Address">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="inputAddress" placeholder="Address">
+                        <label for="inputAddress">Address</label>
+                    </div>
                 </div>
             </div>
             <div class="row g-2 p-3">
                 <div class="col-md-6">
-                    <input type="text" class="form-control" id="inputCity" placeholder="City">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="inputCity" placeholder="City">
+                        <label for="inputCity">City</label>
+                    </div>
                 </div>        
                 <div class="col-md-6">
-                    <input type="text" class="form-control" id="inputPostalCode" placeholder="Postal Code">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="inputPostalCode" placeholder="Postal Code">
+                        <label for="inputPostalCode">Postal Code</label>
+                    </div>
                 </div>
             </div>
             <div class="row g-2 p-3">
                 <div class="col-md-12">
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                        <label for="inputEmail">Email</label>
+                    </div>
                 </div>
             </div>
             <div class="row g-2 p-3">
                 <div class="col-md-12">
-                    <input type="tel" class="form-control" id="inputPhone" placeholder="Phone">
+                    <div class="form-floating">
+                        <input type="tel" class="form-control" id="inputPhone" placeholder="Phone">
+                        <label for="inputPhone">Phone</label>
+                    </div>
                 </div>
             </div>
             <div class="col-12 p-3 text-center">                
-                <button type="button" onclick="customerUpdate();" id="updateButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" data-bs-toggle="collapse" href="#collapseEdit" aria-disabled="false" aria-expanded="false" aria-controls="collapseEdit">Update</button>
-                <button type="button" onclick="customerDelete();" id="deleteButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" data-bs-toggle="collapse" href="#collapseEdit" aria-disabled="false" aria-expanded="false" aria-controls="collapseEdit">Delete</button>
+                <input type="button" onclick="customerUpdate();" id="updateButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" data-bs-toggle="collapse" href="#collapseEdit" aria-disabled="false" aria-expanded="false" aria-controls="collapseEdit" value="Update"/>
+                <input type="button" onclick="customerDelete();" id="deleteButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" data-bs-toggle="collapse" href="#collapseEdit" aria-disabled="false" aria-expanded="false" aria-controls="collapseEdit" value="Delete"/>
                 <input type="button" value="Cancel" class="btn btn-primary btn-md px-3" style="background-color: grey;" data-bs-toggle="collapse" href="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit"> 
         </div>
     </div> 

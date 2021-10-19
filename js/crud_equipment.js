@@ -1,3 +1,5 @@
+var editRow = null;
+
 function equipmentDelete(ctl) {
     let myStorage2 = window.localStorage;    
     
@@ -10,19 +12,19 @@ function equipmentDelete(ctl) {
 function equipmentDisplay(ctl, mode) {
     editRow = $(ctl).parents("tr");
     var cols = editRow.children("td");
-    var equipmentID = $(cols[9]).text();
+    var equipmentID = $(cols[0]).text();
     let myStorage2 = window.localStorage;
     var equipmentData = JSON.parse(myStorage2.getItem(equipmentID.toString()));
         
-        $("#inputEquipNumber").val(equipmentData[9]);
-        $("#inputEquipName").val(equipmentData[10]);
-        $("#inputSerial").val(equipmentData[11]);
-        $("#inputEquipType").val(equipmentData[12]);
-        $("#inputManu").val(equipmentData[13]);
-        $("#inputCustomer").val(equipmentData[14]);
+        $("#inputEquipNumber").val(equipmentData[0]);
+        $("#inputEquipName").val(equipmentData[1]);
+        $("#inputSerial").val(equipmentData[2]);
+        $("#inputEquipType").val(equipmentData[3]);
+        $("#inputManu").val(equipmentData[4]);
+        $("#inputCustomer").val(equipmentData[5]);
     
-    const updateButton = document.getElementById('updateButton');
-    const deleteButton = document.getElementById('deleteButton'); 
+    const updateButton = document.getElementById('updateButton2');
+    const deleteButton = document.getElementById('deleteButton2'); 
 
     if (mode == 1) {
         updateButton.disabled = false;
@@ -51,17 +53,17 @@ function equipmentUpdate() {
 
 function demoEquipData(){
 	let myStorage2 = window.localStorage;
-    let equipment1 = ['10', 'Hydrolic Amplifier', '289501', 'Rammer', 'Dell', 'Joe Smith'];
-    let equipment2 = ['11', 'Ice Skater', '59184912', 'SnowBlower', 'McAfee', 'Sarah Yates'];
-    let equipment3 = ['12', 'Rover', '58230948', 'Wheelbarrow', 'Ranger', 'Nathan Jones'];
-    let equipment4 = ['13', 'Fable Blower', '603458', 'Lawn Mower', 'Diablo', 'Farrah Parker'];
+    let equipment1 = ['101', 'Hydrolic Amplifier', '289501', 'Rammer', 'Dell', 'Joe Smith'];
+    let equipment2 = ['102', 'Ice Skater', '59184912', 'SnowBlower', 'McAfee', 'Sarah Yates'];
+    let equipment3 = ['103', 'Rover', '58230948', 'Wheelbarrow', 'Ranger', 'Nathan Jones'];
+    let equipment4 = ['104', 'Fable Blower', '603458', 'Lawn Mower', 'Diablo', 'Farrah Parker'];
 	
-    myStorage2.setItem('10', JSON.stringify(equipment1));
-	myStorage2.setItem('11', JSON.stringify(equipment2));
-	myStorage2.setItem('12', JSON.stringify(equipment3));
-	myStorage2.setItem('13', JSON.stringify(equipment4));
+    myStorage2.setItem('101', JSON.stringify(equipment1));
+	myStorage2.setItem('102', JSON.stringify(equipment2));
+	myStorage2.setItem('103', JSON.stringify(equipment3));
+	myStorage2.setItem('104', JSON.stringify(equipment4));
 	
-	myStorage2.setItem('equipmentNum', '13');
+	myStorage2.setItem('equipmentNum', '4');
 }
 
 function saveEquipment(){
@@ -70,9 +72,9 @@ function saveEquipment(){
 	
 	equipmentNum++;
 	console.log(equipmentNum);
-	let newEquipment = [equipmentNum.toString(), $("#inputEquipName").val(), $("#inputSerial").val(), $("#inputEquipType").val(), $("#inputManu").val(), $("#inputCustomer").val()];
+	let newEquipment = [(100 + equipmentNum).toString(), $("#inputEquipName").val(), $("#inputSerial").val(), $("#inputEquipType").val(), $("#inputManu").val(), $("#inputCustomer").val()];
 	console.log(newEquipment);
-	myStorage2.setItem(equipmentNum.toString(), JSON.stringify(newEquipment))
+	myStorage2.setItem((equipmentNum + 100).toString(), JSON.stringify(newEquipment))
 	
 	myStorage2.setItem('equipmentNum', equipmentNum.toString())
 }
@@ -101,15 +103,15 @@ function loadEquipmentTable(){
     let equipmentNum = parseInt(myStorage2.getItem('equipmentNum'));
     let equipTable = "";
 	
-	for (let i = 1; i <= equipmentNum; i++){
+	for (let i = 101; i <= (100 + equipmentNum); i++){
 		if (myStorage2.getItem(i.toString()) !== null){
 			let c = JSON.parse(myStorage2.getItem(i.toString()));
 
-			equipTable = equipTable + equipmentBuildTableRowLoad(c[9],c[10],c[11],c[12],c[13],c[14]);
+			equipTable = equipTable + equipmentBuildTableRowLoad(c[0],c[1],c[2],c[3],c[4],c[5]);
 		}
         
 	}
-    document.getElementById("equipmentNum").innerHTML = equipTable;
+    document.getElementById("equipmentTable").innerHTML = equipTable;
 }
 
 function filterEquipmentTable(){
@@ -117,20 +119,20 @@ function filterEquipmentTable(){
     let equipmentNum = parseInt(myStorage2.getItem('equipmentNum'));
     let equipTable = "";
 	
-	for (let i = 1; i <= equipmentNum; i++){
+	for (let i = 101; i <= (100 + equipmentNum); i++){
 		if (myStorage2.getItem(i.toString()) !== null){
 			let c = JSON.parse(myStorage2.getItem(i.toString()));
 
-            if ($('#filterName').val() !== "" && c[1].toUpperCase().includes($('#filterName').val().toUpperCase())){
-                equipTable = equipTable + equipmentBuildTableRowLoad(c[9],c[10],c[11],c[12],c[13],c[14]);                
+            if ($('#filterEquipName').val() !== "" && c[1].toUpperCase().includes($('#filterEquipName').val().toUpperCase())){
+                equipTable = equipTable + equipmentBuildTableRowLoad(c[0],c[1],c[2],c[3],c[4],c[5]);                
             }
-			else if ($('#filterType').val() !== "" && c[2].toUpperCase().includes($('#filterType').val().toUpperCase())){
-                equipTable = equipTable + equipmentBuildTableRowLoad(c[9],c[10],c[11],c[12],c[13],c[14]);
+			else if ($('#filterEquipType').val() !== "" && c[2].toUpperCase().includes($('#filterEquipType').val().toUpperCase())){
+                equipTable = equipTable + equipmentBuildTableRowLoad(c[0],c[1],c[2],c[3],c[4],c[5]);
             }
-            else if ($('#filterManu').val() !== "" && c[4].toUpperCase().includes($('#filterManu').val().toUpperCase())){
-                equipTable = custTable + equipmentBuildTableRowLoad(c[9],c[10],c[11],c[12],c[13],c[14]);
+            else if ($('#filterEquipManu').val() !== "" && c[4].toUpperCase().includes($('#filterEquipManu').val().toUpperCase())){
+                equipTable = equipTable + equipmentBuildTableRowLoad(c[0],c[1],c[2],c[3],c[4],c[5]);
             }
 		}        
 	}
-    document.getElementById("equipmentNum").innerHTML = equipTable;
+    document.getElementById("equipmentTable").innerHTML = equipTable;
 }
