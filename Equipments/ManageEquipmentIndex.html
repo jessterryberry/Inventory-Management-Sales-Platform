@@ -7,15 +7,16 @@
     <title>Lawn and Order - Repairs</title>
     <meta name="description" content="Main page for Repairs at Lawn & Order">
     <link rel="stylesheet" href="../css/bootstrap.css">
+    <script src="../js/bootstrap.js"></script>
     <script src="../js/crud.js"></script>
     <script src="../js/jquery-3.6.0.slim.min.js"></script>
 </head>
-<body>
-    <header>
+<header>
         <div style="background-color: white;">
             <a class="navbar-brand p-2" href="#">
                 <img alt="Logo for the company, Lawn & Order" src="../images/Logo.png" width="225">
                 </a>
+                <button class="btn btn-outline-secondary" type="button" onclick="demoEquipData();" value="Demo: Load Equipment">Demo: Load Equipment</button>
         </div>
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #67C18C; font-size: large;">
             <div class="container-lg">            
@@ -50,9 +51,10 @@
                 </div>
             </div>
         </nav>
-    </header>
+</header>
+<body onload="loadEquipmentTable()">
     <div class="container pb-4">
-	    <h1>Manage Equipment</h1>
+        <h1>Manage Equipment</h1>
     </div>	    
     <main>
         <div class="container text-center py-3">        
@@ -94,9 +96,9 @@
                         <th class="hide-col" scope="col">Equipment Number</th>
                         <th scope="col">Equipment Name</th>
                         <th scope="col">Serial Number</th>
-                        <th class="hide-col" scope="col">Equipment Type</th>
+                        <th class="col" scope="col">Equipment Type</th>
                         <th scope="col">Manufacturer</th>
-                        <th class="hide-col" scope="col">Customer</th>            
+                        <th class="col" scope="col">Customer</th>            
                     </tr>
                 </thead>        
                 <tbody id="equipmentTable">
@@ -129,8 +131,8 @@
                     </div>
                 </div>
                 <div class="col-12 p-3 text-center">                
-                    <button type="button" onclick="equipmentUpdate();" id="updateButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" data-bs-toggle="collapse" href="#collapseEdit" aria-disabled="false" aria-expanded="false" aria-controls="collapseEdit">Update</button>
-                    <button type="button" onclick="equipmentDelete();" id="deleteButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" data-bs-toggle="collapse" href="#collapseEdit" aria-disabled="false" aria-expanded="false" aria-controls="collapseEdit">Delete</button>
+                    <button type="button" onclick="equipmentUpdate();" id="updateButton2" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" data-bs-toggle="collapse" href="#collapseEdit" aria-disabled="false" aria-expanded="false" aria-controls="collapseEdit">Update</button>
+                    <button type="button" onclick="equipmentDelete();" id="deleteButton2" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" data-bs-toggle="collapse" href="#collapseEdit" aria-disabled="false" aria-expanded="false" aria-controls="collapseEdit">Delete</button>
                     <input type="button" value="Cancel" class="btn btn-primary btn-md px-3" style="background-color: grey;" data-bs-toggle="collapse" href="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit"> 
             </div>
         </div> 
