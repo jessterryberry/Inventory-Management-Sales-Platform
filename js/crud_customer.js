@@ -1,4 +1,4 @@
-//current customer being edited
+//current entry being edited
 var editRow = null;
 
 function customerDelete(ctl) {
@@ -58,40 +58,40 @@ function customerUpdate() {
 //could add a Demo button to call this to create a set of customers to start with. really only needs to run one time
 function demoData(){
 	let myStorage = window.localStorage;
-    let customer1 = ['1', 'Joe', 'Smith', '12 Main St', 'Welland', 'L3C 6M1', 'jsmith@gmail.com', '905-346-7367'];
-    let customer2 = ['2', 'Sarah', 'Yates', '35 W Main St', 'NOTL', 'L2C 7S4', 'ssyates@gmail.com', '905-869-2543'];
-    let customer3 = ['3', 'Nathan', 'Jones', '72 Side Rd', 'Wainfleet', 'L0R 2A0', 'njones@gmail.com', '289-439-9632'];
-    let customer4 = ['4', 'Farrah', 'Parker', '10 Ontario St', 'Toronto', 'M1H 6L8', 'faparker@gmail.com', '416-834-9768'];
+    let customer1 = ['customerID:1', 'Joe', 'Smith', '12 Main St', 'Welland', 'L3C 6M1', 'jsmith@gmail.com', '905-346-7367'];
+    let customer2 = ['customerID:2', 'Sarah', 'Yates', '35 W Main St', 'NOTL', 'L2C 7S4', 'ssyates@gmail.com', '905-869-2543'];
+    let customer3 = ['customerID:3', 'Nathan', 'Jones', '72 Side Rd', 'Wainfleet', 'L0R 2A0', 'njones@gmail.com', '289-439-9632'];
+    let customer4 = ['customerID:4', 'Farrah', 'Parker', '10 Ontario St', 'Toronto', 'M1H 6L8', 'faparker@gmail.com', '416-834-9768'];
 	
 	//save them each to local storage
 	//myStorage.setItem only stores strings -> use JSON.stringify to save the array as strings and JSON.parse to put them back into an array when loading
-	myStorage.setItem('1', JSON.stringify(customer1));
-	myStorage.setItem('2', JSON.stringify(customer2));
-	myStorage.setItem('3', JSON.stringify(customer3));
-	myStorage.setItem('4', JSON.stringify(customer4));
+	myStorage.setItem('customerID:1', JSON.stringify(customer1));
+	myStorage.setItem('customerID:2', JSON.stringify(customer2));
+	myStorage.setItem('customerID:3', JSON.stringify(customer3));
+	myStorage.setItem('customerID:4', JSON.stringify(customer4));
 	
-	//save a total number of customers so we can loop later to load the data
+	//save the highest index of the latest customers so we can loop later to load the data
 	//myStorage.setItem only stores strings -> saving the number as a string, can use parseInt() to convert it to a number when loading
-	myStorage.setItem('customerAmount', '4');
+	myStorage.setItem('customerLastIndex', '4');
 }
 
 //Function to save/add a new customer
 function saveCustomer(){
     let myStorage = window.localStorage;
-	//loading current total amount of customers
-	let customerAmount = parseInt(myStorage.getItem('customerAmount'));
+	//loading current latest index of current customers
+	let customerLastIndex = parseInt(myStorage.getItem('customerLastIndex'));
 	
-	//increasing total by 1 since we are adding a customer
-	customerAmount++;
-	console.log(customerAmount);
+	//increasing index by 1 since we are adding a customer
+	customerLastIndex++;
+	console.log(customerLastIndex);
 	//creating new customer string array from inputs
-	let newCustomer = [customerAmount.toString(), $("#inputFirstName").val(), $("#inputLastName").val(), $("#inputAddress").val(), $("#inputCity").val(), $("#inputPostalCode").val(), $("#inputEmail").val(), $("#inputPhone").val()];
+	let newCustomer = ["customerID:" + customerLastIndex.toString(), $("#inputFirstName").val(), $("#inputLastName").val(), $("#inputAddress").val(), $("#inputCity").val(), $("#inputPostalCode").val(), $("#inputEmail").val(), $("#inputPhone").val()];
 	console.log(newCustomer);
 	//saving the new customer to myStorage
-	myStorage.setItem(customerAmount.toString(), JSON.stringify(newCustomer))
+	myStorage.setItem("customerID:" + customerLastIndex.toString(), JSON.stringify(newCustomer))
 	
-	//saving the new total customer amount
-	myStorage.setItem('customerAmount', customerAmount.toString())
+	//saving the new highest customer index
+	myStorage.setItem('customerLastIndex', customerLastIndex.toString())
 }
 //slightly changed version of the customerBuildTableRow we had already
 function customerBuildTableRowLoad(id, first, last, address, city, post, email, phone) {
@@ -117,17 +117,22 @@ function customerBuildTableRowLoad(id, first, last, address, city, post, email, 
 }
 //Function to load all of our customers into a table for CustomerAll page
 function loadCustomerTable(){
-	//checking total amount of customers
+    // Clear filter input fields in HTML
+    $('#filterFirstName').val("");
+    $('#filterLastName').val("");
+    $('#filterCity').val("");
+
+	//checking latest index of customers
 	let myStorage = window.localStorage;
-    let customerAmount = parseInt(myStorage.getItem('customerAmount'));
+    let customerLastIndex = parseInt(myStorage.getItem('customerLastIndex'));
     let custTable = "";
 	
-	//looping through 1 to total amount of customers
-	for (let i = 1; i <= customerAmount; i++){
+	//looping through 1 to all indexes of customers
+	for (let i = 1; i <= customerLastIndex; i++){
 		//loading the customer data and parsing the string back into a string array if there is data stored
-		if (myStorage.getItem(i.toString()) !== null){
-			let c = JSON.parse(myStorage.getItem(i.toString()));
+        let c = JSON.parse(myStorage.getItem("customerID:" + i.toString()));
 
+		if (c !== null){
 			//building a table row with the customer's information
 			//c[0] to c[6] are the elements in the array -> first name, last name, address, ...
 			custTable = custTable + customerBuildTableRowLoad(c[0],c[1],c[2],c[3],c[4],c[5],c[6],c[7]);
@@ -138,17 +143,17 @@ function loadCustomerTable(){
 }
 
 function filterCustomerTable(){
-	//checking total amount of customers
+	//checking latest index of customers
 	let myStorage = window.localStorage;
-    let customerAmount = parseInt(myStorage.getItem('customerAmount'));
+    let customerLastIndex = parseInt(myStorage.getItem('customerLastIndex'));
     let custTable = "";
 	
-	//looping through 1 to total amount of customers
-	for (let i = 1; i <= customerAmount; i++){
+	//looping through 1 to all indexes of customers
+	for (let i = 1; i <= customerLastIndex; i++){
 		//loading the customer data and parsing the string back into a string array if there is data stored
-		if (myStorage.getItem(i.toString()) !== null){
-			let c = JSON.parse(myStorage.getItem(i.toString()));
+        let c = JSON.parse(myStorage.getItem("customerID:" + i.toString()));
 
+		if (c !== null){
 			//building a table row with the customer's information
 			//c[0] to c[6] are the elements in the array -> first name, last name, address, ...
             if ($('#filterFirstName').val() !== "" && c[1].toUpperCase().includes($('#filterFirstName').val().toUpperCase())){
@@ -164,4 +169,3 @@ function filterCustomerTable(){
 	}
     document.getElementById("customerTable").innerHTML = custTable;
 }
-

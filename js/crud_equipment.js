@@ -1,3 +1,4 @@
+//current entry being edited
 var editRow = null;
 
 function equipmentDelete(ctl) {
@@ -53,30 +54,30 @@ function equipmentUpdate() {
 
 function demoEquipData(){
 	let myStorage2 = window.localStorage;
-    let equipment1 = ['101', 'Hydrolic Amplifier', '289501', 'Rammer', 'John Deere', 'Joe Smith'];
-    let equipment2 = ['102', 'Ice Skater', '59184912', 'SnowBlower', 'Toro', 'Sarah Yates'];
-    let equipment3 = ['103', 'Rover', '58230948', 'Wheelbarrow', 'Troy-Bilt', 'Nathan Jones'];
-    let equipment4 = ['104', 'Fable Blower', '603458', 'Lawn Mower', 'Greenworks', 'Farrah Parker'];
+    let equipment1 = ['equipmentID:1', 'Hydrolic Amplifier', '289501', 'Rammer', 'John Deere', 'Joe Smith'];
+    let equipment2 = ['equipmentID:2', 'Ice Skater', '59184912', 'SnowBlower', 'Toro', 'Sarah Yates'];
+    let equipment3 = ['equipmentID:3', 'Rover', '58230948', 'Wheelbarrow', 'Troy-Bilt', 'Nathan Jones'];
+    let equipment4 = ['equipmentID:4', 'Fable Blower', '603458', 'Lawn Mower', 'Greenworks', 'Farrah Parker'];
 	
-    myStorage2.setItem('101', JSON.stringify(equipment1));
-	myStorage2.setItem('102', JSON.stringify(equipment2));
-	myStorage2.setItem('103', JSON.stringify(equipment3));
-	myStorage2.setItem('104', JSON.stringify(equipment4));
+    myStorage2.setItem('equipmentID:1', JSON.stringify(equipment1));
+	myStorage2.setItem('equipmentID:2', JSON.stringify(equipment2));
+	myStorage2.setItem('equipmentID:3', JSON.stringify(equipment3));
+	myStorage2.setItem('equipmentID:4', JSON.stringify(equipment4));
 	
-	myStorage2.setItem('equipmentNum', '4');
+	myStorage2.setItem('equipmentLastIndex', '4');
 }
 
 function saveEquipment(){
     let myStorage2 = window.localStorage;
-	let equipmentNum = parseInt(myStorage2.getItem('equipmentNum'));
+	let equipmentLastIndex = parseInt(myStorage2.getItem('equipmentLastIndex'));
 	
-	equipmentNum++;
-	console.log(equipmentNum);
-	let newEquipment = [(100 + equipmentNum).toString(), $("#inputEquipName").val(), $("#inputSerial").val(), $("#inputEquipType").val(), $("#inputManu").val(), $("#inputCustomer").val()];
+	equipmentLastIndex++;
+	console.log(equipmentLastIndex);
+	let newEquipment = ["equipmentID:" + equipmentLastIndex.toString(), $("#inputEquipName").val(), $("#inputSerial").val(), $("#inputEquipType").val(), $("#inputManu").val(), $("#inputCustomer").val()];
 	console.log(newEquipment);
-	myStorage2.setItem((equipmentNum + 100).toString(), JSON.stringify(newEquipment))
+	myStorage2.setItem("equipmentID:" + equipmentLastIndex.toString(), JSON.stringify(newEquipment))
 	
-	myStorage2.setItem('equipmentNum', equipmentNum.toString())
+	myStorage2.setItem('equipmentLastIndex', equipmentLastIndex.toString())
 }
 function equipmentBuildTableRowLoad(id, name, serial, type, manu, custom) {
     var ret = "<tr>" +
@@ -98,15 +99,20 @@ function equipmentBuildTableRowLoad(id, name, serial, type, manu, custom) {
 	return ret;
 }
 function loadEquipmentTable(){
-	//checking total amount of customers
+    // Clear filter input fields in HTML
+    $('#filterEquipName').val("");
+    $('#filterEquipType').val("");
+    $('#filterEquipManu').val("");
+
+	//checking latest index
 	let myStorage2 = window.localStorage;
-    let equipmentNum = parseInt(myStorage2.getItem('equipmentNum'));
+    let equipmentLastIndex = parseInt(myStorage2.getItem('equipmentLastIndex'));
     let equipTable = "";
 	
-	for (let i = 101; i <= (100 + equipmentNum); i++){
-		if (myStorage2.getItem(i.toString()) !== null){
-			let c = JSON.parse(myStorage2.getItem(i.toString()));
-
+	for (let i = 1; i <= equipmentLastIndex; i++){
+        let c = JSON.parse(myStorage2.getItem("equipmentID:" + i.toString()));
+        
+		if (c !== null){
 			equipTable = equipTable + equipmentBuildTableRowLoad(c[0],c[1],c[2],c[3],c[4],c[5]);
 		}
         
@@ -116,17 +122,17 @@ function loadEquipmentTable(){
 
 function filterEquipmentTable(){
 	let myStorage2 = window.localStorage;
-    let equipmentNum = parseInt(myStorage2.getItem('equipmentNum'));
+    let equipmentLastIndex = parseInt(myStorage2.getItem('equipmentLastIndex'));
     let equipTable = "";
 	
-	for (let i = 101; i <= (100 + equipmentNum); i++){
-		if (myStorage2.getItem(i.toString()) !== null){
-			let c = JSON.parse(myStorage2.getItem(i.toString()));
+	for (let i = 1; i <= equipmentLastIndex; i++){
+        let c = JSON.parse(myStorage2.getItem("equipmentID:" + i.toString()));
 
+		if (c !== null){	
             if ($('#filterEquipName').val() !== "" && c[1].toUpperCase().includes($('#filterEquipName').val().toUpperCase())){
                 equipTable = equipTable + equipmentBuildTableRowLoad(c[0],c[1],c[2],c[3],c[4],c[5]);                
             }
-			else if ($('#filterEquipType').val() !== "" && c[2].toUpperCase().includes($('#filterEquipType').val().toUpperCase())){
+			else if ($('#filterEquipType').val() !== "" && c[3].toUpperCase().includes($('#filterEquipType').val().toUpperCase())){
                 equipTable = equipTable + equipmentBuildTableRowLoad(c[0],c[1],c[2],c[3],c[4],c[5]);
             }
             else if ($('#filterEquipManu').val() !== "" && c[4].toUpperCase().includes($('#filterEquipManu').val().toUpperCase())){

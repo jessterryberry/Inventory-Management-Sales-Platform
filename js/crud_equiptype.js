@@ -1,3 +1,4 @@
+//current entry being edited
 var editRow = null;
 
 function equipTypeDelete(ctl) {
@@ -49,30 +50,30 @@ function equipTypeUpdate() {
 
 function demoEquipTypeData(){
 	let myStorage3 = window.localStorage;
-    let equipType1 = ['201', 'Rammer'];
-    let equipType2 = ['202', 'SnowBlower'];
-    let equipType3 = ['203', 'Wheelbarrow'];
-    let equipType4 = ['204', 'Lawn Mower'];
+    let equipType1 = ['equipTypeID:1', 'Rammer'];
+    let equipType2 = ['equipTypeID:2', 'SnowBlower'];
+    let equipType3 = ['equipTypeID:3', 'Wheelbarrow'];
+    let equipType4 = ['equipTypeID:4', 'Lawn Mower'];
 	
-    myStorage3.setItem('201', JSON.stringify(equipType1));
-	myStorage3.setItem('202', JSON.stringify(equipType2));
-	myStorage3.setItem('203', JSON.stringify(equipType3));
-	myStorage3.setItem('204', JSON.stringify(equipType4));
+    myStorage3.setItem('equipTypeID:1', JSON.stringify(equipType1));
+	myStorage3.setItem('equipTypeID:2', JSON.stringify(equipType2));
+	myStorage3.setItem('equipTypeID:3', JSON.stringify(equipType3));
+	myStorage3.setItem('equipTypeID:4', JSON.stringify(equipType4));
 	
-	myStorage3.setItem('equipTypeAmount', '4');
+	myStorage3.setItem('equipTypeLastIndex', '4');
 }
 
 function saveEquipType(){
     let myStorage3 = window.localStorage;
-	let equipTypeAmount = parseInt(myStorage3.getItem('equipTypeAmount'));
+	let equipTypeLastIndex = parseInt(myStorage3.getItem('equipTypeLastIndex'));
 	
-	equipTypeAmount++;
-	console.log(equipTypeAmount);
-	let newEquipType = [(200 + equipTypeAmount).toString(), $("#inputEquipType").val()];
+	equipTypeLastIndex++;
+	console.log(equipTypeLastIndex);
+	let newEquipType = ["equipTypeID:" + equipTypeLastIndex.toString(), $("#inputEquipType").val()];
 	console.log(newEquipType);
-	myStorage3.setItem((equipTypeAmount + 200).toString(), JSON.stringify(newEquipType))
+	myStorage3.setItem("equipTypeID:" + equipTypeLastIndex.toString(), JSON.stringify(newEquipType))
 	
-	myStorage3.setItem('equipTypeAmount', equipTypeAmount.toString())
+	myStorage3.setItem('equipTypeLastIndex', equipTypeLastIndex.toString())
 }
 
 function equipTypeBuildTableRowLoad(id, type) {
@@ -91,17 +92,20 @@ function equipTypeBuildTableRowLoad(id, type) {
 	return ret;
 }
 function loadEquipTypeTable(){
-	//checking total amount of customers
+    // Clear filter input fields in HTML
+    $('#filterEquipType').val("");
+
+	//checking latest index
 	let myStorage3 = window.localStorage;
-    let equipTypeAmount = parseInt(myStorage3.getItem('equipTypeAmount'));
+    let equipTypeLastIndex = parseInt(myStorage3.getItem('equipTypeLastIndex'));
     let equipTypeTable = "";
 
-    console.log(equipTypeAmount);
+    console.log(equipTypeLastIndex);
 	
-	for (let i = 201; i <= (200 + equipTypeAmount); i++){
-		if (myStorage3.getItem(i.toString()) !== null){
-			let c = JSON.parse(myStorage3.getItem(i.toString()));
+	for (let i = 1; i <= equipTypeLastIndex; i++){
+        let c = JSON.parse(myStorage3.getItem("equipTypeID:" +  i.toString()));
 
+		if (c !== null){
 			equipTypeTable = equipTypeTable + equipTypeBuildTableRowLoad(c[0],c[1]);
 		}
         
@@ -111,14 +115,14 @@ function loadEquipTypeTable(){
 
 function filterEquipTypeTable(){
 	let myStorage3 = window.localStorage;
-    let equipTypeAmount = parseInt(myStorage3.getItem('equipTypeAmount'));
+    let equipTypeLastIndex = parseInt(myStorage3.getItem('equipTypeLastIndex'));
     let equipTypeTable = "";
 	
-	for (let i = 201; i <= (200 + equipTypeAmount); i++){
-		if (myStorage3.getItem(i.toString()) !== null){
-			let c = JSON.parse(myStorage3.getItem(i.toString()));
+	for (let i = 1; i <= equipTypeLastIndex; i++){
+        let c = JSON.parse(myStorage3.getItem("equipTypeID:" + i.toString()));
 
-            if ($('#filterEquipType').val() !== "" && c[1].toUpperCase().includes($('#filterEquipType').val().toUpperCase())){
+		if (c !== null){
+			if ($('#filterEquipType').val() !== "" && c[1].toUpperCase().includes($('#filterEquipType').val().toUpperCase())){
                 equipTypeTable = equipTypeTable + equipTypeBuildTableRowLoad(c[0],c[1]);                
             }			
 		}        

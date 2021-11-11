@@ -1,3 +1,4 @@
+//current entry being edited
 var editRow = null;
 
 function manufacturerDelete(ctl) {
@@ -49,30 +50,30 @@ function manufacturerUpdate() {
 
 function demoManufacturerData(){
 	let myStorage3 = window.localStorage;
-    let manufacturer1 = ['301', 'John Deere'];
-    let manufacturer2 = ['302', 'Toro'];
-    let manufacturer3 = ['303', 'Troy-Bilt'];
-    let manufacturer4 = ['304', 'Greenworks'];
+    let manufacturer1 = ['manufacturerID:1', 'John Deere'];
+    let manufacturer2 = ['manufacturerID:2', 'Toro'];
+    let manufacturer3 = ['manufacturerID:3', 'Troy-Bilt'];
+    let manufacturer4 = ['manufacturerID:4', 'Greenworks'];
 	
-    myStorage3.setItem('301', JSON.stringify(manufacturer1));
-	myStorage3.setItem('302', JSON.stringify(manufacturer2));
-	myStorage3.setItem('303', JSON.stringify(manufacturer3));
-	myStorage3.setItem('304', JSON.stringify(manufacturer4));
+    myStorage3.setItem('manufacturerID:1', JSON.stringify(manufacturer1));
+	myStorage3.setItem('manufacturerID:2', JSON.stringify(manufacturer2));
+	myStorage3.setItem('manufacturerID:3', JSON.stringify(manufacturer3));
+	myStorage3.setItem('manufacturerID:4', JSON.stringify(manufacturer4));
 	
-	myStorage3.setItem('manufacturerAmount', '4');
+	myStorage3.setItem('manufacturerLastIndex', '4');
 }
 
 function saveManufacturer(){
     let myStorage3 = window.localStorage;
-	let manufacturerAmount = parseInt(myStorage3.getItem('manufacturerAmount'));
+	let manufacturerLastIndex = parseInt(myStorage3.getItem('manufacturerLastIndex'));
 	
-	manufacturerAmount++;
-	console.log(manufacturerAmount);
-	let newManufacturer = [(300 + manufacturerAmount).toString(), $("#inputManufacturer").val()];
+	manufacturerLastIndex++;
+	console.log(manufacturerLastIndex);
+	let newManufacturer = ["manufacturerID:" + manufacturerLastIndex.toString(), $("#inputManufacturer").val()];
 	console.log(newManufacturer);
-	myStorage3.setItem((manufacturerAmount + 300).toString(), JSON.stringify(newManufacturer))
+	myStorage3.setItem("manufacturerID:" + manufacturerLastIndex.toString(), JSON.stringify(newManufacturer))
 	
-	myStorage3.setItem('manufacturerAmount', manufacturerAmount.toString())
+	myStorage3.setItem('manufacturerLastIndex', manufacturerLastIndex.toString())
 }
 
 function manufacturerBuildTableRowLoad(id, type) {
@@ -91,17 +92,20 @@ function manufacturerBuildTableRowLoad(id, type) {
 	return ret;
 }
 function loadManufacturerTable(){
-	//checking total amount of customers
+	// Clear filter input fields in HTML
+    $('#filterManufacturer').val("");
+    
+    //checking latest index
 	let myStorage3 = window.localStorage;
-    let manufacturerAmount = parseInt(myStorage3.getItem('manufacturerAmount'));
+    let manufacturerLastIndex = parseInt(myStorage3.getItem('manufacturerLastIndex'));
     let manufacturerTable = "";
 
-    console.log(manufacturerAmount);
+    console.log(manufacturerLastIndex);
 	
-	for (let i = 301; i <= (300 + manufacturerAmount); i++){
-		if (myStorage3.getItem(i.toString()) !== null){
-			let c = JSON.parse(myStorage3.getItem(i.toString()));
+	for (let i = 1; i <= manufacturerLastIndex; i++){
+        let c = JSON.parse(myStorage3.getItem("manufacturerID:" + i.toString()));
 
+		if (c !== null){
 			manufacturerTable = manufacturerTable + manufacturerBuildTableRowLoad(c[0],c[1]);
 		}
         
@@ -111,14 +115,14 @@ function loadManufacturerTable(){
 
 function filterManufacturerTable(){
 	let myStorage3 = window.localStorage;
-    let manufacturerAmount = parseInt(myStorage3.getItem('manufacturerAmount'));
+    let manufacturerLastIndex = parseInt(myStorage3.getItem('manufacturerLastIndex'));
     let manufacturerTable = "";
 	
-	for (let i = 301; i <= (300 + manufacturerAmount); i++){
-		if (myStorage3.getItem(i.toString()) !== null){
-			let c = JSON.parse(myStorage3.getItem(i.toString()));
+	for (let i = 1; i <= manufacturerLastIndex; i++){
+        let c = JSON.parse(myStorage3.getItem("manufacturerID:" + i.toString()));
 
-            if ($('#filterManufacturer').val() !== "" && c[1].toUpperCase().includes($('#filterManufacturer').val().toUpperCase())){
+		if (c !== null){
+			if ($('#filterManufacturer').val() !== "" && c[1].toUpperCase().includes($('#filterManufacturer').val().toUpperCase())){
                 manufacturerTable = manufacturerTable + manufacturerBuildTableRowLoad(c[0],c[1]);                
             }			
 		}        
