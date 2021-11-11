@@ -57,7 +57,7 @@ function demoEquipData(){
     let equipment1 = ['equipmentID:1', 'Hydrolic Amplifier', '289501', 'Rammer', 'John Deere', 'Joe Smith'];
     let equipment2 = ['equipmentID:2', 'Ice Skater', '59184912', 'SnowBlower', 'Toro', 'Sarah Yates'];
     let equipment3 = ['equipmentID:3', 'Rover', '58230948', 'Wheelbarrow', 'Troy-Bilt', 'Nathan Jones'];
-    let equipment4 = ['equipmentID:4', 'Fable Blower', '603458', 'Lawn Mower', 'Greenworks', 'Farrah Parker'];
+    let equipment4 = ['equipmentID:4', 'Fable Cutter', '603458', 'Lawn Mower', 'Greenworks', 'Farrah Parker'];
 	
     myStorage2.setItem('equipmentID:1', JSON.stringify(equipment1));
 	myStorage2.setItem('equipmentID:2', JSON.stringify(equipment2));
