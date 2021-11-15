@@ -1,4 +1,4 @@
-//current entry being edited
+F//current entry being edited
 var editRow = null;
 
 function employeeDelete(ctl) {
@@ -81,7 +81,7 @@ function saveEmployee(){
 	employeeLastIndex++;
 	console.log(employeeLastIndex);
 	//creating new employee string array from inputs
-	let newEmployee = ["employeeID:" + employeeLastIndex.toString(), $("#inputFirstName").val(), $("#inputLastName").val(), $("#inputAddress").val(), $("#inputCity").val(), $("#inputPostalCode").val(), $("#inputEmail").val(), $("#inputPhone").val()];
+	let newEmployee = ["employeeID:" + employeeLastIndex.toString(), $("#inputFirstName").val(), $("#inputLastName").val(), $("#inputPosition").val()];
 	console.log(newEmployee);
 	//saving the new employee to myStorage
 	myStorage.setItem("employeeID:" + employeeLastIndex.toString(), JSON.stringify(newEmployee))
