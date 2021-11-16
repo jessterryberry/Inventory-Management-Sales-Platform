@@ -6,10 +6,11 @@
 	<meta content="width=device-width, initial-scale=1" name="viewport">
     <meta name="description" content="Main page for Customers at Lawn & Order">
     <link rel="stylesheet" href="../css/bootstrap.css">
+    <script src="../js/jquery-3.6.0.slim.min.js"></script>
     <script src="../js/crud_receipt.js"></script>
 </head>
 
-<body onload="loadAllDDLs()">
+<body onload="initializeNewSale();">
     <header>
         <div style="background-color: white;">
             <a class="navbar-brand p-2" href="#">
@@ -64,7 +65,8 @@
                 <div class="form-floating">
                     <select id="inputEmployee"class="form-control">
                         <option value="" selected = "selected">Select an Employee:</option><!--Js=> var option = document.createElement("option"); -->
-                    </select>                   
+                    </select> 
+                    <label for="inputEmployee">Employee</label>
                 </div>
             </div>
         </div>
@@ -73,7 +75,8 @@
                 <div class="form-floating">
                     <select id="inputCustomer"class="form-control">
                         <option value="" selected = "selected">Select a Customer:</option><!--Js=> var option = document.createElement("option"); -->
-                    </select>                   
+                    </select>
+                    <label for="inputCustomer">Customer</label>
                 </div>
             </div>
         </div>
@@ -100,18 +103,25 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Item Code</th>
                             <th scope="col">Item Name</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">In Stock</th>
-                            <th scope="col">Price</th>                                              
+                            <th scope="col">QOH</th>
+                            <th scope="col">Order Quantity</th>
+                            <th scope="col" style="text-align:right">Suggested Price</th>
+                            <th scope="col" style="text-align:right">Price</th>                                              
                         </tr>
                     </thead>        
                     <tbody id="saleTable">
                         
                     </tbody>
-                </table>  
-               
+                    <tfoot>
+                        <tr>
+                            <td ><button class='btn btn-outline-secondary' onclick='addOrderLine();' style='color:black;' type='button' >Add New Item to Order</button></td>  
+                            <td colspan="3"></td> 
+                            <td style="text-align:right">Total Cost</td> 
+                            <td style="text-align:right" id="totleCost">$0.00</td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
         <div class="row g-2 p-3">
@@ -123,7 +133,14 @@
             </div>        
             <div class="col-md-4">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="inputPaymentMethod" placeholder="Payment Method">
+                    <select id="inputPaymentMethod"class="form-control">
+                        <option value="" selected = "selected">Select Payment Method:</option><!--Js=> var option = document.createElement("option"); -->
+                        <option value="American Express">American Express</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Debit">Debit</option>
+                        <option value="Mastercard">Mastercard</option>
+                        <option value="Visa">Visa</option>
+                    </select>
                     <label for="inputPaymentMethod">Payment Method</label>
                 </div>
             </div>
