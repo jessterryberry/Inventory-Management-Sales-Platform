@@ -54,10 +54,13 @@ function employeeUpdate() {
 //could add a Demo button to call this to create a set of employees to start with. really only needs to run one time
 function demoData(){
 	let myStorage = window.localStorage;
-    let employee1 = ['employeeID:1', 'John', 'Smith', 'Customer Service'];
-    let employee2 = ['employeeID:2', 'Bill', 'Yates', 'Supervisor'];
-    let employee3 = ['employeeID:3', 'Nathan', 'Indiana', 'Assistant Manager'];
-    let employee4 = ['employeeID:4', 'David', 'Parker', 'Mechanical Engineer'];
+    let employee1 = ['employeeID:1', 'Emma', 'Carr', 'Manager'];
+    let employee2 = ['employeeID:2', 'Sam', 'Delign', 'Ordering'];
+    let employee3 = ['employeeID:3', 'Eugene', 'Downey', 'Technician'];
+    let employee4 = ['employeeID:4', 'Sarah', 'Kendell', 'Technician'];
+    let employee5 = ['employeeID:5', 'Wendy', 'Tutti', 'Sales'];
+    let employee6 = ['employeeID:6', 'William', 'Dickey', 'Sales'];
+    let employee7 = ['employeeID:7', 'Emily', 'Rosten', 'Administration'];
 	
 	//save them each to local storage
 	//myStorage.setItem only stores strings -> use JSON.stringify to save the array as strings and JSON.parse to put them back into an array when loading
@@ -65,10 +68,13 @@ function demoData(){
 	myStorage.setItem('employeeID:2', JSON.stringify(employee2));
 	myStorage.setItem('employeeID:3', JSON.stringify(employee3));
 	myStorage.setItem('employeeID:4', JSON.stringify(employee4));
+    myStorage.setItem('employeeID:5', JSON.stringify(employee5));
+    myStorage.setItem('employeeID:6', JSON.stringify(employee6));
+    myStorage.setItem('employeeID:7', JSON.stringify(employee7));
 	
 	//save the highest index of the latest employees so we can loop later to load the data
 	//myStorage.setItem only stores strings -> saving the number as a string, can use parseInt() to convert it to a number when loading
-	myStorage.setItem('employeeLastIndex', '4');
+	myStorage.setItem('employeeLastIndex', '7');
 }
 
 //Function to save/add a new employee
