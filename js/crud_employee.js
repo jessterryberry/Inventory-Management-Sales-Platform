@@ -74,7 +74,7 @@ function demoData(){
 	
 	//save the highest index of the latest employees so we can loop later to load the data
 	//myStorage.setItem only stores strings -> saving the number as a string, can use parseInt() to convert it to a number when loading
-	myStorage.setItem('employeeLastIndex', '6');
+	myStorage.setItem('employeeLastIndex', '7');
 }
 
 //Function to save/add a new employee
