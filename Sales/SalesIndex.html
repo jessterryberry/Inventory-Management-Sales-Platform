@@ -9,7 +9,31 @@
     <script src="../js/jquery-3.6.0.slim.min.js"></script>
     <script src="../js/crud_receipt.js"></script>
 </head>
+ <style>
+    /* Source for dollar input style: https://stackoverflow.com/a/28337887 */
+    .input-dollar {
+        position: relative;
+    }
+    .input-dollar.left input {
+        padding-left:18px;
+    }
+    .input-dollar.right input {
+        padding-right:18px;
+        text-align:end; 
+    }
 
+    .input-dollar:before {
+        position: absolute;
+        top: 0;
+        content:"$";
+    }
+    .input-dollar.left:before {
+        left: 5px;
+    }
+    .input-dollar.right:before {
+        right: 5px;
+    }
+</style>
 <body onload="initializeNewSale();">
     <header>
         <div style="background-color: white;">
@@ -82,18 +106,10 @@
         </div>
         <div class="row g-2 p-3">
             
-            <div class="col-md-6">
-                <h3>Order Number</h3>
-                <div class="form-floating">                    
-                    <input type="text" class="form-control" id="inputOrderNumber" placeholder="#000100">
-                    <label for="inputOrderNumber">#000100 </label>
-                </div>
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <h3>Order Date</h3>
                 <div class="form-floating">                    
-                    <input type="date" class="form-control" id="inputOrderDate" placeholder="yyyy-mm-dd">
-                    <label for="inputOrderDate">yyyy-mm-dd</label>
+                    <input type="date" class="form-control" id="inputOrderDate">
                 </div>
             </div>
         </div>
@@ -104,8 +120,8 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Item Name</th>
-                            <th scope="col">QOH</th>
-                            <th scope="col">Order Quantity</th>
+                            <th scope="col" style='text-align:right'>QOH</th>
+                            <th scope="col" style='text-align:right'>Order Quantity</th>
                             <th scope="col" style="text-align:right">Suggested Price</th>
                             <th scope="col" style="text-align:right">Price</th>                                              
                         </tr>
@@ -118,7 +134,7 @@
                             <td ><button class='btn btn-outline-secondary' onclick='addOrderLine();' style='color:black;' type='button' >Add New Item to Order</button></td>  
                             <td colspan="3"></td> 
                             <td style="text-align:right">Total Cost</td> 
-                            <td style="text-align:right" id="totleCost">$0.00</td>
+                            <td style="text-align:right" id="totalCost">$0.00</td>
                         </tr>
                     </tfoot>
                 </table>

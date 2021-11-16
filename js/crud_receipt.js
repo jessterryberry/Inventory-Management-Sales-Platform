@@ -107,16 +107,16 @@ function addOrderLine(){
     let newLine = "<tr id='orderRow" + rowNo + "'>" +
     "<td>" + rowNo + "</td>" +
     "<td id='itemRow" + rowNo + "'></td>" +
-    "<td id='qohRow" + rowNo + "'></td>" +
-    "<td>" + "<select id='qtyRow" + rowNo + "'>" + "</td>" +        
+    "<td id='qohRow" + rowNo + "' style='text-align:right'></td>" +
+    "<td style='text-align:right'>" + "<select id='qtyRow" + rowNo + "' onchange='calculateTotal()'>" + "</td>" +        
     "<td id='suggestedPriceRow" + rowNo + "' style='text-align:right'></td>" +
-    "<td style='text-align:right'>" + "$<input type='text' style='text-align:right' id='priceRow" + rowNo + "'>" + "</td>" +
-    "<td>" + '<input title="Delete This Line From Order" type="button" onclick="removeOrderLine();" id="deleteButtonRow' + rowNo + '" class="btn btn-primary btn-sm" style="background-color:#67C18C; color:black;" value="❌"/>' + "</td>" +
+    "<td style='text-align:right'>" + "<span class='input-dollar left'><input type='number' onchange='calculateTotal()' min='0.01' step='0.01' style='text-align:right' id='priceRow" + rowNo + "'></span>" + "</td>" +
+    "<td>" + '<input title="Delete This Line From Order" type="button" onclick="deleteOrderLine(' + rowNo + ');" id="deleteButtonRow' + rowNo + '" class="btn btn-primary btn-sm" style="background-color:#67C18C; color:black;" value="❌"/>' + "</td>" +
     "</tr>" 
 
     // Add row to table
     document.getElementById("saleTable").innerHTML = saleTable + newLine;
-
+    
     // Access local storage
     let myStorage2 = window.localStorage;
 
@@ -145,17 +145,63 @@ function addOrderLine(){
 
     // Set previous rows to previously selected values
     for (let i = 1; i <= oldRowNo; i++){
-        document.getElementById("inventoryDDLRow" + i).value = dict.get("inventoryDDLRow" + i);;
-        let c = JSON.parse(myStorage2.getItem(document.getElementById("inventoryDDLRow" + i).value));
+        document.getElementById("inventoryDDLRow" + i).value = dict.get("inventoryDDLRow" + i);
+        let c = JSON.parse(myStorage2.getItem(dict.get("inventoryDDLRow" + i)));
         document.getElementById("qohRow" + i).innerHTML = c[5];
         document.getElementById("suggestedPriceRow" + i).innerHTML = c[6];
         document.getElementById("qtyRow" + i).value = dict.get("qtyRow" + i);
         document.getElementById("priceRow" + i).value = dict.get("priceRow" + i);
     }
+
+    // Recalculate order total
+    calculateTotal();
 }
 
-function removeOrderLine(rowID){
+// "Delete" a specific row from the order table by saving all values except the row you want to delete,
+// deleting the final row, then re-entering the previous values into the table so only saved values remain
+function deleteOrderLine(rowID){
+    let rowNo = parseInt(rowID);
+    let myStorage2 = window.localStorage;
+    let saleTable = document.getElementById("saleTable");
+
+    let dict = new Map(); // Map can be used like a dictionary, which I use here to hold previous selected values
+
+    // Loop through rows to save currently selected values, except from row marked for deletion
+    for (let i = 1; i <= saleTable.rows.length; i++){
+        if (i != rowNo)
+        {
+            dict.set("inventoryDDLRow" + i, document.getElementById("inventoryDDLRow" + i).value);
+            dict.set("qtyRow" + i, document.getElementById("qtyRow" + i).value);
+            dict.set("priceRow" + i, document.getElementById("priceRow" + i).value);
+        }
+    }
+
+    saleTable.deleteRow(saleTable.rows.length - 1); // Delete last row in sale table
     
+    // Set previous rows to previously selected values
+    for (let i = 1; i <= saleTable.rows.length; i++){
+        if (i < rowNo)  // For rows before the deleted row, just re-enter the values
+        {
+            document.getElementById("inventoryDDLRow" + i).value = dict.get("inventoryDDLRow" + i);
+            let c = JSON.parse(myStorage2.getItem(dict.get("inventoryDDLRow" + i)));
+            document.getElementById("qohRow" + i).innerHTML = c[5];
+            document.getElementById("suggestedPriceRow" + i).innerHTML = c[6];
+            document.getElementById("qtyRow" + i).value = dict.get("qtyRow" + i);
+            document.getElementById("priceRow" + i).value = dict.get("priceRow" + i);
+        }
+        else    // For rows after the deleted row, offset the number by 1 when getting from dictionary to account for gap in table left by deletion
+        {
+            document.getElementById("inventoryDDLRow" + i).value = dict.get("inventoryDDLRow" + (i + 1));
+            let c = JSON.parse(myStorage2.getItem(dict.get("inventoryDDLRow" + (i + 1))));
+            document.getElementById("qohRow" + i).innerHTML = c[5];
+            document.getElementById("suggestedPriceRow" + i).innerHTML = c[6];
+            document.getElementById("qtyRow" + i).value = dict.get("qtyRow" + (i + 1));
+            document.getElementById("priceRow" + i).value = dict.get("priceRow" + (i + 1));
+        }
+    }
+
+    // Recalculate order total
+    calculateTotal();
 }
 
 // Gets data about inventory when an item DDL is changed
@@ -181,4 +227,23 @@ function refreshRowData(rowNo){
         option.value = i;
         qtyDDL.add(option); 
 	}
+
+    // Recalculate order total
+    calculateTotal();
+}
+
+// Calculates the total from order lines and puts it into the footer of the table
+function calculateTotal(){
+    let saleTable = document.getElementById("saleTable");
+
+    let sum = 0; // For tallying total
+
+    // Loop through table and add up total
+    for (let i = 1; i <= saleTable.rows.length; i++){
+        document.getElementById("priceRow" + i).value = parseFloat(document.getElementById("priceRow" + i).value).toFixed(2); // Ensure price is 2 decimals only
+        sum += parseFloat(document.getElementById("qtyRow" + i).value) * parseFloat(document.getElementById("priceRow" + i).value);
+    }
+
+    // Write sum into the footer
+    document.getElementById("totalCost").innerHTML = "$" + sum.toFixed(2);
 }
