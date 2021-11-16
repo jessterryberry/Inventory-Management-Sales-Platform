@@ -60,7 +60,7 @@ function demoInvData(){
     let inventory3 = ['inventoryID:3', '4 stroke oil', 'Oil for a four stroke engine.', 'Castrol', '24 oz', '36', '$10.99'];
     let inventory4 = ['inventoryID:4', '50:1 Mixed Gas', 'Pre-mixed gas for two stroke engines requiring a 50:1 gas to oil ratio.', 'Castrol', '1 L', '28', '$12.99'];
     let inventory5 = ['inventoryID:5', 'Replacement Blade', 'For mower.', 'Honda', '', '7', '$19.99'];
-    let inventory6 = ['inventoryID:6', 'Fable Cutter', 'Gasoline powered lawn mower.', 'Greenworks', '', '5', '$59.99'];
+    let inventory6 = ['inventoryID:6', 'Green Cutter', 'Gasoline powered lawn mower.', 'John Deere', '', '5', '$59.99'];
 	
     myStorage2.setItem('inventoryID:1', JSON.stringify(inventory1));
 	myStorage2.setItem('inventoryID:2', JSON.stringify(inventory2));
