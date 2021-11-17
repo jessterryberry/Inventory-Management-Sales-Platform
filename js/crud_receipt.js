@@ -2,6 +2,48 @@
 function initializeNewSale(){
     loadCustomerDDL();
     loadEmployeeDDL();
+    loadPayTypeDDL();
+}
+
+function loadPayTypeDDL(){
+    //checking latest index of payment methods
+	let myStorage = window.localStorage;
+    let payTypeLastIndex = parseInt(myStorage.getItem('payTypeLastIndex'));
+    select = document.getElementById('inputPaymentMethod');
+	
+    // Save default option
+    let default_options = $("#inputPaymentMethod option");
+
+    // Empty select list
+    $("#inputPaymentMethod").empty()
+
+	//looping through 1 to all indexes of customers
+	for (let i = 1; i <= payTypeLastIndex; i++){
+		//loading the customer data and parsing the string back into a string array if there is data stored
+        let c = JSON.parse(myStorage.getItem("payTypeID:" + i.toString()));
+
+		if (c !== null){
+			// Add each customer name to select list
+            let opt = document.createElement('option');
+            opt.value = c[0];
+            opt.innerHTML = c[1];
+            select.add(opt);
+		}
+	}
+
+    // sort alphabetically
+    let my_options = $("#inputPaymentMethod option");
+
+    my_options.sort(function(a,b) {
+        if (a.text > b.text) return 1;
+        if (a.text < b.text) return -1;
+        return 0
+    })
+
+    // Re-generate select list
+    $("#inputPaymentMethod").empty().append( default_options );
+    $("#inputPaymentMethod").append( my_options );
+    $("#inputPaymentMethod").val("");
 }
 
 function loadCustomerDDL(){
