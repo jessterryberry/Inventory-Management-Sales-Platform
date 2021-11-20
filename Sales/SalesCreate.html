@@ -25,13 +25,15 @@
             var payment = $("#inputPaymentMethod option:selected").text();
             var notes = $("#inputNotes").val();
             
-            var str = "Would you like to update this customer? <br><br>" 
+            var str = "Would you like to save this receipt? <br><br>" 
                 + employee + "<br>"
                 + customer + "<br>"
                 + orderDate + "<br>"
                 + payment + "<br>"
                 + notes + "<br>";
             $("#modalContent").html(str);
+
+            $('#confirmModal').modal('show');
         };
     </script>
 </head>
@@ -109,7 +111,7 @@
         <img alt ="an icon of a graph with a plus sign" src="../images/CreateSalesRecord.png">
     </div>	
 <div class="container-md">
-    <form>
+    <form onsubmit="confirmSummary()">
         <div class="row g-2 p-3">
             <div class="col-md-12">
                 <div class="form-floating">
@@ -199,7 +201,7 @@
         </div>
        
         <div class="col-12 p-3 text-center">
-            <button type="button" onclick="confirmSummary()" id="confirmButton" class="btn btn-primary btn-md px-3" data-bs-toggle="modal" data-bs-target="#confirmModal" style="background-color:#67C18C; color:black;">Submit</button>
+            <button type="submit" id="confirmButton" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
             <input type="button" value="Return" class="btn btn-primary btn-md px-3" style="background-color: #A0A0A0; color:white;" onclick="history.back()"> <!--this is a JS method to allow the user to click the button to return back 1 page-->
         </div>
         <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
@@ -213,7 +215,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="submit" onclick="saveNewSale();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
+                  <button type="button" onclick="saveNewSale();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
                 </div>
               </div>
             </div>
