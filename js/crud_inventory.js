@@ -2,11 +2,8 @@
 var editRow = null;
 
 function inventoryDelete(ctl) {
-    let myStorage2 = window.localStorage;    
-    
-    if (confirm("Are you sure you want to delete this Item?")) {
-        myStorage2.removeItem($("#inputInvNumber").val().toString());        
-    }
+    let myStorage2 = window.localStorage;
+    myStorage2.removeItem($("#inputInvNumber").val().toString());
     loadInventoryTable();
 }
 

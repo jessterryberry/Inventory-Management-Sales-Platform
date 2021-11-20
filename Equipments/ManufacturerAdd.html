@@ -10,6 +10,24 @@
     <link rel="stylesheet" href="../css/bootstrap.css">
     <script src="../js/crud_manufacturer.js"></script>
     <script src="../js/jquery-3.6.0.slim.min.js"></script>
+    <script src="../js/bootstrap.bundle.js"></script>
+    <script>
+        $(document).ready(function() {
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                return new bootstrap.Popover(popoverTriggerEl)
+            })
+        }); 
+    </script>
+    <script type="text/javascript">
+        function confirmSummary() {
+            var manu = $("#inputManufacturer").val();
+            
+            var str = "Would you like to add this manufacturer? <br><br>" 
+                + manu;
+            $("#modalContent").html(str);
+        };
+    </script>
 </head>
 <body>
     <header>
@@ -64,15 +82,30 @@
             <div class="row g-2 p-3">
                 <div class="col-md-12">
                     <div class="form-floating">
-                        <input type="tel" class="form-control" id="inputManufacturer" placeholder="Manufacturer">
+                        <input type="tel" class="form-control" id="inputManufacturer" placeholder="Manufacturer" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a Manufacturer, up to 50 characters in length.">
                         <label for="inputManufacturer">Manufacturer Name</label>
                     </div>
                 </div>
                 <div class="col-12 p-3 text-center">
-                    <button type="submit" onclick="saveManufacturer();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
-                    <input type="button" value="Return" class="btn btn-primary btn-md px-3" style="background-color: #A0A0A0; color:white;" onclick="history.back()"/> <!--this is a JS method to allow the user to click the button to return back 1 page-->
+                    <button type="button" onclick="confirmSummary()" id="confirmButton" class="btn btn-primary btn-md px-3" data-bs-toggle="modal" data-bs-target="#confirmModal" style="background-color:#67C18C; color:black;">Submit</button>                    <input type="button" value="Return" class="btn btn-primary btn-md px-3" style="background-color: #A0A0A0; color:white;" onclick="history.back()"/> <!--this is a JS method to allow the user to click the button to return back 1 page-->
                 </div> 
             </div>
+            <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Confirm Changes</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="modalContent">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" onclick="saveManufacturer();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
         </form>
     </div>
 </body>

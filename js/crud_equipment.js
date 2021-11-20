@@ -2,11 +2,8 @@
 var editRow = null;
 
 function equipmentDelete(ctl) {
-    let myStorage2 = window.localStorage;    
-    
-    if (confirm("Are you sure you want to delete this Equipment?")) {
-        myStorage2.removeItem($("#inputEquipNumber").val().toString());        
-    }
+    let myStorage2 = window.localStorage;
+    myStorage2.removeItem($("#inputEquipNumber").val().toString());
     loadEquipmentTable();
 }
 

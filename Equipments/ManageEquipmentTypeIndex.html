@@ -8,8 +8,35 @@
     <meta name="description" content="Main page for Sales at Lawn & Order">
     <link rel="stylesheet" href="../css/bootstrap.css">
     <script src="../js/bootstrap.js"></script>
+    <script src="../js/bootstrap.bundle.js"></script>
     <script src="../js/crud_equiptype.js"></script>
     <script src="../js/jquery-3.6.0.slim.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                return new bootstrap.Popover(popoverTriggerEl)
+            })
+        }); 
+    </script>
+    <script type="text/javascript">
+        function confirmSummary() {
+            var equipType = $("#inputEquipType").val();
+            
+            var str = "Would you like to update this equipment type? <br><br>" 
+                + equipType;
+            $("#modalContent").html(str);
+        };
+    </script>
+    <script type="text/javascript">
+        function deleteSummary() {
+            var equipType = $("#inputEquipType").val();
+            
+            var str = "Would you like to delete this equipment type? <br><br>" 
+                + equipType;
+            $("#delContent").html(str);
+        };
+    </script>
 </head>
 <body onload="loadEquipTypeTable()">
     <header>
@@ -92,7 +119,8 @@
             <tbody id="equipTypeTable">
                 
             </tbody>
-        </table>  
+        </table> 
+        <form>
         <div class="collapse" id="collapseEdit">            
             <div class="row g-2 p-3">
                 <div class="col-md-6 hide-col">
@@ -100,17 +128,50 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="inputEquipType" placeholder="Equipment Type">
+                        <input type="text" class="form-control" id="inputEquipType" placeholder="Equipment Type" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter an Equipment Type, up to 20 characters in length.">
                         <label for="inputEquipType">Equipment Type</label>
                     </div>
                 </div>
             </div>
             <div class="col-12 p-3 text-center">                
-                <input type="button" onclick="equipTypeUpdate();" id="updateButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" data-bs-toggle="collapse" href="#collapseEdit" aria-disabled="false" aria-expanded="false" aria-controls="collapseEdit" Value="Update"/>
-                <input type="button" onclick="equipTypeDelete();" id="deleteButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" data-bs-toggle="collapse" href="#collapseEdit" aria-disabled="false" aria-expanded="false" aria-controls="collapseEdit" Value="Delete"/>
+                <button type="button" onclick="confirmSummary()" id="updateButton" class="btn btn-primary btn-md px-3" data-bs-toggle="modal" data-bs-target="#updateModal" style="background-color:#67C18C; color:black;">Update</button>
+                <button type="button" onclick="deleteSummary()" id="deleteButton" class="btn btn-primary btn-md px-3" data-bs-toggle="modal" data-bs-target="#deleteModal" style="background-color:#67C18C; color:black;">Delete</button>
                 <input type="button" value="Cancel" class="btn btn-primary btn-md px-3" style="background-color: grey;" data-bs-toggle="collapse" href="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit"> 
             </div>
         </div> 
+        <div class="modal fade" id="updateModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Confirm Changes</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalContent">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" onclick="equipTypeUpdate();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Confirm Changes</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="delContent">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" onclick="equipTypeDelete();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
     </div>
     </main>
 </body>

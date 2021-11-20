@@ -424,11 +424,7 @@ function saveNewSale(){
 
 	//saving the new highest sale index
 	myStorage.setItem('saleLastIndex', saleLastIndex.toString())
-
-    //Alert user that data was saved
-    let formattedOrderNum = "00000" + saleLastIndex;    // These two lines are to add leading zeros to the order number in the modal label
-    window.alert("Saved Order #" + (formattedOrderNum).substr(formattedOrderNum.length-6) + ".");
-
+   
     // Redirect to management page
     window.location.href = 'ManageSales.html' + "?orderNo=" + saleLastIndex;
 }
@@ -459,9 +455,7 @@ function updateSale(id){
 
 // Delete a single receipt based on the ID
 function deleteSale(id) {
-    let myStorage = window.localStorage;    
-    
-    if (confirm("Are you sure you want to delete " + document.getElementById("receiptModalLabel").innerHTML+ "?")) {
+    let myStorage = window.localStorage;
         // Delete order lines related to this receipt
         var saleData = JSON.parse(myStorage.getItem(id));
         let rowNo = saleData[4];   // Check number of order lines for this sale
@@ -469,10 +463,9 @@ function deleteSale(id) {
             // Delete the order line
             myStorage.removeItem(id + "+" + "orderLine:" + i);
         }
-
         // Delete receipt
         myStorage.removeItem(id);        
-    }
+    
     loadAllSalesTable();
 }
 

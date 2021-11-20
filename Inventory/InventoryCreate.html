@@ -8,6 +8,36 @@
     <link rel="stylesheet" href="../css/bootstrap.css">
     <script src="../js/crud_inventory.js"></script>
     <script src="../js/jquery-3.6.0.slim.min.js"></script>
+    <script src="../js/bootstrap.bundle.js"></script>
+    <script>
+        $(document).ready(function() {
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                return new bootstrap.Popover(popoverTriggerEl)
+            })
+        }); 
+    </script>
+    <script type="text/javascript">
+        function confirmSummary() {
+            var invName = $("#inputInvName").val();
+            var description = $("#inputInvDesc").val();
+            var brand = $("#inputBrand").val();
+            var size = $("#inputSize").val();
+            var quantity = $("#inputQuantity").val();
+            var price = $("#inputPrice").val();
+            
+            var str = "Would you like to add this inventory? <br><br>" 
+                + invName + "<br>"
+                + description + "<br>"
+                + brand + "<br>"
+                + size + "<br>"
+                + quantity + "<br>"
+                + price + "<br>"
+                ;
+                console.log(str);
+            $("#modalContent").html(str);
+        };
+    </script>
 </head>
 
 <body>
@@ -63,15 +93,15 @@
         <div class="row g-2 p-3">
             <div class="col-12">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="inputInvName" placeholder="Item Name">
+                    <input type="text" class="form-control" id="inputInvName" placeholder="Item Name" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter an item name, up to 50 characters in length.">
                     <label for="inputInvName">Item Name</label>
                 </div>
             </div>
         </div>
         <div class="row g-2 p-3">
             <div class="col-12">
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="inputInvDesc" placeholder="Item Description">
+                <div class="form-floating"> 
+                    <input type="text" class="form-control" id="inputInvDesc" placeholder="Item Description" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a description of the item, up to 100 characters in length.">
                     <label for="inputInvDesc">Item Description</label>
                 </div>
             </div>
@@ -79,13 +109,13 @@
         <div class="row g-2 p-3">
             <div class="col-md-6">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="inputBrand" placeholder="Brand">
+                    <input type="text" class="form-control" id="inputBrand" placeholder="Brand" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the item's brand, up to 30 characters in length.">
                     <label for="inputBrand">Brand</label>
                 </div>
             </div>        
             <div class="col-md-6">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="inputSize" placeholder="Size">
+                    <input type="text" class="form-control" id="inputSize" placeholder="Size" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="If applicable, please enter the size of the item, up to 10 characters in length.">
                     <label for="inputSize">Size</label>
                 </div>
             </div>
@@ -93,21 +123,36 @@
         <div class="row g-2 p-3">
             <div class="col-md-6">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="inputQuantity" placeholder="Quantity">
+                    <input type="text" class="form-control" id="inputQuantity" placeholder="Quantity" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the numerical quantity of the item.">
                     <label for="inputQuantity">Quantity</label>
                 </div>
             </div>        
             <div class="col-md-6">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="inputPrice" placeholder="Price">
+                    <input type="text" class="form-control" id="inputPrice" placeholder="Price" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the suggested price for the item, including the $.">
                     <label for="inputPrice">Price</label>
                 </div>
             </div>
         </div>
         <div class="col-12 p-3 text-center">
-            <button type="submit" onclick="saveInventory();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
-            <input type="button" value="Return" class="btn btn-primary btn-md px-3" style="background-color: #A0A0A0; color:white;" onclick="history.back()"> <!--this is a JS method to allow the user to click the button to return back 1 page-->
+            <button type="button" onclick="confirmSummary()" id="confirmButton" class="btn btn-primary btn-md px-3" data-bs-toggle="modal" data-bs-target="#confirmModal" style="background-color:#67C18C; color:black;">Submit</button>            <input type="button" value="Return" class="btn btn-primary btn-md px-3" style="background-color: #A0A0A0; color:white;" onclick="history.back()"> <!--this is a JS method to allow the user to click the button to return back 1 page-->
         </div> 
+        <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Confirm Changes</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalContent">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" onclick="saveInventory();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
     </form>
 </div>
 </body>

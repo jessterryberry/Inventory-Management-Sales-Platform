@@ -2,11 +2,8 @@
 var editRow = null;
 
 function manufacturerDelete(ctl) {
-    let myStorage3 = window.localStorage;    
-    
-    if (confirm("Are you sure you want to delete this Manufacturer?")) {
-        myStorage3.removeItem($("#inputManufacturerNumber").val().toString());        
-    }
+    let myStorage3 = window.localStorage;
+    myStorage3.removeItem($("#inputManufacturerNumber").val().toString());
     loadManufacturerTable();
 }
 

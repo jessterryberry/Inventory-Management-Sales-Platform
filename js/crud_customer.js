@@ -2,11 +2,8 @@
 var editRow = null;
 
 function customerDelete(ctl) {
-    let myStorage = window.localStorage;    
-    
-    if (confirm("Are you sure you want to delete this customer?")) {
-        myStorage.removeItem($("#inputCustNumber").val().toString());        
-    }
+    let myStorage = window.localStorage;      
+    myStorage.removeItem($("#inputCustNumber").val().toString());       
     loadCustomerTable();
 }
 

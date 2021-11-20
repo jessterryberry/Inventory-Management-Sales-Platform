@@ -7,7 +7,35 @@
     <meta name="description" content="Page for creating a customer at Lawn & Order">
     <link rel="stylesheet" href="../css/bootstrap.css">
     <script src="../js/crud_customer.js"></script>
+    <script src="../js/bootstrap.bundle.js"></script>
     <script src="../js/jquery-3.6.0.slim.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                return new bootstrap.Popover(popoverTriggerEl)
+            })
+        }); 
+    </script>
+    <script type="text/javascript">
+        function confirmSummary() {
+            var firstname = $("#inputFirstName").val();
+            var lastname = $("#inputLastName").val();
+            var address = $("#inputAddress").val();
+            var city = $("#inputCity").val();
+            var postal = $("#inputPostalCode").val();
+            var email = $("#inputEmail").val();
+            var phone = $("#inputPhone").val();
+
+            var str = "Would you like to add this customer? <br><br>" 
+                + firstname + " " + lastname + "<br>"
+                + address + "<br>"
+                + city + "<br>"
+                + email + "<br>"
+                + phone + "<br>";
+            $("#modalContent").html(str);
+        };
+    </script>
 </head>
 
 <body>
@@ -69,13 +97,13 @@
             </div>
             <div class="col-md-6">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
+                    <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a value between 1-20 characters.">
                     <label for="inputFirstName">First Name</label>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
+                    <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a value between 1-30 characters.">
                     <label for="inputLastName">Last Name</label>
                 </div>
             </div>
@@ -83,7 +111,7 @@
         <div class="row g-2 p-3">
             <div class="col-12">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="inputAddress" placeholder="Address">
+                    <input type="text" class="form-control" id="inputAddress" placeholder="Address" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a valid Canadian address, up to a maximum of 50 characters.">
                     <label for="inputAddress">Address</label>
                 </div>
             </div>
@@ -91,13 +119,13 @@
         <div class="row g-2 p-3">
             <div class="col-md-6">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="inputCity" placeholder="City">
+                    <input type="text" class="form-control" id="inputCity" placeholder="City" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a City name, up to a maximum value of 20 characters.">
                     <label for="inputCity">City</label>
                 </div>
             </div>        
             <div class="col-md-6">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="inputPostalCode" placeholder="Postal Code">
+                    <input type="text" class="form-control" id="inputPostalCode" placeholder="Postal Code" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a valid Canadian postal code, in the format 1X1 X1X.">
                     <label for="inputPostalCode">Postal Code</label>
                 </div>
             </div>
@@ -105,7 +133,7 @@
         <div class="row g-2 p-3">
             <div class="col-md-12">
                 <div class="form-floating">
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter an email, up to a maximum value of 50 characters.">
                     <label for="inputEmail">Email</label>
                 </div>
             </div>
@@ -113,15 +141,31 @@
         <div class="row g-2 p-3">
             <div class="col-md-12">
                 <div class="form-floating">
-                    <input type="tel" class="form-control" id="inputPhone" placeholder="Phone">
+                    <input type="tel" class="form-control" id="inputPhone" placeholder="Phone" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a phone number, in the format 000-000-0000.">
                     <label for="inputPhone">Phone</label>
                 </div>
             </div>
         </div>
         <div class="col-12 p-3 text-center">
-            <button type="submit" onclick="saveCustomer();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
+            <button type="button" onclick="confirmSummary()" id="confirmButton" class="btn btn-primary btn-md px-3" data-bs-toggle="modal" data-bs-target="#confirmModal" style="background-color:#67C18C; color:black;">Submit</button>
             <input type="button" value="Return" class="btn btn-primary btn-md px-3" style="background-color: #A0A0A0; color:white;" onclick="history.back()"> <!--this is a JS method to allow the user to click the button to return back 1 page-->
         </div>
+        <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Confirm Changes</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalContent">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" onclick="saveCustomer();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
     </form>
 </div>
 </body>

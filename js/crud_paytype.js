@@ -2,11 +2,8 @@
 var editRow = null;
 
 function payTypeDelete(ctl) {
-    let myStorage3 = window.localStorage;    
-    
-    if (confirm("Are you sure you want to delete this PayType?")) {
-        myStorage3.removeItem($("#inputPayTypeNumber").val().toString());        
-    }
+    let myStorage3 = window.localStorage;
+    myStorage3.removeItem($("#inputPayTypeNumber").val().toString());
     loadPayTypeTable();
 }
 

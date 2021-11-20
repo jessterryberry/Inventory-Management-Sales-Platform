@@ -7,8 +7,17 @@
     <meta name="description" content="Page for managing sales at Lawn & Order">
     <link rel="stylesheet" href="../css/bootstrap.css">
     <script src="../js/bootstrap.js"></script>
+    <script src="../js/bootstrap.bundle.js"></script>
     <script src="../js/crud_receipt.js"></script>
     <script src="../js/jquery-3.6.0.slim.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                return new bootstrap.Popover(popoverTriggerEl)
+            })
+        }); 
+    </script>
 </head>
 <style>
     /* Source for dollar input style: https://stackoverflow.com/a/28337887 */
@@ -197,7 +206,7 @@
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">$</span>
                                     <div class="form-floating flex-grow-1">
-                                        <input type="number" min='0' step='0.01' class="form-control" onchange='compareAmountPaidToOrderTotal()' id="inputAmountPaid" placeholder="Tender Provided" required>
+                                        <input type="number" min='0' step='0.01' class="form-control" onchange='compareAmountPaidToOrderTotal()' id="inputAmountPaid" placeholder="Tender Provided" required required data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the amount the customer has paid for this order.">
                                         <label for="inputAmountPaid">Tender Provided</label>
                                     </div>
                                   </div>
@@ -217,14 +226,14 @@
                         <div class="row g-2 p-3">
                             <div class="col-md-12">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="inputNotes" placeholder="Special Notes">
+                                    <input type="text" class="form-control" id="inputNotes" placeholder="Special Notes" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Additional notes, up to a maximum of 100 characters.">
                                     <label for="inputNotes">Special Notes</label>
                                 </div>
                             </div>
                         </div>
                        
                         <div class="col-12 p-3 text-center">
-                            <input type="button" id="printButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" value="Print"/>
+                            <input type="button" onclick="window.print()" id="printButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" value="Print"/>
                             <input type="submit" id="updateButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" value="Save Changes"/>
                             <input type="button" onclick="deleteSale();" id="deleteButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" value="Delete" data-bs-dismiss="modal" aria-label="Close"/>
                             <input type="button" value="Close Without Saving" class="btn btn-primary btn-md px-3" style="background-color: grey;" data-bs-dismiss="modal" aria-label="Close">

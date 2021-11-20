@@ -8,8 +8,59 @@
     <meta name="description" content="Main page for Repairs at Lawn & Order">
     <link rel="stylesheet" href="../css/bootstrap.css">
     <script src="../js/bootstrap.js"></script>
+    <script src="../js/bootstrap.bundle.js"></script>
     <script src="../js/crud_inventory.js"></script>
     <script src="../js/jquery-3.6.0.slim.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                return new bootstrap.Popover(popoverTriggerEl)
+            })
+        }); 
+    </script>
+    <script type="text/javascript">
+        function confirmSummary() {
+            var invName = $("#inputInvName").val();
+            var description = $("#inputInvDesc").val();
+            var brand = $("#inputBrand").val();
+            var size = $("#inputSize").val();
+            var quantity = $("#inputQuantity").val();
+            var price = $("#inputPrice").val();
+            
+            var str = "Would you like to update this inventory? <br><br>" 
+                + invName + "<br>"
+                + description + "<br>"
+                + brand + "<br>"
+                + size + "<br>"
+                + quantity + "<br>"
+                + price + "<br>"
+                ;
+                console.log(str);
+            $("#modalContent").html(str);
+        };
+    </script>
+    <script type="text/javascript">
+        function deleteSummary() {
+            var invName = $("#inputInvName").val();
+            var description = $("#inputInvDesc").val();
+            var brand = $("#inputBrand").val();
+            var size = $("#inputSize").val();
+            var quantity = $("#inputQuantity").val();
+            var price = $("#inputPrice").val();
+            
+            var str = "Would you like to delete this inventory? <br><br>" 
+                + invName + "<br>"
+                + description + "<br>"
+                + brand + "<br>"
+                + size + "<br>"
+                + quantity + "<br>"
+                + price + "<br>"
+                ;
+                console.log(str);
+            $("#delContent").html(str);
+        };
+    </script>
 </head>
 <body onload="loadInventoryTable()">
     <header>
@@ -106,6 +157,7 @@
                     
                 </tbody>
             </table>  
+            <form>
             <div class="collapse" id="collapseEdit">            
                 <div class="row g-2 p-3">
                     <div class="col-md-6 hide-col">
@@ -114,7 +166,7 @@
                     <div class="row g-2 p-3">
                         <div class="col-12">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="inputInvName" placeholder="Item Name">
+                                <input type="text" class="form-control" id="inputInvName" placeholder="Item Name" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter an item name, up to 50 characters in length.">
                                 <label for="inputInvName">Item Name</label>
                             </div>
                         </div>
@@ -122,7 +174,7 @@
                     <div class="row g-2 p-3">
                         <div class="col-12">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="inputInvDesc" placeholder="Item Description">
+                                <input type="text" class="form-control" id="inputInvDesc" placeholder="Item Description" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a description of the item, up to 100 characters in length.">
                                 <label for="inputInvDesc">Item Description</label>
                             </div>
                         </div>
@@ -130,13 +182,13 @@
                     <div class="row g-2 p-3">
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="inputBrand" placeholder="Brand">
+                                <input type="text" class="form-control" id="inputBrand" placeholder="Brand" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the item's brand, up to 30 characters in length.">
                                 <label for="inputBrand">Brand</label>
                             </div>
                         </div>        
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="inputSize" placeholder="Size">
+                                <input type="text" class="form-control" id="inputSize" placeholder="Size" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="If applicable, please enter the size of the item, up to 10 characters in length.">
                                 <label for="inputSize">Size</label>
                             </div>
                         </div>
@@ -144,23 +196,56 @@
                     <div class="row g-2 p-3">
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="inputQuantity" placeholder="Quantity">
+                                <input type="text" class="form-control" id="inputQuantity" placeholder="Quantity" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the numerical quantity of the item.">
                                 <label for="inputQuantity">Quantity</label>
                             </div>
                         </div>        
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="inputPrice" placeholder="Price">
+                                <input type="text" class="form-control" id="inputPrice" placeholder="Price" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the suggested price for the item, including the $.">
                                 <label for="inputPrice">Price</label>
                             </div>
                         </div>
                     </div>
                 <div class="col-12 p-3 text-center">                
-                    <input type="button" onclick="inventoryUpdate();" id="updateButton2" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" data-bs-toggle="collapse" href="#collapseEdit" aria-disabled="false" aria-expanded="false" aria-controls="collapseEdit" Value="Update"/>
-                    <input type="button" onclick="inventoryDelete();" id="deleteButton2" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" data-bs-toggle="collapse" href="#collapseEdit" aria-disabled="false" aria-expanded="false" aria-controls="collapseEdit" Value="Delete"/>
+                    <button type="button" onclick="confirmSummary()" id="updateButton" class="btn btn-primary btn-md px-3" data-bs-toggle="modal" data-bs-target="#updateModal" style="background-color:#67C18C; color:black;">Update</button>
+                    <button type="button" onclick="deleteSummary()" id="deleteButton" class="btn btn-primary btn-md px-3" data-bs-toggle="modal" data-bs-target="#deleteModal" style="background-color:#67C18C; color:black;">Delete</button>
                     <input type="button" value="Cancel" class="btn btn-primary btn-md px-3" style="background-color: grey;" data-bs-toggle="collapse" href="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit"> 
             </div>
-        </div> 
+        </div>
+        <div class="modal fade" id="updateModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Confirm Changes</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalContent">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" onclick="inventoryUpdate();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Confirm Changes</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="delContent">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" onclick="inventoryDelete();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div> 
+    </form>
     </div>
 </main>
 </body>

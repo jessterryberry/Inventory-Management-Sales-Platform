@@ -1,12 +1,9 @@
-F//current entry being edited
+//current entry being edited
 var editRow = null;
 
 function employeeDelete(ctl) {
-    let myStorage = window.localStorage;    
-    
-    if (confirm("Are you sure you want to delete this employee?")) {
-        myStorage.removeItem($("#inputEmpNumber").val().toString());        
-    }
+    let myStorage = window.localStorage; 
+    myStorage.removeItem($("#inputEmpNumber").val().toString());        
     loadEmployeeTable();
 }
 
