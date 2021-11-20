@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Lawn & Order: Manage Sales</title>
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta name="description" content="Page for managing sales at Lawn & Order">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/crud_receipt.js"></script>
+    <script src="../js/jquery-3.6.0.slim.min.js"></script>
+</head>
+<style>
+    /* Source for dollar input style: https://stackoverflow.com/a/28337887 */
+    .input-dollar {
+        position: relative;
+    }
+    .input-dollar.left input {
+        padding-left:18px;
+    }
+    .input-dollar.right input {
+        padding-right:18px;
+        text-align:end; 
+    }
+
+    .input-dollar:before {
+        position: absolute;
+        top: 0;
+        content:"$";
+    }
+    .input-dollar.left:before {
+        left: 5px;
+    }
+    .input-dollar.right:before {
+        right: 5px;
+    }
+</style>
+<body onload="initializeSalesManagement()">
+    <header>
+        <div style="background-color: white;">
+            <a class="navbar-brand p-2" href="#">
+                <img src="../images/Logo.png" alt="Logo for the company Lawn & Order" width="225">
+            </a>
+            <button class="btn btn-outline-secondary" type="button" tabindex="1" onclick="demoData();" value="Demo: Load Receipts">Demo: Load Receipts</button>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #67C18C; font-size: large;">
+            <div class="container-lg">            
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse"></div>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" tabindex="2" href="../Index.html">Home</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" tabindex="3" href="../Customer/CustomerIndex.html">Customers</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" tabindex="4" href="../Equipments/EquipmentIndex.html">Equipment</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" tabindex="5" href="../Sales/SalesIndex.html">Sales</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" tabindex="6" href="../Employee/EmployeeIndex.html">Employee</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" tabindex="7" href="../Inventory/InventoryIndex.html">Inventory</a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" tabindex="8" href="../Reports/ReportsIndex.html">Reports</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container text-center">
+        <h1>Manage Sales Records</h1>
+    </div>    
+    <div class="container text-center py-3">        
+        <img alt ="an icon of a graph" src="../images/EditSalesRecord.png">
+    </div>
+    <div class="container-fluid px-5">
+        <div>
+            <a class="btn btn-outline-secondary" style="background-color: #A0A0A0; color:white;" type="button" data-bs-toggle="collapse" id="filterToggle" href="#collapseFilter" role="button" aria-expanded="false" aria-controls="collapseFilter">
+                Filter/Search
+            </a>
+            <div class="collapse" id="collapseFilter">
+                <div class="card card-body bg-light">
+                    <div class="row">
+                        <div class="form-group col md-4">
+                            <label class="control-label">Filter by Customer Name</label>
+                            <input type="text" class="form-control" id="filterCustomerName" placeholder="Customer Name">
+                        </div>
+                        <div class="form-group col md-4">
+                            <label class="control-label">Sale After Date</label>
+                            <input type="date" class="form-control" id="filterAfterDate">
+                        </div>
+                        <div class="form-group col md-4">
+                            <label class="control-label">Sale Before Date</label>
+                            <input type="date" class="form-control" id="filterBeforeDate">
+                        </div>
+                        <div class="form-group col lg-4 align-self-end">                                                      
+                            <input type="submit" onclick="filterAllSalesTable();" name="actionButton" value="Filter" style="background-color:#67C18C; color: black;" class="btn btn-outline-secondary">
+                        </div>
+                        <div class="form-group col lg-4 align-self-end">                            
+                            <input type="submit" onclick="loadAllSalesTable();" name="actionButton" value="Clear" style="background-color: #A0A0A0; color:white; "class="btn btn-outline-secondary">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="hide-col" scope="col">Sale Number</th>
+                    <th scope="col">Sale Date</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col" style="text-align:right">Sale Total</th>
+                    <th scope="col" style="text-align:center">Sale Is Paid</th>
+                </tr>
+            </thead>        
+            <tbody id="allSalesTable">
+                
+            </tbody>
+        </table>  
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="receiptModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="receiptModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="receiptModalLabel">Modal title</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="background-color:#eeeeee; color: black;">
+                    <form onSubmit="updateSale()">
+                        <div class="row g-2 p-3">
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <select id="inputEmployee"class="form-control" required><!--Js=> var option = document.createElement("option"); -->
+                                    </select> 
+                                    <label for="inputEmployee">Employee</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-2 p-3">
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <select id="inputCustomer"class="form-control" required><!--Js=> var option = document.createElement("option"); -->
+                                    </select>
+                                    <label for="inputCustomer">Customer</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-2 p-3">
+                            
+                            <div class="col-md-12">
+                                <h3>Order Date</h3>
+                                <div class="form-floating">                    
+                                    <input type="date" class="form-control" id="inputOrderDate" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-2 p-3">
+                            <div class="col-12">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Item Name</th>
+                                            <th scope="col" style='text-align:right'>QOH</th>
+                                            <th scope="col" style='text-align:right'>Order Quantity</th>
+                                            <th scope="col" style="text-align:right">Suggested Price</th>
+                                            <th scope="col" style="text-align:right">Price</th>                                              
+                                        </tr>
+                                    </thead>        
+                                    <tbody id="saleTable">
+                                        
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td ><button class='btn btn-outline-secondary' onclick='addOrderLine();' style='color:black;' type='button' id='addOrderLineButton'>Add New Item to Order</button></td>  
+                                            <td colspan="3"></td> 
+                                            <td style="text-align:right">Total Cost</td> 
+                                            <td style="text-align:right" id="totalCost">$0.00</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row g-2 p-3">
+                            <div class="col-md-4">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">$</span>
+                                    <div class="form-floating flex-grow-1">
+                                        <input type="number" min='0' step='0.01' class="form-control" onchange='compareAmountPaidToOrderTotal()' id="inputAmountPaid" placeholder="Tender Provided" required>
+                                        <label for="inputAmountPaid">Tender Provided</label>
+                                    </div>
+                                  </div>
+                            </div>        
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <select id="inputPaymentMethod"class="form-control" required><!--Js=> var option = document.createElement("option"); -->
+                                    </select>
+                                    <label for="inputPaymentMethod">Payment Method</label>
+                                </div>
+                            </div>
+                            <div class="form-check form-switch col-md-4">
+                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onclick="return false;">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Order is Fully Paid</label>
+                            </div>
+                        </div>
+                        <div class="row g-2 p-3">
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="inputNotes" placeholder="Special Notes">
+                                    <label for="inputNotes">Special Notes</label>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div class="col-12 p-3 text-center">
+                            <input type="button" id="printButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" value="Print"/>
+                            <input type="submit" id="updateButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" value="Save Changes"/>
+                            <input type="button" onclick="deleteSale();" id="deleteButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" value="Delete" data-bs-dismiss="modal" aria-label="Close"/>
+                            <input type="button" value="Close Without Saving" class="btn btn-primary btn-md px-3" style="background-color: grey;" data-bs-dismiss="modal" aria-label="Close">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
