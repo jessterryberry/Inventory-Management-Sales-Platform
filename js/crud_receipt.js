@@ -458,7 +458,7 @@ function updateSale(id){
         console.log(newOrderLine);
     }
 
-    window.alert("Saved " + document.getElementById("receiptModalLabel").innerHTML + ".");
+    //window.alert("Saved " + document.getElementById("receiptModalLabel").innerHTML + ".");
     loadAllSalesTable();
 }
 
