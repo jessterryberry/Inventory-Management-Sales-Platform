@@ -5,6 +5,7 @@ function manufacturerDelete(ctl) {
     let myStorage3 = window.localStorage;
     myStorage3.removeItem($("#inputManufacturerNumber").val().toString());
     loadManufacturerTable();
+    location.reload();
 }
 
 function manufacturerDisplay(ctl, mode) {

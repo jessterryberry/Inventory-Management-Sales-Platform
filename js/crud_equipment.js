@@ -1,3 +1,137 @@
+function initializeEquipmentManagement() {
+    loadAllDDLs();
+    loadEquipmentTable();
+}
+
+function loadAllDDLs() {
+    loadEquipTypeDDL();
+    loadManufacturerDDL();
+    loadCustomerDDL();
+}
+
+function loadEquipTypeDDL(){
+    //checking latest index
+	let myStorage = window.localStorage;
+    let equipTypeLastIndex = parseInt(myStorage.getItem('equipTypeLastIndex'));
+    select = document.getElementById('inputEquipType');
+	
+    // Save default option
+    let default_options = $("#inputEquipType option");
+
+    // Empty select list
+    $("#inputEquipType").empty()
+
+	//looping through 1 to all indexes
+	for (let i = 1; i <= equipTypeLastIndex; i++){
+		//loading the data and parsing the string back into a string array if there is data stored
+        let c = JSON.parse(myStorage.getItem("equipTypeID:" + i.toString()));
+
+		if (c !== null){
+			// Add each customer name to select list
+            let opt = document.createElement('option');
+            opt.value = c[1];
+            opt.innerHTML = c[1];
+            select.add(opt);
+		}
+	}
+
+    // sort alphabetically
+    let my_options = $("#inputEquipType option");
+
+    my_options.sort(function(a,b) {
+        if (a.text > b.text) return 1;
+        if (a.text < b.text) return -1;
+        return 0
+    })
+
+    // Re-generate select list
+    $("#inputEquipType").empty().append( default_options );
+    $("#inputEquipType").append( my_options );
+    $("#inputEquipType").val("");
+}
+
+function loadManufacturerDDL(){
+    //checking latest index
+	let myStorage = window.localStorage;
+    let manufacturerLastIndex = parseInt(myStorage.getItem('manufacturerLastIndex'));
+    select = document.getElementById('inputManu');
+	
+    // Save default option
+    let default_options = $("#inputManu option");
+
+    // Empty select list
+    $("#inputManu").empty()
+
+	//looping through 1 to all indexes
+	for (let i = 1; i <= manufacturerLastIndex; i++){
+		//loading the data and parsing the string back into a string array if there is data stored
+        let c = JSON.parse(myStorage.getItem("manufacturerID:" + i.toString()));
+
+		if (c !== null){
+			// Add each customer name to select list
+            let opt = document.createElement('option');
+            opt.value = c[1];
+            opt.innerHTML = c[1];
+            select.add(opt);
+		}
+	}
+
+    // sort alphabetically
+    let my_options = $("#inputManu option");
+
+    my_options.sort(function(a,b) {
+        if (a.text > b.text) return 1;
+        if (a.text < b.text) return -1;
+        return 0
+    })
+
+    // Re-generate select list
+    $("#inputManu").empty().append( default_options );
+    $("#inputManu").append( my_options );
+    $("#inputManu").val("");
+}
+
+function loadCustomerDDL(){
+    //checking latest index of customers
+	let myStorage = window.localStorage;
+    let customerLastIndex = parseInt(myStorage.getItem('customerLastIndex'));
+    select = document.getElementById('inputCustomer');
+	
+    // Save default option
+    let default_options = $("#inputCustomer option");
+
+    // Empty select list
+    $("#inputCustomer").empty()
+
+	//looping through 1 to all indexes of customers
+	for (let i = 1; i <= customerLastIndex; i++){
+		//loading the customer data and parsing the string back into a string array if there is data stored
+        let c = JSON.parse(myStorage.getItem("customerID:" + i.toString()));
+
+		if (c !== null){
+			// Add each customer name to select list
+            let opt = document.createElement('option');
+            opt.value = c[1] + " " + c[2];
+            opt.innerHTML = c[1] + " " + c[2];
+            select.add(opt);
+		}
+	}
+
+    // sort alphabetically
+    let my_options = $("#inputCustomer option");
+
+    my_options.sort(function(a,b) {
+        if (a.text > b.text) return 1;
+        if (a.text < b.text) return -1;
+        return 0
+    })
+
+    // Re-generate select list
+    $("#inputCustomer").empty().append( default_options );
+    $("#inputCustomer").append( my_options );
+    $("#inputCustomer").val("");
+}
+
 //current entry being edited
 var editRow = null;
 
@@ -5,6 +139,7 @@ function equipmentDelete(ctl) {
     let myStorage2 = window.localStorage;
     myStorage2.removeItem($("#inputEquipNumber").val().toString());
     loadEquipmentTable();
+    location.reload();
 }
 
 function equipmentDisplay(ctl, mode) {
@@ -21,8 +156,8 @@ function equipmentDisplay(ctl, mode) {
         $("#inputManu").val(equipmentData[4]);
         $("#inputCustomer").val(equipmentData[5]);
     
-    const updateButton = document.getElementById('updateButton2');
-    const deleteButton = document.getElementById('deleteButton2'); 
+    const updateButton = document.getElementById('updateButton');
+    const deleteButton = document.getElementById('deleteButton'); 
 
     if (mode == 1) {
         updateButton.disabled = false;

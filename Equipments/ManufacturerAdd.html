@@ -78,11 +78,11 @@
         <img alt="an icon of a lawn mower with a plus sign" src="../images/CreateManufacturer.png" width="220.5" height="162.5">
     </div>	
     <div class="container-md">
-        <form>
+        <form onsubmit="saveManufacturer();">
             <div class="row g-2 p-3">
                 <div class="col-md-12">
                     <div class="form-floating">
-                        <input type="tel" class="form-control" id="inputManufacturer" placeholder="Manufacturer" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a Manufacturer, up to 50 characters in length.">
+                        <input required type="text" class="form-control" id="inputManufacturer" placeholder="Manufacturer" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a Manufacturer, up to 50 characters in length.">
                         <label for="inputManufacturer">Manufacturer Name</label>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" onclick="saveManufacturer();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
+                      <button type="submit" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
                     </div>
                   </div>
                 </div>

@@ -54,7 +54,7 @@
         };
     </script>
 </head>
-<body onload="loadEquipmentTable()">
+<body onload="initializeEquipmentManagement()">
     <header>
         <div style="background-color: white;">
             <a class="navbar-brand p-2" href="#">
@@ -148,7 +148,7 @@
                     
                 </tbody>
             </table> 
-        <form>
+        <form onsubmit="equipmentUpdate();">
             <div class="collapse" id="collapseEdit">            
                 <div class="row g-2 p-3">
                     <div class="col-md-6 hide-col">
@@ -157,7 +157,7 @@
                     <div class="row g-2 p-3">
                         <div class="col-12">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="inputEquipName" placeholder="Equipment Name" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter an Equipment Name between 1-30 characters.">
+                                <input required type="text" class="form-control" id="inputEquipName" placeholder="Equipment Name" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter an Equipment Name between 1-30 characters.">
                                 <label for="inputEquipName">Equipment Name</label>
                             </div>
                         </div>
@@ -165,13 +165,15 @@
                     <div class="row g-2 p-3">
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="inputSerial" placeholder="Serial Code" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a 10 digit serial code, in the format 0000000000.">
+                                <input required type="text" class="form-control" id="inputSerial" placeholder="Serial Code" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a 10 digit serial code, in the format 0000000000.">
                                 <label for="inputSerial">Serial Code</label>
                             </div>
                         </div>        
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="inputEquipType" placeholder="Equipment Type" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter an Equipment Type, up to 20 characters in length.">
+                                <select id="inputEquipType"class="form-control" required>
+                                    <!--Js=> var option = document.createElement("option"); -->
+                                </select>
                                 <label for="inputEquipType">Equipment Type</label>
                             </div>
                         </div>
@@ -179,7 +181,9 @@
                     <div class="row g-2 p-3">
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="inputManu" placeholder="Manufacturer" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a Manufacturer, up to 50 characters in length.">
+                                <select id="inputManu"class="form-control" required>
+                                    <!--Js=> var option = document.createElement("option"); -->
+                                </select>
                                 <label for="inputManu">Manufacturer</label>
                             </div>
                         </div>
@@ -187,7 +191,9 @@
                     <div class="row g-2 p-3">
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="inputCustomer" placeholder="Customer" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a Customer Name, both first and last name.">
+                                <select id="inputCustomer"class="form-control" required>
+                                    <!--Js=> var option = document.createElement("option"); -->
+                                </select>
                                 <label for="inputCustomer">Customer</label>
                             </div>
                         </div>
@@ -208,7 +214,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" onclick="equipmentUpdate();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
+                      <button type="submit" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
                     </div>
                   </div>
                 </div>
@@ -224,7 +230,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" onclick="equipmentDelete();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
+                      <button type="button" onclick="equipmentDelete();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Delete</button>
                     </div>
                   </div>
                 </div>

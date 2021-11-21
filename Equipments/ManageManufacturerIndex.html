@@ -120,7 +120,7 @@
                 
             </tbody>
         </table>  
-        <form>
+        <form onsubmit="manufacturerUpdate();">
         <div class="collapse" id="collapseEdit">            
             <div class="row g-2 p-3">
                 <div class="col-md-6 hide-col">
@@ -128,7 +128,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="inputManufacturer" placeholder="Manufacturer" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a Manufacturer, up to 50 characters in length.">
+                        <input required type="text" class="form-control" id="inputManufacturer" placeholder="Manufacturer" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a Manufacturer, up to 50 characters in length.">
                         <label for="inputManufacturer">Manufacturer</label>
                     </div>
                 </div>
@@ -150,7 +150,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="submit" onclick="manufacturerUpdate();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
+                  <button type="submit" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
                 </div>
               </div>
             </div>
@@ -166,7 +166,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="submit" onclick="manufacturerDelete();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
+                  <button type="button" onclick="manufacturerDelete();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Delete</button>
                 </div>
               </div>
             </div>

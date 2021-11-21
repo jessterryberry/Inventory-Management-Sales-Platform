@@ -5,6 +5,7 @@ function equipTypeDelete(ctl) {
     let myStorage3 = window.localStorage;
     myStorage3.removeItem($("#inputEquipNumber").val().toString());
     loadEquipTypeTable();
+    location.reload();
 }
 
 function equipTypeDisplay(ctl, mode) {
