@@ -233,10 +233,7 @@ function manageSaleBuildTableRow(id, date, customerName, saleTotal, isFullyPaid)
         '<td style="text-align:right">$' + saleTotal + "</td>" +
         '<td style="text-align:center">' +'<input class="form-check-input" type="checkbox" onclick="return false;"' + (isFullyPaid? ' checked' : '') + '>' + "</td>" +
         "<td>" +
-        "<button class='btn btn-outline-secondary' onclick='receiptDisplay(this, 3);' style='color:black;' type='button'>Print</button>" +
-        "</td>" +
-        "<td>" +
-        "<button class='btn btn-outline-secondary' onclick='receiptDisplay(this, 3);' style='color:black;' type='button'>Details</button>" +
+        "<button class='btn btn-outline-secondary' onclick='receiptDisplay(this, 3);' style='color:black;' type='button'>Print / Details</button>" +
         "</td>" +
         "<td>" +
         "<button id='" + id + "Update' class='btn btn-outline-secondary' onclick='receiptDisplay(this, 1);' style='color:black;' type='button'>Edit</button>" +
