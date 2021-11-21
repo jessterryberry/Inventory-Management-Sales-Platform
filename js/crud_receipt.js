@@ -39,6 +39,14 @@ function initializeSalesManagement(){
         event.preventDefault();
     });
 
+    // Source https://stackoverflow.com/a/24914782
+    // Allows style to gray out lower layer modals when multiple modals are used
+    $(document).on('show.bs.modal', '.modal', function() {
+        const zIndex = 1040 + 10 * $('.modal:visible').length;
+        $(this).css('z-index', zIndex);
+        setTimeout(() => $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack'));
+    });
+
     // Show details of order if this was a redirect
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -228,13 +236,13 @@ function manageSaleBuildTableRow(id, date, customerName, saleTotal, isFullyPaid)
         "<button class='btn btn-outline-secondary' style='color:black;' type='button'>Print</button>" +
         "</td>" +
         "<td>" +
-        "<button class='btn btn-outline-secondary' onclick='receiptDisplay(this, 3);' style='color:black;' type='button' data-bs-toggle='modal' data-bs-target='#receiptModal'>Details</button>" +
+        "<button class='btn btn-outline-secondary' onclick='receiptDisplay(this, 3);' style='color:black;' type='button'>Details</button>" +
         "</td>" +
         "<td>" +
-        "<button id='" + id + "Update' class='btn btn-outline-secondary' onclick='receiptDisplay(this, 1);' style='color:black;' type='button' data-bs-toggle='modal' data-bs-target='#receiptModal'>Edit</button>" +
+        "<button id='" + id + "Update' class='btn btn-outline-secondary' onclick='receiptDisplay(this, 1);' style='color:black;' type='button'>Edit</button>" +
         "</td>" +
         "<td>" +
-        "<button class='btn btn-outline-secondary' onclick='receiptDisplay(this, 2);' style='color:black;' type='button' data-bs-toggle='modal' data-bs-target='#receiptModal'>Delete</button>" +
+        "<button class='btn btn-outline-secondary' onclick='receiptDisplay(this, 2);' style='color:black;' type='button'>Delete</button>" +
         "</td>" +
         "</tr>"  
         
@@ -298,10 +306,8 @@ function receiptDisplay(ctl, mode) {
     const deleteButton = document.getElementById('deleteButton');
 
     // Update button functions
-    document.querySelector("form").onsubmit = function (event) {
-        updateSale(saleData[0]);
-    };
-    deleteButton.onclick = function() { deleteSale(saleData[0]); }
+    document.getElementById('finalUpdateButton').onclick = function() { updateSale(saleData[0]); };
+    deleteButton.onclick = function() { deleteSale(saleData[0]); };
 
     if (mode == 1) {
         updateButton.disabled = false;
@@ -316,6 +322,9 @@ function receiptDisplay(ctl, mode) {
         updateButton.disabled = true;
     }   
     addOrderLineButton.disabled = updateButton.disabled; // Disable the Add Order Line button is the Update button is disabled
+
+    // Show modal
+    $('#receiptModal').modal('show');
 }
 
 //Function to load all sales into a table for Manage Sales page

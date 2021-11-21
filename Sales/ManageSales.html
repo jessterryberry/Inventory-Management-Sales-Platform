@@ -18,6 +18,25 @@
             })
         }); 
     </script>
+    <script type="text/javascript">
+        function confirmSummary() {
+            var employee = $("#inputEmployee option:selected").text();
+            var customer = $("#inputCustomer option:selected").text();
+            var orderDate = $("#inputOrderDate").val();
+            var payment = $("#inputPaymentMethod option:selected").text();
+            var notes = $("#inputNotes").val();
+            
+            var str = "Would you like to save this receipt? <br><br>" 
+                + employee + "<br>"
+                + customer + "<br>"
+                + orderDate + "<br>"
+                + payment + "<br>"
+                + notes + "<br>";
+            $("#modalContent").html(str);
+
+            $('#confirmModal').modal('show');
+        };
+    </script>
 </head>
 <style>
     /* Source for dollar input style: https://stackoverflow.com/a/28337887 */
@@ -138,7 +157,7 @@
         </table>  
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="receiptModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="receiptModalLabel" aria-hidden="true">
+    <div class="modal fade" id="receiptModal" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="receiptModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -146,7 +165,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="background-color:#eeeeee; color: black;">
-                    <form onSubmit="updateSale()">
+                    <form onSubmit="confirmSummary();">
                         <div class="row g-2 p-3">
                             <div class="col-md-12">
                                 <div class="form-floating">
@@ -241,6 +260,22 @@
                     </form>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="modal fade" id="confirmModal" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Confirm Changes</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalContent">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button id="finalUpdateButton" type="button" onclick="updateSale();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;" data-bs-dismiss="modal">Submit</button>
+            </div>
+          </div>
         </div>
     </div>
 </body>
