@@ -53,6 +53,11 @@
             $("#delContent").html(str);
         };
     </script>
+    <script type="text/javascript">
+        function noDecimals(element) {
+            element.value = parseInt(element.value).toFixed(0);
+        };
+    </script>
 </head>
 <body onload="initializeEquipmentManagement()">
     <header>
@@ -165,7 +170,7 @@
                     <div class="row g-2 p-3">
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input required type="text" class="form-control" id="inputSerial" placeholder="Serial Code" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a 10 digit serial code, in the format 0000000000.">
+                                <input required type="number" onchange='noDecimals(this)' class="form-control" id="inputSerial" placeholder="Serial Code" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a 10 digit serial code, in the format 0000000000.">
                                 <label for="inputSerial">Serial Code</label>
                             </div>
                         </div>        
