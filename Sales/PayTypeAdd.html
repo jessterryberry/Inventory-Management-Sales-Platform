@@ -78,11 +78,11 @@
         <img alt="an icon of a credit card a plus sign" src="../images/Add Payment Method v2.png" width="220.5" height="162.5">
     </div>	
     <div class="container-md">
-        <form>
+        <form onsubmit="savePayType();">
             <div class="row g-2 p-3">
                 <div class="col-md-12">
                     <div class="form-floating">
-                        <input type="tel" class="form-control" id="inputPayType" placeholder="Payment Method" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a payment method, up to a maximum of 20 characters.">
+                        <input required type="text" class="form-control" id="inputPayType" placeholder="Payment Method" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a payment method, up to a maximum of 20 characters.">
                         <label for="inputPayType">Payment Method</label>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" onclick="savePayType();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
+                      <button type="submit" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
                     </div>
                   </div>
                 </div>

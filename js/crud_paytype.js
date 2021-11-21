@@ -5,6 +5,7 @@ function payTypeDelete(ctl) {
     let myStorage3 = window.localStorage;
     myStorage3.removeItem($("#inputPayTypeNumber").val().toString());
     loadPayTypeTable();
+    location.reload();
 }
 
 function payTypeDisplay(ctl, mode) {
