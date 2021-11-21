@@ -5,6 +5,7 @@ function customerDelete(ctl) {
     let myStorage = window.localStorage;      
     myStorage.removeItem($("#inputCustNumber").val().toString());       
     loadCustomerTable();
+    location.reload();
 }
 
 function customerDisplay(ctl, mode) {

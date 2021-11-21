@@ -87,7 +87,7 @@
         <img alt ="an icon of a person with a plus sign" src="../images/CreateCustomer.png">
     </div>	
 <div class="container-md">
-    <form>
+    <form onsubmit="saveCustomer();">
         <div class="row g-2 p-3">
             <div class="col-md-6 hide-col">
                 <div class="form-floating">
@@ -97,13 +97,13 @@
             </div>
             <div class="col-md-6">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a value between 1-20 characters.">
+                    <input required type="text" class="form-control" id="inputFirstName" placeholder="First Name" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a value between 1-20 characters.">
                     <label for="inputFirstName">First Name</label>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a value between 1-30 characters.">
+                    <input required type="text" class="form-control" id="inputLastName" placeholder="Last Name" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a value between 1-30 characters.">
                     <label for="inputLastName">Last Name</label>
                 </div>
             </div>
@@ -111,7 +111,7 @@
         <div class="row g-2 p-3">
             <div class="col-12">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="inputAddress" placeholder="Address" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a valid Canadian address, up to a maximum of 50 characters.">
+                    <input required type="text" class="form-control" id="inputAddress" placeholder="Address" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a valid Canadian address, up to a maximum of 50 characters.">
                     <label for="inputAddress">Address</label>
                 </div>
             </div>
@@ -119,13 +119,13 @@
         <div class="row g-2 p-3">
             <div class="col-md-6">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="inputCity" placeholder="City" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a City name, up to a maximum value of 20 characters.">
+                    <input required type="text" class="form-control" id="inputCity" placeholder="City" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a City name, up to a maximum value of 20 characters.">
                     <label for="inputCity">City</label>
                 </div>
             </div>        
             <div class="col-md-6">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="inputPostalCode" placeholder="Postal Code" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a valid Canadian postal code, in the format 1X1 X1X.">
+                    <input required type="text" class="form-control" id="inputPostalCode" placeholder="Postal Code" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a valid Canadian postal code, in the format 1X1 X1X.">
                     <label for="inputPostalCode">Postal Code</label>
                 </div>
             </div>
@@ -133,7 +133,7 @@
         <div class="row g-2 p-3">
             <div class="col-md-12">
                 <div class="form-floating">
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter an email, up to a maximum value of 50 characters.">
+                    <input required type="email" class="form-control" id="inputEmail" placeholder="Email" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter an email, up to a maximum value of 50 characters.">
                     <label for="inputEmail">Email</label>
                 </div>
             </div>
@@ -141,7 +141,7 @@
         <div class="row g-2 p-3">
             <div class="col-md-12">
                 <div class="form-floating">
-                    <input type="tel" class="form-control" id="inputPhone" placeholder="Phone" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a phone number, in the format 000-000-0000.">
+                    <input required type="tel" class="form-control" id="inputPhone" placeholder="Phone" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a phone number, in the format 000-000-0000.">
                     <label for="inputPhone">Phone</label>
                 </div>
             </div>
@@ -161,7 +161,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="submit" onclick="saveCustomer();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
+                  <button type="submit" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
                 </div>
               </div>
             </div>
