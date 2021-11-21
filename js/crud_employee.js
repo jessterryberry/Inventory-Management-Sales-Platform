@@ -5,6 +5,7 @@ function employeeDelete(ctl) {
     let myStorage = window.localStorage; 
     myStorage.removeItem($("#inputEmpNumber").val().toString());        
     loadEmployeeTable();
+    location.reload();
 }
 
 function employeeDisplay(ctl, mode) {
