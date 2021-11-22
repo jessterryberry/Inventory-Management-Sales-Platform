@@ -38,6 +38,11 @@
             $("#modalContent").html(str);
         };
     </script>
+    <script type="text/javascript">
+        function roundElementToNDecimals(element, decimals) {
+            element.value = parseFloat(element.value).toFixed(parseInt(decimals));
+        };
+    </script>
 </head>
 
 <body>
@@ -89,11 +94,11 @@
         <img alt ="an icon of a clipboard with a plus sign" src="../images/Add Inventory.png">
     </div>	
 <div class="container-md">
-    <form>
+    <form onsubmit="saveInventory();">
         <div class="row g-2 p-3">
             <div class="col-12">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="inputInvName" placeholder="Item Name" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter an item name, up to 50 characters in length.">
+                    <input required type="text" class="form-control" id="inputInvName" placeholder="Item Name" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter an item name, up to 50 characters in length.">
                     <label for="inputInvName">Item Name</label>
                 </div>
             </div>
@@ -101,7 +106,7 @@
         <div class="row g-2 p-3">
             <div class="col-12">
                 <div class="form-floating"> 
-                    <input type="text" class="form-control" id="inputInvDesc" placeholder="Item Description" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a description of the item, up to 100 characters in length.">
+                    <input required type="text" class="form-control" id="inputInvDesc" placeholder="Item Description" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a description of the item, up to 100 characters in length.">
                     <label for="inputInvDesc">Item Description</label>
                 </div>
             </div>
@@ -109,7 +114,7 @@
         <div class="row g-2 p-3">
             <div class="col-md-6">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="inputBrand" placeholder="Brand" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the item's brand, up to 30 characters in length.">
+                    <input required type="text" class="form-control" id="inputBrand" placeholder="Brand" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the item's brand, up to 30 characters in length.">
                     <label for="inputBrand">Brand</label>
                 </div>
             </div>        
@@ -123,15 +128,18 @@
         <div class="row g-2 p-3">
             <div class="col-md-6">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="inputQuantity" placeholder="Quantity" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the numerical quantity of the item.">
+                    <input required type="number" min='0' onchange='roundElementToNDecimals(this, 0);' class="form-control" id="inputQuantity" placeholder="Quantity" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the numerical quantity of the item.">
                     <label for="inputQuantity">Quantity</label>
                 </div>
             </div>        
             <div class="col-md-6">
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="inputPrice" placeholder="Price" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the suggested price for the item, including the $.">
-                    <label for="inputPrice">Price</label>
-                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">$</span>
+                    <div class="form-floating flex-grow-1">
+                        <input type="number" min='0' step='0.01' class="form-control" onchange='roundElementToNDecimals(this, 2);' id="inputPrice" placeholder="Price" required data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the suggested price for the item.">
+                        <label for="inputPrice">Price</label>
+                    </div>
+                  </div>
             </div>
         </div>
         <div class="col-12 p-3 text-center">
@@ -148,7 +156,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="submit" onclick="saveInventory();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
+                  <button type="submit" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
                 </div>
               </div>
             </div>

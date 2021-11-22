@@ -5,6 +5,7 @@ function inventoryDelete(ctl) {
     let myStorage2 = window.localStorage;
     myStorage2.removeItem($("#inputInvNumber").val().toString());
     loadInventoryTable();
+    location.reload();
 }
 
 function inventoryDisplay(ctl, mode) {
@@ -52,12 +53,12 @@ function inventoryUpdate() {
 
 function demoInvData(){
 	let myStorage2 = window.localStorage;
-    let inventory1 = ['inventoryID:1', '2 stroke oil (Blue)', 'Blue - Oil for a two stroke engine.', 'Castrol', '6 oz', '24', '$4.95'];
-    let inventory2 = ['inventoryID:2', '2 stroke oil (Red)', 'Red - Oil for a two stroke engine.', 'Penzoil', '6 oz', '19', '$5.55'];
-    let inventory3 = ['inventoryID:3', '4 stroke oil', 'Oil for a four stroke engine.', 'Castrol', '24 oz', '36', '$10.99'];
-    let inventory4 = ['inventoryID:4', '50:1 Mixed Gas', 'Pre-mixed gas for two stroke engines requiring a 50:1 gas to oil ratio.', 'Castrol', '1 L', '28', '$12.99'];
-    let inventory5 = ['inventoryID:5', 'Replacement Blade', 'For mower.', 'Honda', '', '7', '$19.99'];
-    let inventory6 = ['inventoryID:6', 'Green Cutter', 'Gasoline powered lawn mower.', 'John Deere', '', '5', '$59.99'];
+    let inventory1 = ['inventoryID:1', '2 stroke oil (Blue)', 'Blue - Oil for a two stroke engine.', 'Castrol', '6 oz', '24', '4.95'];
+    let inventory2 = ['inventoryID:2', '2 stroke oil (Red)', 'Red - Oil for a two stroke engine.', 'Penzoil', '6 oz', '19', '5.55'];
+    let inventory3 = ['inventoryID:3', '4 stroke oil', 'Oil for a four stroke engine.', 'Castrol', '24 oz', '36', '10.99'];
+    let inventory4 = ['inventoryID:4', '50:1 Mixed Gas', 'Pre-mixed gas for two stroke engines requiring a 50:1 gas to oil ratio.', 'Castrol', '1 L', '28', '12.99'];
+    let inventory5 = ['inventoryID:5', 'Replacement Blade', 'For mower.', 'Honda', '', '7', '19.99'];
+    let inventory6 = ['inventoryID:6', 'Green Cutter', 'Gasoline powered lawn mower.', 'John Deere', '', '5', '59.99'];
 	
     myStorage2.setItem('inventoryID:1', JSON.stringify(inventory1));
 	myStorage2.setItem('inventoryID:2', JSON.stringify(inventory2));
@@ -89,7 +90,7 @@ function inventoryBuildTableRowLoad(id, name, desc, brand, size, quantity, price
         "<td>" + brand + "</td>" +   
         "<td>" + size + "</td>" +
         "<td>" + quantity + "</td>" +
-        "<td>" + price + "</td>" +
+        "<td>$" + price + "</td>" +
         "<td>" +
         "<button class='btn btn-outline-secondary' onclick='inventoryDisplay(this, 3);' style='color:black;' type='button' data-bs-toggle='collapse' id='editToggle' href='#collapseEdit' aria-expanded='false' aria-controls='collapseEdit'>Details</button>" +
         "</td>" +
