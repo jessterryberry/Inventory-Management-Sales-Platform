@@ -65,6 +65,22 @@
     .input-dollar.right:before {
         right: 5px;
     }
+
+    /* Source: https://stackoverflow.com/a/32334085 */
+    @media print {
+        header, .footer, footer {
+            display: none;
+        }
+
+        /* hide main content when dialog open */
+        body.modal-open div.container.body-content div#mainContent {
+            display: none;
+        }
+
+        .noPrint {
+            display: none;
+        }
+    }
 </style>
 <body onload="initializeSalesManagement()">
     <header>
@@ -161,7 +177,7 @@
     </div>
     <!-- Modal -->
     <div class="modal fade" id="receiptModal" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="receiptModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-xl modal-fullscreen-xl-down">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title" id="receiptModalLabel">Modal title</h3>
@@ -190,9 +206,9 @@
                         <div class="row g-2 p-3">
                             
                             <div class="col-md-12">
-                                <h3>Order Date</h3>
                                 <div class="form-floating">                    
                                     <input type="date" class="form-control" id="inputOrderDate" required>
+                                    <label for="inputOrderDate">Order Date</label>
                                 </div>
                             </div>
                         </div>
@@ -203,9 +219,9 @@
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">Item Name</th>
-                                            <th scope="col" style='text-align:right'>QOH</th>
+                                            <th scope="col" style='text-align:right' class="noPrint">QOH</th>
                                             <th scope="col" style='text-align:right'>Order Quantity</th>
-                                            <th scope="col" style="text-align:right">Suggested Price</th>
+                                            <th scope="col" style="text-align:right" class="noPrint">Suggested Price</th>
                                             <th scope="col" style="text-align:right">Price</th>                                              
                                         </tr>
                                     </thead>        
@@ -214,17 +230,18 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td colspan="4"><button class='btn btn-outline-secondary' onclick='addOrderLine();' style='color:black;' type='button' id='addOrderLineButton'>Add New Item to Order</button></td>
+                                            <td colspan="2"><button class='btn btn-outline-secondary noPrint' onclick='addOrderLine();' style='color:black;' type='button' id='addOrderLineButton'>Add New Item to Order</button></td>
+                                            <td colspan="2" class="noPrint"></td>
                                             <td style="text-align:right">Total Cost</td> 
                                             <td style="text-align:right" id="totalCost">$0.00</td>
-                                            <td class="hide-col"><input id="orderTotalValidator" type="number" step="0.01" min="0.01" value="0"></td>
+                                            <td class="hide-col noPrint"><input id="orderTotalValidator" type="number" step="0.01" min="0.01" value="0"></td>
                                         </tr>
                                     </tfoot>
                                 </table>
                             </div>
                         </div>
                         <div class="row g-2 p-3">
-                            <div class="col-md-4">
+                            <div class="col-5">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">$</span>
                                     <div class="form-floating flex-grow-1">
@@ -233,14 +250,14 @@
                                     </div>
                                   </div>
                             </div>        
-                            <div class="col-md-4">
+                            <div class="col-5">
                                 <div class="form-floating">
                                     <select id="inputPaymentMethod"class="form-control" required><!--Js=> var option = document.createElement("option"); -->
                                     </select>
                                     <label for="inputPaymentMethod">Payment Method</label>
                                 </div>
                             </div>
-                            <div class="form-check form-switch col-md-4">
+                            <div class="form-check form-switch col-2 noPrint">
                                 <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onclick="return false;">
                                 <label class="form-check-label" for="flexSwitchCheckDefault">Order is Fully Paid</label>
                             </div>
@@ -255,10 +272,10 @@
                         </div>
                        
                         <div class="col-12 p-3 text-center">
-                            <input type="button" onclick="window.print()" id="printButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" value="Print"/>
-                            <input type="submit" id="updateButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" value="Save Changes"/>
-                            <input type="button" onclick="deleteSale();" id="deleteButton" class="btn btn-primary btn-md px-3 " style="background-color:#67C18C; color:black;" value="Delete" data-bs-dismiss="modal" aria-label="Close"/>
-                            <input type="button" value="Close Without Saving" class="btn btn-primary btn-md px-3" style="background-color: grey;" data-bs-dismiss="modal" aria-label="Close">
+                            <input type="button" onclick="window.print()" id="printButton" class="btn btn-primary btn-md px-3 noPrint" style="background-color:#67C18C; color:black;" value="Print"/>
+                            <input type="submit" id="updateButton" class="btn btn-primary btn-md px-3 noPrint" style="background-color:#67C18C; color:black;" value="Save Changes"/>
+                            <input type="button" onclick="deleteSale();" id="deleteButton" class="btn btn-primary btn-md px-3 noPrint" style="background-color:#67C18C; color:black;" value="Delete" data-bs-dismiss="modal" aria-label="Close"/>
+                            <input type="button" value="Close Without Saving" class="btn btn-primary btn-md px-3 noPrint" style="background-color: grey;" data-bs-dismiss="modal" aria-label="Close">
                         </div>
                     </form>
                 </div>

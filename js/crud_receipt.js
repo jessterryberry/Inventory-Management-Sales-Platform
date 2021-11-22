@@ -511,11 +511,11 @@ function addOrderLine(){
     let newLine = "<tr id='orderRow" + rowNo + "'>" +
     "<td>" + rowNo + "</td>" +
     "<td id='itemRow" + rowNo + "'></td>" +
-    "<td id='qohRow" + rowNo + "' style='text-align:right'></td>" +
+    "<td id='qohRow" + rowNo + "' style='text-align:right' class='noPrint'></td>" +
     "<td style='text-align:right'>" + "<select id='qtyRow" + rowNo + "' onchange='calculateTotal()'>" + "</td>" +        
-    "<td id='suggestedPriceRow" + rowNo + "' style='text-align:right'></td>" +
+    "<td id='suggestedPriceRow" + rowNo + "' style='text-align:right' class='noPrint'></td>" +
     "<td style='text-align:right'>" + "<span class='input-dollar left'><input type='number' onchange='calculateTotal()' min='0.01' step='0.01' style='text-align:right' id='priceRow" + rowNo + "'></span>" + "</td>" +
-    "<td>" + '<input title="Delete This Line From Order" type="button" onclick="deleteOrderLine(' + rowNo + ');" id="deleteButtonRow' + rowNo + '" class="btn btn-primary btn-sm" style="background-color:#67C18C; color:black;" value="❌"/>' + "</td>" +
+    "<td>" + '<input title="Delete This Line From Order" type="button" onclick="deleteOrderLine(' + rowNo + ');" id="deleteButtonRow' + rowNo + '" class="btn btn-primary btn-sm noPrint" style="background-color:#67C18C; color:black;" value="❌"/>' + "</td>" +
     "</tr>"
 
     // Add row to table
