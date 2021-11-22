@@ -5,6 +5,11 @@ function initializeNewSale(){
     loadEmployeeDDL();
     loadPayTypeDDL();
 
+    // Disable default submit behaviour
+    $('form').on('submit', function(event) {
+        event.preventDefault();
+    });
+
     // Set date picker default to today
     var date = new Date();
     var day = date.getDate();
@@ -17,11 +22,6 @@ function initializeNewSale(){
     var today = year + "-" + month + "-" + day;
 
     document.getElementById("inputOrderDate").value = today;
-
-    // Disable default submit behaviour
-    $('form').on('submit', function(event) {
-        event.preventDefault();
-    });
 }
 
 // Load data lists and prepare sales management page
@@ -31,16 +31,16 @@ function initializeSalesManagement(){
     loadEmployeeDDL();
     loadPayTypeDDL();
 
-    // Populate table of all sales
-    loadAllSalesTable();
-
     // Disable default submit behaviour
     $('form').on('submit', function(event) {
         event.preventDefault();
     });
 
-    // Source https://stackoverflow.com/a/24914782
+    // Populate table of all sales
+    loadAllSalesTable();
+
     // Allows style to gray out lower layer modals when multiple modals are used
+    // Source: https://stackoverflow.com/a/24914782
     $(document).on('show.bs.modal', '.modal', function() {
         const zIndex = 1040 + 10 * $('.modal:visible').length;
         $(this).css('z-index', zIndex);
