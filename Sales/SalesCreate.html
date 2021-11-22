@@ -19,20 +19,23 @@
     </script>
     <script type="text/javascript">
         function confirmSummary() {
-            var employee = $("#inputEmployee option:selected").text();
             var customer = $("#inputCustomer option:selected").text();
             var orderDate = $("#inputOrderDate").val();
-            var payment = $("#inputPaymentMethod option:selected").text();
+            var orderTotal = document.getElementById("totalCost").innerHTML;
+            var paid = $("#inputAmountPaid").val();
             var notes = $("#inputNotes").val();
             
             var str = "Would you like to save this receipt? <br><br>" 
-                + employee + "<br>"
-                + customer + "<br>"
-                + orderDate + "<br>"
-                + payment + "<br>"
-                + notes + "<br>";
+                + "Customer: " + customer + "<br><br>"
+                + "Date: " + orderDate + "<br>"
+                + "Order Total: " + orderTotal + "<br>"
+                + "Paid: $" + paid + "<br><br>";
+            
+            if (notes != "")
+                str += "Notes: " + notes;
+            
             $("#modalContent").html(str);
-
+            
             $('#confirmModal').modal('show');
         };
     </script>
