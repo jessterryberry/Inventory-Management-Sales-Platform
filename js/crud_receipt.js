@@ -10,6 +10,13 @@ function initializeNewSale(){
         event.preventDefault();
     });
 
+    // Sets hidden column for order total validation every 0.5 seconds
+    setInterval(function() {
+        let saleTotal = (document.getElementById("totalCost").innerHTML).replace('$','');
+        if ($('#orderTotalValidator').val() != saleTotal)
+            $('#orderTotalValidator').val(saleTotal);
+    }, 500);
+
     // Set date picker default to today
     var date = new Date();
     var day = date.getDate();
@@ -35,6 +42,13 @@ function initializeSalesManagement(){
     $('form').on('submit', function(event) {
         event.preventDefault();
     });
+
+    // Sets hidden column for order total validation every 0.5 seconds
+    setInterval(function() {
+        let saleTotal = (document.getElementById("totalCost").innerHTML).replace('$','');
+        if ($('#orderTotalValidator').val() != saleTotal)
+            $('#orderTotalValidator').val(saleTotal);
+    }, 500);
 
     // Populate table of all sales
     loadAllSalesTable();

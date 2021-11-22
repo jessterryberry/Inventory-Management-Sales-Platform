@@ -154,17 +154,18 @@
                             <th scope="col" style='text-align:right'>QOH</th>
                             <th scope="col" style='text-align:right'>Order Quantity</th>
                             <th scope="col" style="text-align:right">Suggested Price</th>
-                            <th scope="col" style="text-align:right">Price</th>                                              
+                            <th scope="col" style="text-align:right">Price</th>
                         </tr>
                     </thead>        
                     <tbody id="saleTable">
                         
                     </tbody>
                     <tfoot>
-                        <tr>
+                        <tr><!--<td class="hide-col">-->
                             <td colspan="4"><button class='btn btn-outline-secondary' onclick='addOrderLine();' style='color:black;' type='button' id='addOrderLineButton'>Add New Item to Order</button></td>   
                             <td style="text-align:right">Total Cost</td> 
                             <td style="text-align:right" id="totalCost">$0.00</td>
+                            <td class="hide-col"><input id="orderTotalValidator" type="number" step="0.01" min="0.01" value="0"></td>
                         </tr>
                     </tfoot>
                 </table>
