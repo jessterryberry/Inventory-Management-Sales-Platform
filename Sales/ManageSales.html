@@ -66,6 +66,7 @@
         right: 5px;
     }
 
+    /* Add "noPrint" to class if you want to exclude element from the printed page */
     /* Source: https://stackoverflow.com/a/32334085 */
     @media print {
         header, .footer, footer {
@@ -265,7 +266,7 @@
                         <div class="row g-2 p-3">
                             <div class="col-md-12">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="inputNotes" placeholder="Special Notes" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Additional notes, up to a maximum of 100 characters.">
+                                    <textarea class="form-control" id="inputNotes" placeholder="Special Notes" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Additional notes, up to a maximum of 100 characters."></textarea>
                                     <label for="inputNotes">Special Notes</label>
                                 </div>
                             </div>
