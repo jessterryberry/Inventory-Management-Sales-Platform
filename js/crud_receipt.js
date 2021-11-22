@@ -281,6 +281,12 @@ function receiptDisplay(ctl, mode) {
     $("#inputAmountPaid").val(saleData[6]);
     $("#inputPaymentMethod").val(saleData[7]);
     $("#inputNotes").val(saleData[9]);
+
+    // Exclude Notes box from printed page if there are no notes
+    if (saleData[9].length < 1)
+        $("#notesDiv").addClass("noPrint");
+    else
+        $("#notesDiv").removeClass("noPrint");
     
     let rowNo = saleData[4];   // Check number of order lines for this sale
     
