@@ -29,7 +29,7 @@ function loadEquipTypeDDL(){
 		if (c !== null){
 			// Add each customer name to select list
             let opt = document.createElement('option');
-            opt.value = c[1];
+            opt.value = c[0];
             opt.innerHTML = c[1];
             select.add(opt);
 		}
@@ -60,7 +60,7 @@ function loadManufacturerDDL(){
     let default_options = $("#inputManu option");
 
     // Empty select list
-    $("#inputManu").empty()
+    $("#inputManu").empty();
 
 	//looping through 1 to all indexes
 	for (let i = 1; i <= manufacturerLastIndex; i++){
@@ -70,7 +70,7 @@ function loadManufacturerDDL(){
 		if (c !== null){
 			// Add each customer name to select list
             let opt = document.createElement('option');
-            opt.value = c[1];
+            opt.value = c[0];
             opt.innerHTML = c[1];
             select.add(opt);
 		}
@@ -111,7 +111,7 @@ function loadCustomerDDL(){
 		if (c !== null){
 			// Add each customer name to select list
             let opt = document.createElement('option');
-            opt.value = c[1] + " " + c[2];
+            opt.value = c[0];
             opt.innerHTML = c[1] + " " + c[2];
             select.add(opt);
 		}
@@ -130,6 +130,100 @@ function loadCustomerDDL(){
     $("#inputCustomer").empty().append( default_options );
     $("#inputCustomer").append( my_options );
     $("#inputCustomer").val("");
+}
+
+function saveNewEquipType(){
+    // Add new equipment type
+    let myStorage = window.localStorage;
+	let equipTypeLastIndex = parseInt(myStorage.getItem('equipTypeLastIndex'));
+    let newTypeName = $("#inputNewEqType").val();
+	
+	equipTypeLastIndex++;
+	console.log(equipTypeLastIndex);
+	let newEquipType = ["equipTypeID:" + equipTypeLastIndex.toString(), newTypeName];
+	console.log(newEquipType);
+	myStorage.setItem("equipTypeID:" + equipTypeLastIndex.toString(), JSON.stringify(newEquipType))
+	
+	myStorage.setItem('equipTypeLastIndex', equipTypeLastIndex.toString())
+
+    // Refresh equip type DDL and select the new type
+    select = document.getElementById('inputEquipType');
+
+    $("#inputEquipType").empty(); // Empty select list
+
+	//looping through 1 to all indexes
+	for (let i = 1; i <= equipTypeLastIndex; i++){
+		//loading the data and parsing the string back into a string array if there is data stored
+        let c = JSON.parse(myStorage.getItem("equipTypeID:" + i.toString()));
+
+		if (c !== null){
+			// Add each customer name to select list
+            let opt = document.createElement('option');
+            opt.value = c[0];
+            opt.innerHTML = c[1];
+            select.add(opt);
+		}
+	}
+
+    // sort alphabetically
+    let my_options = $("#inputEquipType option");
+
+    my_options.sort(function(a,b) {
+        if (a.text > b.text) return 1;
+        if (a.text < b.text) return -1;
+        return 0
+    })
+
+    // Re-generate select list
+    $("#inputEquipType").append( my_options );
+    $("#inputEquipType").val("equipTypeID:" + equipTypeLastIndex); // Select the new type
+}
+
+function saveNewManufacturer(){
+    // Add new equipment type
+    let myStorage = window.localStorage;
+	let manufacturerLastIndex = parseInt(myStorage.getItem('manufacturerLastIndex'));
+	let newManuName = $("#inputNewManu").val();
+
+	manufacturerLastIndex++;
+	console.log(manufacturerLastIndex);
+	let newManufacturer = ["manufacturerID:" + manufacturerLastIndex.toString(), newManuName];
+	console.log(newManufacturer);
+	myStorage.setItem("manufacturerID:" + manufacturerLastIndex.toString(), JSON.stringify(newManufacturer))
+	
+	myStorage.setItem('manufacturerLastIndex', manufacturerLastIndex.toString())
+
+    // Refresh equip type DDL and select the new manufacturer
+    select = document.getElementById('inputManu');
+    
+    $("#inputManu").empty(); // Empty select list
+
+	//looping through 1 to all indexes
+	for (let i = 1; i <= manufacturerLastIndex; i++){
+		//loading the data and parsing the string back into a string array if there is data stored
+        let c = JSON.parse(myStorage.getItem("manufacturerID:" + i.toString()));
+
+		if (c !== null){
+			// Add each customer name to select list
+            let opt = document.createElement('option');
+            opt.value = c[0];
+            opt.innerHTML = c[1];
+            select.add(opt);
+		}
+	}
+
+    // sort alphabetically
+    let my_options = $("#inputManu option");
+
+    my_options.sort(function(a,b) {
+        if (a.text > b.text) return 1;
+        if (a.text < b.text) return -1;
+        return 0
+    })
+
+    // Re-generate select list
+    $("#inputManu").append( my_options );
+    $("#inputManu").val("manufacturerID:" + manufacturerLastIndex); // Select the new type
 }
 
 //current entry being edited
@@ -186,10 +280,10 @@ function equipmentUpdate() {
 
 function demoEquipData(){
 	let myStorage2 = window.localStorage;
-    let equipment1 = ['equipmentID:1', 'Hydrolic Amplifier', '5536997088', 'Rammer', 'John Deere', 'Joe Smith'];
-    let equipment2 = ['equipmentID:2', 'Ice Skater', '6498855765', 'SnowBlower', 'Toro', 'Sarah Yates'];
-    let equipment3 = ['equipmentID:3', 'Rover', '1659567747', 'Wheelbarrow', 'Troy-Bilt', 'Nathan Jones'];
-    let equipment4 = ['equipmentID:4', 'Fable Cutter', '3377476242', 'Lawn Mower', 'Greenworks', 'Farrah Parker'];
+    let equipment1 = ['equipmentID:1', 'Hydrolic Amplifier', '5536997088', 'equipTypeID:1', 'manufacturerID:1', 'customerID:1'];
+    let equipment2 = ['equipmentID:2', 'Ice Skater', '6498855765', 'equipTypeID:2', 'manufacturerID:2', 'customerID:2'];
+    let equipment3 = ['equipmentID:3', 'Rover', '1659567747', 'equipTypeID:3', 'manufacturerID:3', 'customerID:3'];
+    let equipment4 = ['equipmentID:4', 'Fable Cutter', '3377476242', 'equipTypeID:4', 'manufacturerID:4', 'customerID:4'];
 	
     myStorage2.setItem('equipmentID:1', JSON.stringify(equipment1));
 	myStorage2.setItem('equipmentID:2', JSON.stringify(equipment2));
@@ -245,7 +339,12 @@ function loadEquipmentTable(){
         let c = JSON.parse(myStorage2.getItem("equipmentID:" + i.toString()));
         
 		if (c !== null){
-			equipTable = equipTable + equipmentBuildTableRowLoad(c[0],c[1],c[2],c[3],c[4],c[5]);
+            let typeName = JSON.parse(myStorage2.getItem(c[3]))[1];
+            let manuName = JSON.parse(myStorage2.getItem(c[4]))[1];
+            let cust = JSON.parse(myStorage2.getItem(c[5]));
+            let custName = cust[1] + " " + cust[2];
+
+			equipTable = equipTable + equipmentBuildTableRowLoad(c[0],c[1],c[2],typeName,manuName,custName);
 		}
         
 	}
@@ -259,17 +358,26 @@ function filterEquipmentTable(){
 	
 	for (let i = 1; i <= equipmentLastIndex; i++){
         let c = JSON.parse(myStorage2.getItem("equipmentID:" + i.toString()));
+        
+		if (c !== null){
+            let addThisRecord = true; // Toggle this to false if the record fails the filter checks
+            let typeName = JSON.parse(myStorage2.getItem(c[3]))[1];
+            let manuName = JSON.parse(myStorage2.getItem(c[4]))[1];
+            let cust = JSON.parse(myStorage2.getItem(c[5]));
+            let custName = cust[1] + " " + cust[2];
 
-		if (c !== null){	
-            if ($('#filterEquipName').val() !== "" && c[1].toUpperCase().includes($('#filterEquipName').val().toUpperCase())){
-                equipTable = equipTable + equipmentBuildTableRowLoad(c[0],c[1],c[2],c[3],c[4],c[5]);                
+            if ($('#filterEquipName').val() !== "" && !custName.toUpperCase().includes($('#filterEquipName').val().toUpperCase())){
+                addThisRecord = false;
             }
-			else if ($('#filterEquipType').val() !== "" && c[3].toUpperCase().includes($('#filterEquipType').val().toUpperCase())){
-                equipTable = equipTable + equipmentBuildTableRowLoad(c[0],c[1],c[2],c[3],c[4],c[5]);
+			if ($('#filterEquipType').val() !== "" && !typeName.toUpperCase().includes($('#filterEquipType').val().toUpperCase())){
+                addThisRecord = false;
             }
-            else if ($('#filterEquipManu').val() !== "" && c[4].toUpperCase().includes($('#filterEquipManu').val().toUpperCase())){
-                equipTable = equipTable + equipmentBuildTableRowLoad(c[0],c[1],c[2],c[3],c[4],c[5]);
+            if ($('#filterEquipManu').val() !== "" && !manuName.toUpperCase().includes($('#filterEquipManu').val().toUpperCase())){
+                addThisRecord = false;
             }
+
+            if (addThisRecord)
+                equipTable = equipTable + equipmentBuildTableRowLoad(c[0],c[1],c[2],typeName,manuName,custName);
 		}        
 	}
     document.getElementById("equipmentTable").innerHTML = equipTable;
