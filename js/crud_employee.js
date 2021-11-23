@@ -1,3 +1,32 @@
+function saveNewPosition(){
+    // Since we don't have position management in this system, we don't actually save positions, we just add to the dropdownlist
+    
+    let newPositionName = $("#inpuNewPosition").val();
+	
+	// Add new position to select list
+    select = document.getElementById('inputPosition');
+
+	let opt = document.createElement('option');
+    opt.value = newPositionName;
+    opt.innerHTML = newPositionName;
+    select.add(opt);
+	
+
+    // sort alphabetically
+    let my_options = $("#inputPosition option");
+
+    my_options.sort(function(a,b) {
+        if (a.value == "") select.remove(a);
+        if (a.text > b.text) return 1;
+        if (a.text < b.text) return -1;
+        return 0
+    })
+
+    // Re-generate select list
+    $("#inputPosition").append( my_options );
+    $("#inputPosition").val(newPositionName); // Select the new position name
+}
+
 //current entry being edited
 var editRow = null;
 
@@ -41,7 +70,7 @@ function employeeUpdate() {
     let myStorage = window.localStorage;
     var cols = editRow.children("td");
     var employeeID = $(cols[0]).text();
-    var employeeUpdate = [employeeID.toString(), $("#inputFirstName").val(), $("#inputLastName").val(), $("#inputPostion").val()];
+    var employeeUpdate = [employeeID.toString(), $("#inputFirstName").val(), $("#inputLastName").val(), $("#inputPosition").val()];
 
     myStorage.setItem(employeeID.toString(), JSON.stringify(employeeUpdate));  
 
