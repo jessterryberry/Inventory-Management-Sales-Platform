@@ -196,6 +196,51 @@ function loadEmployeeDDL(){
     $("#inputEmployee").val("");
 }
 
+// Adds a new payment method
+function saveNewPayType(){
+    let myStorage = window.localStorage;
+	let payTypeLastIndex = parseInt(myStorage.getItem('payTypeLastIndex'));
+	
+	payTypeLastIndex++;
+	console.log(payTypeLastIndex);
+	let newPayType = ["payTypeID:" + payTypeLastIndex.toString(), $("#inputNewPayType").val()];
+	console.log(newPayType);
+	myStorage.setItem("payTypeID:" + payTypeLastIndex.toString(), JSON.stringify(newPayType))
+	
+	myStorage.setItem('payTypeLastIndex', payTypeLastIndex.toString())
+
+    // Refresh payment method DDL and select the new payment method
+    select = document.getElementById('inputPaymentMethod');
+    $("#inputPaymentMethod").empty(); // Empty select list
+
+	//looping through 1 to all indexes of payment methods
+	for (let i = 1; i <= payTypeLastIndex; i++){
+		//loading the payment data and parsing the string back into a string array if there is data stored
+        let c = JSON.parse(myStorage.getItem("payTypeID:" + i.toString()));
+
+		if (c !== null){
+			// Add each payment method to select list
+            let opt = document.createElement('option');
+            opt.value = c[0];
+            opt.innerHTML = c[1];
+            select.add(opt);
+		}
+	}
+
+    // sort alphabetically
+    let my_options = $("#inputPaymentMethod option");
+
+    my_options.sort(function(a,b) {
+        if (a.text > b.text) return 1;
+        if (a.text < b.text) return -1;
+        return 0
+    })
+
+    // Re-generate select list
+    $("#inputPaymentMethod").append( my_options );
+    $("#inputPaymentMethod").val("payTypeID:" + payTypeLastIndex);
+}
+
 // Seed data for sales
 function demoData(){
 	let myStorage = window.localStorage;
