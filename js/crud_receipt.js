@@ -73,6 +73,16 @@ function initializeSalesManagement(){
     }
 }
 
+// Disable default form submission behaviour and hides un-generated report
+function initializeSalesReportPage(){
+    // Disable default submit behaviour
+    $('form').on('submit', function(event) {
+        event.preventDefault();
+    });
+
+    hideSalesReport();
+}
+
 function loadPayTypeDDL(){
     //checking latest index of payment methods
 	let myStorage = window.localStorage;
@@ -715,4 +725,78 @@ function compareAmountPaidToOrderTotal(){
 
     // Toggle fully-paid checkbox if customer has paid enough
     document.getElementById("flexSwitchCheckDefault").checked = (totalCost <= amountPaid);
+}
+
+// Generate a single row of the Report table
+function reportBuildTableRow(id, date, customerName, saleTotal, isFullyPaid) {
+    var ret = "<tr>" +
+        "<td>" + id + "</td>" +
+        "<td>" + date + "</td>" +
+        "<td>" + customerName + "</td>" +
+        '<td style="text-align:center">' +'<input class="form-check-input" type="checkbox" onclick="return false;"' + (isFullyPaid? ' checked' : '') + '>' + "</td>" +
+        '<td style="text-align:right">$' + saleTotal + "</td>" +
+        "</tr>"  
+        
+	return ret;
+}
+
+// Populate report table and show report
+function generateSalesReport(){
+    var x = document.getElementById("reportArea");  // Show report part of page
+    x.style.display = "block";
+
+    //checking latest index of sales
+	let myStorage = window.localStorage;
+    let saleLastIndex = parseInt(myStorage.getItem('saleLastIndex'));
+    let reportTable = "";
+    let salesTotal = 0;
+    let partyFund = 0;
+
+    //looping through 1 to all indexes of sales
+	for (let i = 1; i <= saleLastIndex; i++){
+		//loading the sale data and parsing the string back into a string array if there is data stored
+        let c = JSON.parse(myStorage.getItem("saleID:" + i.toString()));
+
+		if (c !== null){
+			//building a table row with the customer's information
+			//c[0] to c[6] are the elements in the array -> first name, last name, address, ...
+            
+            let addThisRecord = true; // Toggle this to false if the record fails the filter checks
+            
+            let customer = JSON.parse(myStorage.getItem(c[2]));
+            let custFullName = customer[1] + " " + customer[2]; // Get customer full name
+
+            if (Date.parse(document.getElementById('filterAfterDate').value)){
+                let afterDateFilter = Date.parse(document.getElementById('filterAfterDate').value);
+                
+                if (Date.parse(c[3]) < afterDateFilter)
+                    addThisRecord = false;
+            }
+            if (Date.parse(document.getElementById('filterBeforeDate').value)){
+                let beforeDateFilter = Date.parse(document.getElementById('filterBeforeDate').value);
+                
+                if (beforeDateFilter < Date.parse(c[3]))
+                    addThisRecord = false;
+            }
+
+            if (addThisRecord)
+            {
+                reportTable = reportTable + reportBuildTableRow(i,c[3],custFullName, c[5], c[8]);
+                salesTotal += parseFloat((c[5]).replace('$',''));
+            }
+		}        
+	}
+    document.getElementById("reportTable").innerHTML = reportTable;
+    document.getElementById("salesTotal").innerHTML = "$" + salesTotal.toFixed(2).toString();
+    document.getElementById("partyFund").innerHTML = "$" + (salesTotal * 0.0002).toFixed(2).toString();
+}
+
+// Clear filters and hide report area of page
+function hideSalesReport(){
+    var x = document.getElementById("reportArea");  // Hide report part of page
+    x.style.display = "none";
+
+    // Clear filters
+    document.getElementById('filterAfterDate').value = '';
+    document.getElementById('filterBeforeDate').value = '';
 }
