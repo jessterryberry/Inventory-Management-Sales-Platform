@@ -6,6 +6,17 @@
 	<meta content="width=device-width, initial-scale=1" name="viewport">
     <meta name="description" content="Main page for Customers at Lawn & Order">
     <link rel="stylesheet" href="../css/bootstrap.css">
+    <script src="../js/jquery-3.6.0.slim.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            let myStorage = window.localStorage;
+            if (myStorage.getItem("currentuser") != "erosten"){
+                document.getElementById("employee").remove();
+            }
+        }); 
+    </script>
+
 </head>
 <body>
     <header>
@@ -34,8 +45,8 @@
                         <li class="nav-item px-5">
                             <a class="nav-link active" aria-current="page" href="../Sales/SalesIndex.html">Sales</a>
                         </li>
-                        <li class="nav-item px-5">
-                            <a class="nav-link active" aria-current="page" href="../Employee/EmployeeIndex.html">Employee</a>
+                        <li class="nav-item px-5" id="employee"> 
+                            <a class="nav-link active" aria-current="page" href="EmployeeIndex.html">Employee</a>
                         </li>
                         <li class="nav-item px-5">
                             <a class="nav-link active" aria-current="page" href="../Inventory/InventoryIndex.html">Inventory</a>

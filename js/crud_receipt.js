@@ -4,6 +4,7 @@ function initializeNewSale(){
     loadCustomerDDL();
     loadEmployeeDDL();
     loadPayTypeDDL();
+    
 
     // Disable default submit behaviour
     $('form').on('submit', function(event) {
@@ -29,6 +30,8 @@ function initializeNewSale(){
     var today = year + "-" + month + "-" + day;
 
     document.getElementById("inputOrderDate").value = today;
+
+    loggedinUser();
 }
 
 // Load data lists and prepare sales management page
@@ -71,6 +74,7 @@ function initializeSalesManagement(){
         if (document.getElementById('saleID:' + saleID + "Update") != null)
             document.getElementById('saleID:' + saleID + "Update").click();
     }
+
 }
 
 // Disable default form submission behaviour and hides un-generated report
@@ -799,4 +803,26 @@ function hideSalesReport(){
     // Clear filters
     document.getElementById('filterAfterDate').value = '';
     document.getElementById('filterBeforeDate').value = '';
+}
+
+function loggedinUser(){
+    let myStorage = window.localStorage;
+    console.log("test");
+    var username = myStorage.getItem("currentuser");
+    let empID = "";
+
+    let employeeLastIndex = parseInt(myStorage.getItem('employeeLastIndex'));
+	
+	//looping through 1 to all indexes of employees
+	for (let i = 1; i <= employeeLastIndex; i++){
+		//loading the employee data and parsing the string back into a string array if there is data stored
+        let emp = JSON.parse(myStorage.getItem("employeeID:" + i.toString()));
+        if (emp[4] == username){
+            empID = emp[0];
+            break;
+        }
+	}
+
+    $("#inputEmployee").val(empID);
+
 }

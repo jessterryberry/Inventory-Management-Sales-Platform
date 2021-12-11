@@ -7,6 +7,7 @@
     <meta name="description" content="Page for creating an employeeDelete at Lawn & Order">
     <link rel="stylesheet" href="../css/bootstrap.css">
     <script src="../js/crud_employee.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">    
     <script src="../js/jquery-3.6.0.slim.min.js"></script>
     <script src="../js/bootstrap.bundle.js"></script>
     <script>
@@ -15,8 +16,32 @@
             var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
                 return new bootstrap.Popover(popoverTriggerEl)
             })
+
+            let myStorage = window.localStorage;
+            if (myStorage.getItem("currentuser") != "erosten"){
+                document.getElementById("employee").remove();
+            }
+
         }); 
     </script>
+    <script>
+        function togglePassword(){
+            const toggle = $("#togglePassword");
+            const input = $('#inputPassword');
+
+            //Toggle between text and password input types
+            const type = input
+                .attr('type') === 'password' ?
+                'text' : 'password';
+            input.attr('type', type);
+
+            //Toggle eye icon
+            const eye = toggle
+                .attr('class') === 'bi bi-eye-slash' ?
+                'bi bi-eye' : 'bi bi-eye-slash';
+            toggle.attr('class', eye)
+        }
+    </script>    
     <script type="text/javascript">
         function confirmSummary() {
             var firstname = $("#inputFirstName").val();
@@ -60,8 +85,8 @@
                         <li class="nav-item px-5">
                             <a class="nav-link active" aria-current="page" href="../Sales/SalesIndex.html">Sales</a>
                         </li>
-                        <li class="nav-item px-5">
-                            <a class="nav-link active" aria-current="page" href="../Employee/EmployeeIndex.html">Employee</a>
+                        <li class="nav-item px-5" id="employee"> 
+                            <a class="nav-link active" aria-current="page" href="EmployeeIndex.html">Employee</a>
                         </li>
                         <li class="nav-item px-5">
                             <a class="nav-link active" aria-current="page" href="../Inventory/InventoryIndex.html">Inventory</a>
@@ -119,6 +144,27 @@
                     <!--<span class="input-group-text"><button type="button" title="Other Position" data-bs-toggle="modal" data-bs-target="#addPositionModal" class="btn btn-primary" style="background-color:#67C18C; color:black;">➕</button></span>-->
                 </div>
             </div>
+        </div>
+        <div class="row g-2 p-3">
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input class="form-control" id="inputUsername" placeholder="Username" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the username.">
+                    <label for="inputUsername">Username</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <div class="form-floating flex-grow-1">
+                        <input type="password" class="form-control" id="inputPassword" placeholder="Password" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the password.">
+                        <label for="inputPassword">Password</label>
+                    </div>
+                    <div class="input-group-append">
+                        <span class="input-group-text py-3"><i style="height: 24px;" class="bi bi-eye-slash" id="togglePassword" onclick="togglePassword()"></i></span>
+                    </div>
+                </div>
+        </div>
+        </div>
+
         <div class="col-12 p-3 text-center">
             <button type="button" onclick="confirmSummary()" id="confirmButton" class="btn btn-primary btn-md px-3" data-bs-toggle="modal" data-bs-target="#confirmModal" style="background-color:#67C18C; color:black;">Submit</button>
             <input type="button" value="Return" class="btn btn-primary btn-md px-3" style="background-color: #A0A0A0; color:white;" onclick="history.back()"> <!--this is a JS method to allow the user to click the button to return back 1 page-->

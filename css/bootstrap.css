@@ -11279,4 +11279,12 @@ textarea.form-control-lg {
   }
 }
 
+@media (min-width: 768px) {
+    .h-md-100 { height: 100vh; }
+}
+.btn-round { border-radius: 30px; }
+.bg-indigo { background: indigo; }
+.text-cyan { color: #35bdff; }
+
+
 /*# sourceMappingURL=bootstrap.css.map */

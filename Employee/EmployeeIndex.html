@@ -6,6 +6,17 @@
 	<meta content="width=device-width, initial-scale=1" name="viewport">
     <meta name="description" content="Main page for Customers at Lawn & Order">
     <link rel="stylesheet" href="../css/bootstrap.css">
+    <script src="../js/jquery-3.6.0.slim.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            let myStorage = window.localStorage;
+            if (myStorage.getItem("currentuser") != "erosten"){
+                document.getElementById("employee").remove();
+            }
+        }); 
+    </script>
+
 </head>
 <body>
     <header>
@@ -34,7 +45,7 @@
                         <li class="nav-item px-5">
                             <a class="nav-link active" aria-current="page" href="../Sales/SalesIndex.html">Sales</a>
                         </li>
-                        <li class="nav-item px-5">
+                        <li class="nav-item px-5" id="employee"> 
                             <a class="nav-link active" aria-current="page" href="EmployeeIndex.html">Employee</a>
                         </li>
                         <li class="nav-item px-5">
@@ -58,6 +69,11 @@
                     <img alt="an icon of a person with a plus sign" src="../images/Add Employee.png">
                     <h4>Add new Employee</h4>
                     <a class="btn btn-primary btn-sm px-3" role="button" style="background-color:#67C18C; color: black; font-size: 18px;" href="EmployeeCreate.html">Select</a>
+                </div>
+                <div class="col col-lg m-2 p-4">
+                    <img alt="an icon of a person with a padlock" src="../images/Manage Logins.png">
+                    <h4>Manage Logins</h4>
+                    <a class="btn btn-primary btn-sm px-3" role="button" style="background-color:#67C18C; color: black; font-size: 18px;" href="ManageLogins.html">Select</a>
                 </div>
                 <div class="col col-lg m-2 p-4">
                     <img alt="an icon of a person with a tie" src="../images/Employee.png">

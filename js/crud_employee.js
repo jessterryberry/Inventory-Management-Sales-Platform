@@ -81,13 +81,13 @@ function employeeUpdate() {
 //could add a Demo button to call this to create a set of employees to start with. really only needs to run one time
 function demoData(){
 	let myStorage = window.localStorage;
-    let employee1 = ['employeeID:1', 'Emma', 'Carr', 'Manager'];
-    let employee2 = ['employeeID:2', 'Sam', 'Delign', 'Ordering'];
-    let employee3 = ['employeeID:3', 'Eugene', 'Downey', 'Technician'];
-    let employee4 = ['employeeID:4', 'Sarah', 'Kendell', 'Technician'];
-    let employee5 = ['employeeID:5', 'Wendy', 'Tutti', 'Sales'];
-    let employee6 = ['employeeID:6', 'William', 'Dickey', 'Sales'];
-    let employee7 = ['employeeID:7', 'Emily', 'Rosten', 'Administration'];
+    let employee1 = ['employeeID:1', 'Emma', 'Carr', 'Manager', 'ecarr'];
+    let employee2 = ['employeeID:2', 'Sam', 'Delign', 'Ordering', 'sdelign'];
+    let employee3 = ['employeeID:3', 'Eugene', 'Downey', 'Technician', 'edowney'];
+    let employee4 = ['employeeID:4', 'Sarah', 'Kendell', 'Technician', 'skendell'];
+    let employee5 = ['employeeID:5', 'Wendy', 'Tutti', 'Sales', 'wtutti'];
+    let employee6 = ['employeeID:6', 'William', 'Dickey', 'Sales', 'wdickey'];
+    let employee7 = ['employeeID:7', 'Emily', 'Rosten', 'Administration', 'erosten'];
 	
 	//save them each to local storage
 	//myStorage.setItem only stores strings -> use JSON.stringify to save the array as strings and JSON.parse to put them back into an array when loading
@@ -102,6 +102,16 @@ function demoData(){
 	//save the highest index of the latest employees so we can loop later to load the data
 	//myStorage.setItem only stores strings -> saving the number as a string, can use parseInt() to convert it to a number when loading
 	myStorage.setItem('employeeLastIndex', '7');
+
+    //save usernames and passwords for each employee
+    myStorage.setItem(employee1[4], 'password');
+    myStorage.setItem(employee2[4], 'password');
+    myStorage.setItem(employee3[4], 'password');
+    myStorage.setItem(employee4[4], 'password');
+    myStorage.setItem(employee5[4], 'password');
+    myStorage.setItem(employee6[4], 'password');
+    myStorage.setItem(employee7[4], 'password');
+
 }
 
 //Function to save/add a new employee
@@ -114,13 +124,16 @@ function saveEmployee(){
 	employeeLastIndex++;
 	console.log(employeeLastIndex);
 	//creating new employee string array from inputs
-	let newEmployee = ["employeeID:" + employeeLastIndex.toString(), $("#inputFirstName").val(), $("#inputLastName").val(), $("#inputPosition").val()];
+	let newEmployee = ["employeeID:" + employeeLastIndex.toString(), $("#inputFirstName").val(), $("#inputLastName").val(), $("#inputPosition").val(), $("#inputUsername").val()];
 	console.log(newEmployee);
 	//saving the new employee to myStorage
-	myStorage.setItem("employeeID:" + employeeLastIndex.toString(), JSON.stringify(newEmployee))
+	myStorage.setItem("employeeID:" + employeeLastIndex.toString(), JSON.stringify(newEmployee));
 	
 	//saving the new highest employee index
-	myStorage.setItem('employeeLastIndex', employeeLastIndex.toString())
+	myStorage.setItem('employeeLastIndex', employeeLastIndex.toString());
+
+    //saving new employee password
+    myStorage.setItem($("#inputUsername").val(), $("#inputPassword").val());
 }
 //slightly changed version of the employeeBuildTableRow we had already
 function employeeBuildTableRowLoad(id, first, last, position) {
@@ -193,4 +206,103 @@ function filterEmployeeTable(){
 		}        
 	}
     document.getElementById("employeeTable").innerHTML = empTable;
+}
+
+function loadEmployeeDDL(){
+    //checking latest index of employees
+	let myStorage = window.localStorage;
+    let employeeLastIndex = parseInt(myStorage.getItem('employeeLastIndex'));
+    select = document.getElementById('inputEmployee');
+	
+    // Save default option
+    let default_options = $("#inputEmployee option");
+
+    // Empty select list
+    $("#inputEmployee").empty()
+
+	//looping through 1 to all indexes of employees
+	for (let i = 1; i <= employeeLastIndex; i++){
+		//loading the employee data and parsing the string back into a string array if there is data stored
+        let c = JSON.parse(myStorage.getItem("employeeID:" + i.toString()));
+
+		if (c !== null){
+			// Add each employees name to select list
+            let opt = document.createElement('option');
+            opt.value = c[0];
+            opt.innerHTML = c[1] + " " + c[2] + " (" + c[3] + ")";
+            select.add(opt);
+		}
+	}
+
+    // sort alphabetically
+    let my_options = $("#inputEmployee option");
+
+    my_options.sort(function(a,b) {
+        if (a.text > b.text) return 1;
+        if (a.text < b.text) return -1;
+        return 0
+    })
+
+    // Re-generate select list
+    $("#inputEmployee").empty().append( default_options );
+    $("#inputEmployee").append( my_options );
+    $("#inputEmployee").val("");
+}
+
+
+function login(){
+    let myStorage = window.localStorage;
+    let username = $('#inputUsername').val()
+    let password = $('#inputPassword').val()
+
+    //load user from local storage
+    let u = myStorage.getItem(username);
+    if (u != null && password == u){
+        //if the entered username exists and the password matches, save the name as "currentuser" and redirect to Index
+        myStorage.setItem('currentuser', username);
+        window.location.href = 'Index.html';
+    }
+    else{
+        //if the user doesn't exist or the password doesn't match, show an alert
+        alert('Incorrect username or password!');
+    }
+}
+
+
+function loginDisplay() {
+    select = document.getElementById('inputEmployee');
+    var employeeID = select.value;
+    let myStorage = window.localStorage;
+
+    //load username from local storage via employee ID
+    var empUsername = JSON.parse(myStorage.getItem(employeeID.toString()))[4];
+    //load password to the username from local storage
+    var empPassword = myStorage.getItem(empUsername)
+        
+    //display username and password for the selected employee
+    $("#inputUsername").val(empUsername);
+    $("#inputPassword").val(empPassword);
+
+    //enable the username and password textboxes
+    $("#inputUsername").attr('disabled', false);
+    $("#inputPassword").attr('disabled', false);
+}
+
+function loginUpdate() {
+    let myStorage = window.localStorage;
+    select = document.getElementById('inputEmployee');
+    var employeeID = select.value;
+    var username = $("#inputUsername").val();
+    var password = $("#inputPassword").val();
+
+    //get current employee data
+    var employeeUpdate = JSON.parse(myStorage.getItem(employeeID.toString()));
+
+    //change only the username of the employee and save changes to local storage
+    employeeUpdate[4] = username;
+    myStorage.setItem(employeeID.toString(), JSON.stringify(employeeUpdate));
+
+    //update password to the same username
+    myStorage.setItem(username, password);
+
 }

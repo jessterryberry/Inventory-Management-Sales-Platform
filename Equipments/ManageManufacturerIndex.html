@@ -17,6 +17,12 @@
             var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
                 return new bootstrap.Popover(popoverTriggerEl)
             })
+
+            let myStorage = window.localStorage;
+            if (myStorage.getItem("currentuser") != "erosten"){
+                document.getElementById("employee").remove();
+            }
+
         }); 
     </script>
     <script type="text/javascript">
@@ -66,8 +72,8 @@
                         <li class="nav-item px-5">
                             <a class="nav-link active" aria-current="page" href="../Sales/SalesIndex.html">Sales</a>
                         </li>
-                        <li class="nav-item px-5">
-                            <a class="nav-link active" aria-current="page" href="../Employee/EmployeeIndex.html">Employee</a>
+                        <li class="nav-item px-5" id="employee"> 
+                            <a class="nav-link active" aria-current="page" href="EmployeeIndex.html">Employee</a>
                         </li>
                         <li class="nav-item px-5">
                             <a class="nav-link active" aria-current="page" href="../Inventory/InventoryIndex.html">Inventory</a>
