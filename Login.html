@@ -18,6 +18,31 @@
                 var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
                     return new bootstrap.Popover(popoverTriggerEl)
                 })
+                
+                // Disable default submit behaviour
+                $('form').on('submit', function(event) {
+                    event.preventDefault();
+                });
+
+                // Click login button when user pressed Enter
+                var inputUsername = document.getElementById("inputUsername");
+                var inputPassword = document.getElementById("inputPassword");
+                
+                // Execute a function when the user releases a key on the keyboard
+                inputUsername.addEventListener("keyup", function(event) {
+                    // Number 13 is the "Enter" key on the keyboard
+                    if (event.keyCode === 13) {
+                        // Trigger the button element with a click
+                        document.getElementById("loginButton").click();
+                    }
+                });
+                inputPassword.addEventListener("keyup", function(event) {
+                    // Number 13 is the "Enter" key on the keyboard
+                    if (event.keyCode === 13) {
+                        // Trigger the button element with a click
+                        document.getElementById("loginButton").click();
+                    }
+                });
             }); 
         </script>
         <script>
@@ -52,17 +77,17 @@
         <div class="col-md-6 p-0 h-md-100" style="background-color: #67C18C">
             <div class="d-md-flex align-items-center h-md-100 p-5 text-center justify-content-center">
                 <section style="background-color: rgb(250, 250, 250);display: block;">
-                <form onsubmit="login()">
+                <form onsubmit="login();">
                     <div class="row g-2 p-3">
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <input class="form-control" id="inputUsername" placeholder="Username" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the username.">
+                                <input class="form-control" id="inputUsername" placeholder="Username" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the username." required>
                                 <label for="inputUsername">Username</label>
                             </div>
                             <br/>
                             <div class="input-group">
                                 <div class="form-floating flex-grow-1">
-                                    <input type="password" class="form-control" id="inputPassword" placeholder="Password" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the password.">
+                                    <input type="password" class="form-control" id="inputPassword" placeholder="Password" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the password." required>
                                     <label for="inputPassword">Password</label>
                                 </div>
                                 <div class="input-group-append">
@@ -71,7 +96,7 @@
                             </div>
                         </div>
                         <div class="col-12 p-3 text-center">
-                            <button type="button" onclick="login()" class="btn btn-primary btn-sm px-5" style="background-color:#67C18C; color: black; margin-top: 20px; font-size: 18px;">Log In</button>
+                            <button id="loginButton" type="submit" class="btn btn-primary btn-sm px-5" style="background-color:#67C18C; color: black; margin-top: 20px; font-size: 18px;">Log In</button>
                         </div> 
                         <div class="col-12 text-center">
                             <a onclick="alert('Please contact your administrator!')" class="link" style="color:black">Forgot password?</a>
