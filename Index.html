@@ -14,8 +14,10 @@
     <script>
         $(document).ready(function() {
             let myStorage = window.localStorage;
-            if (myStorage.getItem("currentuser") != "erosten"){
-                document.getElementById("employee").remove();
+            if (myStorage.getItem("currentuserRole") != "Administration"){// Hide link to employee section if not Admin
+                var employeeLink = document.getElementById("employee");
+                if (employeeLink != null)
+                    employeeLink.remove();
             }
         }); 
     </script>

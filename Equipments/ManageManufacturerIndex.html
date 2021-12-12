@@ -19,10 +19,14 @@
             })
 
             let myStorage = window.localStorage;
-            if (myStorage.getItem("currentuser") != "erosten"){
-                document.getElementById("employee").remove();
+            if (myStorage.getItem("currentuserRole") != "Administration"){// Hide link to employee section if not Admin
+                var employeeLink = document.getElementById("employee");
+                if (employeeLink != null)
+                    employeeLink.remove();
             }
-
+            
+            // Write the user's name in the welcome message
+            document.getElementById("userFullName").innerHTML = myStorage.getItem("currentuserFullName");
         }); 
     </script>
     <script type="text/javascript">
@@ -46,11 +50,17 @@
 </head>
 <body onload="loadManufacturerTable()">
     <header>
-        <div style="background-color: white;">
-            <a class="navbar-brand p-2" href="#">
-                <img alt="Logo for the company, Lawn & Order" src="../images/Logo.png" width="225">
+        <div style="background-color: white;" class="d-flex justify-content-between">
+            <span class="align-top">
+                <a class="navbar-brand p-2" href="#">
+                    <img src="../images/Logo.png" alt="Logo for the company Lawn & Order" width="225">            
                 </a>
-                <button class="btn btn-outline-secondary" type="button" onclick="demoManufacturerData();" value="Demo: Load Manufacturer">Demo: Load Manufacturer</button>
+            </span>
+            <button class="btn btn-outline-secondary" type="button" onclick="demoManufacturerData();" value="Demo: Load Manufacturer">Demo: Load Manufacturer</button>
+            <div>
+                <span class="align-middle">Welcome, <i id="userFullName"></i> !&nbsp;</span>
+                <span class="align-top"><a href="../Login.html"><button type="button" class="btn btn-outline-secondary btn-sm">Logout</button></a></span>
+            </div>
         </div>
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #67C18C; font-size: large;">
             <div class="container-lg">            
@@ -73,7 +83,7 @@
                             <a class="nav-link active" aria-current="page" href="../Sales/SalesIndex.html">Sales</a>
                         </li>
                         <li class="nav-item px-5" id="employee"> 
-                            <a class="nav-link active" aria-current="page" href="EmployeeIndex.html">Employee</a>
+                            <a class="nav-link active" aria-current="page" href="../Employee/EmployeeIndex.html">Employee</a>
                         </li>
                         <li class="nav-item px-5">
                             <a class="nav-link active" aria-current="page" href="../Inventory/InventoryIndex.html">Inventory</a>

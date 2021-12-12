@@ -260,6 +260,30 @@ function login(){
     if (u != null && password == u){
         //if the entered username exists and the password matches, save the name as "currentuser" and redirect to Index
         myStorage.setItem('currentuser', username);
+        
+        // Store the current user's full name for easy display purposes
+        let employeeLastIndex = parseInt(myStorage.getItem('employeeLastIndex'));//checking latest index of employees
+        let fullName = "";
+        let role = "";
+
+	    //looping through 1 to all indexes of employees
+        for (let i = 1; i <= employeeLastIndex; i++){
+            //loading the employee data and parsing the string back into a string array if there is data stored
+            let e = JSON.parse(myStorage.getItem("employeeID:" + i.toString()));
+
+            if (e !== null){
+                // Check if employee username matches
+                //c[0] to c[6] are the elements in the array -> first name, last name, address, ...
+                if (e[4] == username){
+                    fullName = e[1] + " " + e[2];   // Get their full name
+                    role = e[3];
+                    break;
+                }
+            }        
+        }
+        myStorage.setItem('currentuserFullName', fullName);// Store the current user's full name for easy display purposes
+        myStorage.setItem('currentuserRole', role);// Store the current user's role
+        
         window.location.href = 'Index.html';
     }
     else{
