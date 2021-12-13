@@ -12,22 +12,30 @@
     <script src="../js/crud_inventory.js"></script>
     <script src="../js/jquery-3.6.0.slim.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
             var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
                 return new bootstrap.Popover(popoverTriggerEl)
             })
 
             let myStorage = window.localStorage;
-            if (myStorage.getItem("currentuserRole") != "Administration"){// Hide link to employee section if not Admin
+            if (myStorage.getItem("currentuserRole") != "Administration") {// Hide link to employee section if not Admin
                 var employeeLink = document.getElementById("employee");
                 if (employeeLink != null)
                     employeeLink.remove();
             }
-            
+
             // Write the user's name in the welcome message
             document.getElementById("userFullName").innerHTML = myStorage.getItem("currentuserFullName");
-        }); 
+
+            // Allows style to gray out lower layer modals when multiple modals are used
+            // Source: https://stackoverflow.com/a/24914782
+            $(document).on('show.bs.modal', '.modal', function () {
+                const zIndex = 1040 + 10 * $('.modal:visible').length;
+                $(this).css('z-index', zIndex);
+                setTimeout(() => $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack'));
+            });
+        });
     </script>
     <script type="text/javascript">
         function confirmSummary() {
@@ -37,8 +45,8 @@
             var size = $("#inputSize").val();
             var quantity = $("#inputQuantity").val();
             var price = $("#inputPrice").val();
-            
-            var str = "Would you like to update this inventory? <br><br>" 
+
+            var str = "Would you like to update this inventory? <br><br>"
                 + invName + "<br>"
                 + description + "<br>"
                 + brand + "<br>"
@@ -46,8 +54,10 @@
                 + quantity + "<br>"
                 + price + "<br>"
                 ;
-                console.log(str);
+            console.log(str);
             $("#modalContent").html(str);
+
+            $('#updateModal').modal('show');
         };
     </script>
     <script type="text/javascript">
@@ -58,8 +68,8 @@
             var size = $("#inputSize").val();
             var quantity = $("#inputQuantity").val();
             var price = $("#inputPrice").val();
-            
-            var str = "Would you like to delete this inventory? <br><br>" 
+
+            var str = "Would you like to delete this inventory? <br><br>"
                 + invName + "<br>"
                 + description + "<br>"
                 + brand + "<br>"
@@ -67,8 +77,10 @@
                 + quantity + "<br>"
                 + price + "<br>"
                 ;
-                console.log(str);
+            console.log(str);
             $("#delContent").html(str);
+
+            $('#deleteModal').modal('show');
         };
     </script>
     <script type="text/javascript">
@@ -82,7 +94,7 @@
         <div style="background-color: white;" class="d-flex justify-content-between">
             <span class="align-top">
                 <a class="navbar-brand p-2" href="#">
-                    <img src="../images/Logo.png" alt="Logo for the company Lawn & Order" width="225">            
+                    <img src="../images/Logo.png" alt="Logo for the company Lawn & Order" width="225">
                 </a>
             </span>
             <button class="btn btn-outline-secondary" type="button" onclick="demoInvData();" value="Demo: Load Inventory">Demo: Load Inventory</button>
@@ -92,12 +104,12 @@
             </div>
         </div>
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #67C18C; font-size: large;">
-            <div class="container-lg">            
+            <div class="container-lg">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse"></div>
-                <div class="collapse navbar-collapse" id="navbarNav">            
+                <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item px-5">
                             <a class="nav-link active" aria-current="page" href="../Index.html">Home</a>
@@ -111,7 +123,7 @@
                         <li class="nav-item px-5">
                             <a class="nav-link active" aria-current="page" href="../Sales/SalesIndex.html">Sales</a>
                         </li>
-                        <li class="nav-item px-5" id="employee"> 
+                        <li class="nav-item px-5" id="employee">
                             <a class="nav-link active" aria-current="page" href="../Employee/EmployeeIndex.html">Employee</a>
                         </li>
                         <li class="nav-item px-5">
@@ -127,10 +139,10 @@
     </header>
     <div class="container pb-4">
         <h1>Manage Inventory</h1>
-    </div>	    
-<main>
-        <div class="container text-center py-3">        
-            <img alt ="an icon of the lawnmower" src="../images/Inventory.png"  height="156">
+    </div>
+    <main>
+        <div class="container text-center py-3">
+            <img alt="an icon of the lawnmower" src="../images/Inventory.png" height="156">
         </div>
         <div class="container-fluid px-5">
             <div>
@@ -152,16 +164,16 @@
                                 <label class="control-label">Filter by Size</label>
                                 <input type="text" class="form-control" id="filterSize" placeholder="Size">
                             </div>
-                            <div class="form-group col lg-4 align-self-end">                                                      
+                            <div class="form-group col lg-4 align-self-end">
                                 <input type="submit" onclick="filterInventoryTable();" name="actionButton" value="Filter" style="background-color:#67C18C; color: black;" class="btn btn-outline-secondary">
                             </div>
-                            <div class="form-group col lg-4 align-self-end">                            
+                            <div class="form-group col lg-4 align-self-end">
                                 <input type="submit" onclick="loadInventoryTable();" name="actionButton" value="Clear" style="background-color: #A0A0A0; color:white;" class="btn btn-outline-secondary">
                             </div>
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -173,104 +185,114 @@
                         <th scope="col">QOH</th>
                         <th scope="col">Price</th>
                     </tr>
-                </thead>        
+                </thead>
                 <tbody id="inventoryTable">
-                    
                 </tbody>
-            </table>  
+            </table>
             <form onsubmit="inventoryUpdate();">
-            <div class="collapse" id="collapseEdit">            
-                <div class="row g-2 p-3">
-                    <div class="col-md-6 hide-col">
-                        <input type="text" class="form-control" disabled="disabled" id="inputInvNumber">
-                    </div>
-                    <div class="row g-2 p-3">
-                        <div class="col-12">
-                            <div class="form-floating">
-                                <input required type="text" class="form-control" id="inputInvName" placeholder="Item Name" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter an item name, up to 50 characters in length.">
-                                <label for="inputInvName">Item Name</label>
+                <div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="modalTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-fullscreen-xl-down">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="modalTitle">Modal title</h3>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row g-2 p-3">
-                        <div class="col-12">
-                            <div class="form-floating">
-                                <input required type="text" class="form-control" id="inputInvDesc" placeholder="Item Description" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a description of the item, up to 100 characters in length.">
-                                <label for="inputInvDesc">Item Description</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row g-2 p-3">
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input required type="text" class="form-control" id="inputBrand" placeholder="Brand" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the item's brand, up to 30 characters in length.">
-                                <label for="inputBrand">Brand</label>
-                            </div>
-                        </div>        
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="inputSize" placeholder="Size" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="If applicable, please enter the size of the item, up to 10 characters in length.">
-                                <label for="inputSize">Size</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row g-2 p-3">
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input required type="number" min='0' onchange='roundElementToNDecimals(this, 0);' class="form-control" id="inputQuantity" placeholder="Quantity" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the numerical quantity of the item.">
-                                <label for="inputQuantity">Quantity</label>
-                            </div>
-                        </div>        
-                        <div class="col-md-6">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">$</span>
-                                <div class="form-floating flex-grow-1">
-                                    <input type="number" min='0' step='0.01' class="form-control" onchange='roundElementToNDecimals(this, 2);' id="inputPrice" placeholder="Price" required data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the suggested price for the item.">
-                                    <label for="inputPrice">Price</label>
+                            <div class="modal-body">
+                                <div class="row g-2 p-3">
+                                    <div class="col-md-6 hide-col">
+                                        <input type="text" class="form-control" disabled="disabled" id="inputInvNumber">
+                                    </div>
+                                    <div class="row g-2 p-3">
+                                        <div class="col-12">
+                                            <div class="form-floating">
+                                                <input required type="text" class="form-control" id="inputInvName" placeholder="Item Name" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter an item name, up to 50 characters in length.">
+                                                <label for="inputInvName">Item Name</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2 p-3">
+                                        <div class="col-12">
+                                            <div class="form-floating">
+                                                <input required type="text" class="form-control" id="inputInvDesc" placeholder="Item Description" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter a description of the item, up to 100 characters in length.">
+                                                <label for="inputInvDesc">Item Description</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2 p-3">
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input required type="text" class="form-control" id="inputBrand" placeholder="Brand" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the item's brand, up to 30 characters in length.">
+                                                <label for="inputBrand">Brand</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="inputSize" placeholder="Size" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="If applicable, please enter the size of the item, up to 10 characters in length.">
+                                                <label for="inputSize">Size</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2 p-3">
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input required type="number" min='0' onchange='roundElementToNDecimals(this, 0);' class="form-control" id="inputQuantity" placeholder="Quantity" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the numerical quantity of the item.">
+                                                <label for="inputQuantity">Quantity</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">$</span>
+                                                <div class="form-floating flex-grow-1">
+                                                    <input type="number" min='0' step='0.01' class="form-control" onchange='roundElementToNDecimals(this, 2);' id="inputPrice" placeholder="Price" required data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Please enter the suggested price for the item.">
+                                                    <label for="inputPrice">Price</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 p-3 text-center">
+                                        <button type="button" onclick="confirmSummary()" id="updateButton" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Update</button>
+                                        <button type="button" onclick="deleteSummary()" id="deleteButton" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Delete</button>
+                                        <input type="button" value="Cancel" class="btn btn-primary btn-md px-3" style="background-color: grey;" data-bs-dismiss="modal">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                <div class="col-12 p-3 text-center">                
-                    <button type="button" onclick="confirmSummary()" id="updateButton" class="btn btn-primary btn-md px-3" data-bs-toggle="modal" data-bs-target="#updateModal" style="background-color:#67C18C; color:black;">Update</button>
-                    <button type="button" onclick="deleteSummary()" id="deleteButton" class="btn btn-primary btn-md px-3" data-bs-toggle="modal" data-bs-target="#deleteModal" style="background-color:#67C18C; color:black;">Delete</button>
-                    <input type="button" value="Cancel" class="btn btn-primary btn-md px-3" style="background-color: grey;" data-bs-toggle="collapse" href="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit"> 
-            </div>
+                </div>
+                <div class="modal fade" id="updateModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Confirm Changes</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="modalContent">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Confirm Changes</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="delContent">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" onclick="inventoryDelete();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="modal fade" id="updateModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Confirm Changes</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="modalContent">
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Submit</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Confirm Changes</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="delContent">
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" onclick="inventoryDelete();" class="btn btn-primary btn-md px-3" style="background-color:#67C18C; color:black;">Delete</button>
-                </div>
-              </div>
-            </div>
-          </div> 
-    </form>
-    </div>
-</main>
+    </main>
 </body>
 </html>
