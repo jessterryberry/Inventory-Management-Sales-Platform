@@ -53,17 +53,23 @@ function employeeDisplay(ctl, mode) {
     const deleteButton = document.getElementById('deleteButton'); 
 
     if (mode == 1) {
+        document.getElementById("modalTitle").innerHTML = "Edit";
         updateButton.disabled = false;
         deleteButton.disabled = true;
     }
     else if (mode == 2){
+        document.getElementById("modalTitle").innerHTML = "Delete";
         deleteButton.disabled = false;
         updateButton.disabled = true;
     } 
     else {
+        document.getElementById("modalTitle").innerHTML = "Details";
         deleteButton.disabled = true;
         updateButton.disabled = true;
-    }   
+    }
+    
+    // Show modal
+    $('#editModal').modal('show');
 }
 
 function employeeUpdate() {
@@ -200,7 +206,7 @@ function filterEmployeeTable(){
 			else if ($('#filterLastName').val() !== "" && e[2].toUpperCase().includes($('#filterLastName').val().toUpperCase())){
                 empTable = empTable + employeeBuildTableRowLoad(e[0],e[1],e[2],e[3]);
             }
-            else if ($('#filterPosition').val() !== "" && e[4].toUpperCase().includes($('#filterPosition').val().toUpperCase())){
+            else if ($('#filterPosition').val() !== "" && e[3].toUpperCase().includes($('#filterPosition').val().toUpperCase())){
                 empTable = empTable + employeeBuildTableRowLoad(e[0],e[1],e[2],e[3]);
             }
 		}        
