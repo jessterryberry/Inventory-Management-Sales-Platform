@@ -22,17 +22,23 @@ function payTypeDisplay(ctl, mode) {
     const deleteButton = document.getElementById('deleteButton'); 
 
     if (mode == 1) {
+        document.getElementById("modalTitle").innerHTML = "Edit";
         updateButton.disabled = false;
         deleteButton.disabled = true;
     }
     else if (mode == 2){
+        document.getElementById("modalTitle").innerHTML = "Delete";
         deleteButton.disabled = false;
         updateButton.disabled = true;
     } 
     else {
+        document.getElementById("modalTitle").innerHTML = "Details";
         deleteButton.disabled = true;
         updateButton.disabled = true;
-    }   
+    }
+    
+    // Show modal
+    $('#editModal').modal('show');
 }
 
 function payTypeUpdate() {
