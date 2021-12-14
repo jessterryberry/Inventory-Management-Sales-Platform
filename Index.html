@@ -14,10 +14,12 @@
     <script>
         $(document).ready(function() {
             let myStorage = window.localStorage;
-            if (myStorage.getItem("currentuserRole") != "Administration"){// Hide link to employee section if not Admin
-                var employeeLink = document.getElementById("employee");
-                if (employeeLink != null)
-                    employeeLink.remove();
+            let role = myStorage.getItem("currentuserRole");
+            if (role != "Administration" && role != "Manager"){// Hide link to employee section if not Admin or Manager
+                let employeeLink = document.getElementById("employee");
+                employeeLink.remove();
+                let reportLink = document.getElementById("report");
+                reportLink.remove();
             }
         }); 
     </script>
@@ -68,7 +70,7 @@
                         <a class="btn btn-primary btn-sm px-3"role="button" tabindex="5" style="background-color:#67C18C; color: black; margin-top: 20px; font-size: 18px;" href="Inventory/InventoryIndex.html">Inventory</a>
                 </div>
 
-                <div class="col col-lg m-2 p-4">
+                <div class="col col-lg m-2 p-4" id="report">
                         <img alt="Picture of a screen with bar graphs and pie charts" src="images/Reports.png" width="220.5" height="162.5">
                         <br/>
 

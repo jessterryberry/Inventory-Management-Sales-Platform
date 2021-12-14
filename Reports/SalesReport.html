@@ -18,10 +18,12 @@
             })
 
             let myStorage = window.localStorage;
-            if (myStorage.getItem("currentuserRole") != "Administration"){// Hide link to employee section if not Admin
-                var employeeLink = document.getElementById("employee");
-                if (employeeLink != null)
-                    employeeLink.remove();
+            let role = myStorage.getItem("currentuserRole");
+            if (role != "Administration" && role != "Manager"){// Hide link to employee section if not Admin or Manager
+                let employeeLink = document.getElementById("employee");
+                employeeLink.remove();
+                let reportLink = document.getElementById("report");
+                reportLink.remove();
             }
             
             // Write the user's name in the welcome message
@@ -87,7 +89,7 @@
                         <li class="nav-item px-5">
                             <a class="nav-link active" aria-current="page" tabindex="7" href="../Inventory/InventoryIndex.html">Inventory</a>
                         </li>
-                        <li class="nav-item px-5">
+                        <li class="nav-item px-5" id="report">
                             <a class="nav-link active" aria-current="page" tabindex="8" href="../Reports/ReportsIndex.html">Reports</a>
                         </li>
                     </ul>
