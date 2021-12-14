@@ -21,7 +21,10 @@
                 let reportLink = document.getElementById("report");
                 reportLink.remove();
             }
-        }); 
+
+            // Write the user's name in the welcome message
+            document.getElementById("userFullName").innerHTML = myStorage.getItem("currentuserFullName");
+        });
     </script>
 </head>
     <header style="background-color: #67C18C; color: #000; display: block;width: 100%;text-align: center;">  
