@@ -1,4 +1,4 @@
 # Presentation-4
-👋 This is a group project for PROG 1180 at Niagara College. Please share your work here :)
-🌱 It wil be written in HTML, CSS and Javascript or their associated frameworks.
-💞️ We are not looking to collaborate on this, as this is for school credit.
+This was a group project with 5 other students where we designed and developed an Inventory Management/Sales Platform for a fictional client.
+
+It was developed with JavaScript, Bootstrap and HTML only.
